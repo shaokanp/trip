@@ -14,7 +14,7 @@ describe "Static pages" do
     let(:heading) {'Sample App'}
     let(:page_title) {''}
 
-    it_should_behave_like "all static pages" 
+    it_should_behave_like "all static pages"
     it { should_not have_title('| Home') }
   end
 
