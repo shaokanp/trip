@@ -9,4 +9,10 @@ FactoryGirl.define do
       admin true
     end
   end
+
+  factory :trip do
+    title 'A nice trip.'
+    user
+  end
+
 end
