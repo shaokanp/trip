@@ -1,7 +1,10 @@
 SampleApp::Application.routes.draw do
 
+  get "trips/create"
+  get "trips/destroy"
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
+  resources :trips, only: [:create, :destroy]
 
   match '/help',    to: 'static_pages#help',    via: 'get'
   match '/about',   to: 'static_pages#about',   via: 'get'
