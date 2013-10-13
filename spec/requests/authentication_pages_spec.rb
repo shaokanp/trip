@@ -117,4 +117,12 @@ describe "Authentication" do
 
   end
 
+  describe "user home page" do
+    let(:user) { FactoryGirl.create(:user) }
+
+    describe "for non-signed-in users" do
+      it { should have_content("Please login in") }
+    end
+  end
+
 end
