@@ -37,6 +37,13 @@ describe "Authentication" do
       it { should have_link('Sign out',    href: signout_path) }
       it { should_not have_link('Sign in', href: signin_path) }
 
+      describe 'when attempting to visit the root path' do
+        before { visit root_path }
+        it 'should redirect to dashboard page' do
+          current_path.should == dashboard_path
+        end
+      end
+
       describe "followed by signout" do
         before { click_link "Sign out" }
         it { should have_link('Sign in') }
@@ -48,6 +55,13 @@ describe "Authentication" do
 
       describe "for non-signed-in users" do
         let(:user) { FactoryGirl.create(:user) }
+
+        describe 'when attempting to visit root path' do
+          before { visit root_path }
+          it 'should redirect to home path' do
+            current_path.should == home_path
+          end
+        end
 
         describe "when attempting to visit a protected page" do
           before do
@@ -62,6 +76,7 @@ describe "Authentication" do
             it "should render the desired protected page" do
               expect(page).to have_title('Edit user')
             end
+
           end
         end
 
