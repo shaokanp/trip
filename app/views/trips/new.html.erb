@@ -1,0 +1,16 @@
+<% provide(:title, 'Start a new Trip') %>
+<h1>Start a new Trip</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@trip) do |f| %>
+
+        <%= render 'shared/error_messages' %>
+
+        <%= f.label :title %>
+        <%= f.text_field :title %>
+
+        <%= f.submit "Create", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

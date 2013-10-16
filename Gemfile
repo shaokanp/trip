@@ -15,6 +15,7 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'guard-spork'
   gem 'spork-rails'
+  gem 'better_errors'
   # The following optional lines are part of the advanced setup.
   # gem 'guard-rspec', '2.5.0'
   # gem 'spork-rails', github: 'sporkrb/spork-rails'

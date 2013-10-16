@@ -1,6 +1,11 @@
 class TripsController < ApplicationController
   before_action :signed_in_user
 
+  def new
+    @user = current_user
+    @trip = current_user.trips.build
+  end
+
   def create
     @trip = current_user.trips.build(trip_params)
     if @trip.save
@@ -17,7 +22,7 @@ class TripsController < ApplicationController
   private
 
     def trip_params
-      params.require(:trips).permit(:title)
+      params.require(:trip).permit(:title)
     end
 
 end

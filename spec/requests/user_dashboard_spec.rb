@@ -7,6 +7,8 @@ describe "User Dashboard Page" do
   describe "Trip List" do
 
     let(:user) { FactoryGirl.create(:user) }
+    let!(:trip1) { FactoryGirl.create(:trip, user: user, title: "Foo") }
+    let!(:trip2) { FactoryGirl.create(:trip, user: user, title: "Bar") }
     before do
       sign_in user
       visit root_path
@@ -16,8 +18,7 @@ describe "User Dashboard Page" do
       it { should  have_selector('#newTripBtn') }
     end
 
-    let!(:trip1) { FactoryGirl.create(:trip, user: user, title: "Foo") }
-    let!(:trip2) { FactoryGirl.create(:trip, user: user, title: "Bar") }
+
     describe "Get trips" do
       it { should have_content(trip1.title) }
       it { should have_content(trip2.title) }
@@ -25,10 +26,11 @@ describe "User Dashboard Page" do
 
     describe "Create a trip" do
       before do
-        find('#newTripBtn').click
+        find_by_id('newTripBtn').click
         fill_in "Title", with: "A Wonderful Trip"
       end
       it { expect { click_button submit }.to change(Trip, :count).by(1) }
+      it { should have_content("A Wonderful Trip") }
     end
 
     describe "Enter a trip" do
