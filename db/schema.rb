@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131012162812) do
+ActiveRecord::Schema.define(version: 20131014163222) do
+
+  create_table "pins", force: true do |t|
+    t.string   "title"
+    t.integer  "trip_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "trips", force: true do |t|
     t.string   "title"

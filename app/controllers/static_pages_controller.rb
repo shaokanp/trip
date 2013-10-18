@@ -12,8 +12,6 @@ class StaticPagesController < ApplicationController
   end
 
   def index
-    #path = signed_in? ? '/dashboard' : '/home'
-    #redirect_to path, id: current_user.id
     if signed_in?
       redirect_to dashboard_path(id: current_user.id)
     else

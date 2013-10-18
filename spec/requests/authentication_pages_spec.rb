@@ -57,8 +57,8 @@ describe "Authentication" do
         let(:user) { FactoryGirl.create(:user) }
 
         describe 'when attempting to visit root path' do
-          before { visit root_path }
           it 'should redirect to home path' do
+            visit root_path
             current_path.should == home_path
           end
         end
@@ -140,14 +140,6 @@ describe "Authentication" do
 
     end
 
-  end
-
-  describe "user home page" do
-    let(:user) { FactoryGirl.create(:user) }
-
-    describe "for non-signed-in users" do
-      it { should have_content("Please login in") }
-    end
   end
 
 end

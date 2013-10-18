@@ -27,10 +27,15 @@ describe "User Dashboard Page" do
     describe "Create a trip" do
       before do
         find_by_id('newTripBtn').click
-        fill_in "Title", with: "A Wonderful Trip"
+        fill_in 'Title', with: 'A Wonderful Trip'
       end
-      it { expect { click_button submit }.to change(Trip, :count).by(1) }
-      it { should have_content("A Wonderful Trip") }
+      it { expect { find_by_id('create-trip-btn').click }.to change(Trip, :count).by(1) }
+
+      it 'should display the new trip in dashboard page after create a new trip' do
+        find_by_id('create-trip-btn').click
+        expect(page).to have_content('A Wonderful Trip')
+      end
+
     end
 
     describe "Enter a trip" do

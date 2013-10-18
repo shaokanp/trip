@@ -15,4 +15,9 @@ FactoryGirl.define do
     user
   end
 
+  factory :pin do
+    title 'A pin.'
+    trip
+  end
+
 end
