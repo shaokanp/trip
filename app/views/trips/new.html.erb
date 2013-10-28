@@ -14,3 +14,11 @@
     <% end %>
   </div>
 </div>
+
+<script type="text/javascript">
+    $(function() {
+        // SampleApp is the app name
+        window.router = new SampleApp.Routers.TripsRouter({trips: <%= @trips.to_json.html_safe -%>, trip: <%= @trip.to_json.html_safe -%>});
+        Backbone.history.start();
+    });
+</script>

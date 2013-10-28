@@ -10,8 +10,9 @@
   </aside>
   <div class="span9">
       <%= link_to "Start a New Trip", new_trip_path, id: "newTripBtn" %>
-      <ul class="trips">
+      <ul id="trip-list-container" class="trips"></ul>
+      <!-- <ul id="trip-list-container" class="trips">
         <%= render @trips %>
-      </ul>
+      </ul>  -->
   </div>
 </div>

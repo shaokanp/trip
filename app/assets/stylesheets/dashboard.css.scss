@@ -1,0 +1,18 @@
+.trip-cell{
+  text-align: center;
+  padding: 15px;
+  width: 120px;
+  height: 150px;
+  img{
+    width: 100%;
+  }
+  span{
+    font-weight: bold;
+  }
+}
+
+#trip-info-form-container{
+  position: relative;
+  height: 70%;
+  top: 15%;
+}
