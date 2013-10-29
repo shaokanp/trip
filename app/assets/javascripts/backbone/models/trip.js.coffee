@@ -1,5 +1,6 @@
 class SampleApp.Models.Trip extends Backbone.Model
   paramRoot: 'trip'
+  urlRoot: '/trips'
 
   defaults:
     title: ''

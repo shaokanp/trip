@@ -4,23 +4,5 @@
     <input type="text" name="title" value="<%= title %>" /><br>
     <label name="image" >Cover Image: </label>
     <input type="text" name="image" value="<%= image %>" /><br>
-    <input id="new-trip-btn" type="submit" value="Start a New Trip" />
+    <input id="new-trip-btn" type="button" value="Start a New Trip" />
 </form>
-
-
-
-<!-- <h1>New trip</h1>
-
-<div class="row">
-    <div class="span6 offset3">
-        <%= form_for(@trip) do |f| %>
-
-        <%= render 'shared/error_messages' %>
-
-        <%= f.label :title %>
-        <%= f.text_field :title %>
-
-        <%= f.submit "Create", class: "btn btn-large btn-primary", id: 'create-trip-btn' %>
-        <% end %>
-    </div>
-</div> -->
