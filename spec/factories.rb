@@ -1,3 +1,5 @@
+require 'faker'
+
 FactoryGirl.define do
   factory :user do
     sequence(:name)  { |n| "Person #{n}" }
@@ -17,7 +19,13 @@ FactoryGirl.define do
 
   factory :pin do
     title 'A pin.'
+    start_time Time.zone.parse('2013-07-11 21:00')
     trip
+
+    factory :invalid_pin do
+      title ''
+    end
+
   end
 
 end
