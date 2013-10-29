@@ -14,7 +14,7 @@ class SampleApp.Views.Dashboard.IndexView extends Backbone.View
     @$("#trips-container").append(view.render().el)
 
   render: =>
-    $(@el).html(@template(trips: @options.trips.toJSON() ))
+    $(@el).html(@template(trips: @options.trips.toJSON()))
     @addAll()
 
     return this

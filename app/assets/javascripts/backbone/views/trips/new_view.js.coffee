@@ -4,7 +4,7 @@ class SampleApp.Views.Trips.NewView extends Backbone.View
   template: JST["backbone/templates/trips/new"]
 
   events:
-    "submit #new-trip-btn": "save"
+    "click #new-trip-btn": "save"
 
   tagName: 'div'
 
@@ -24,9 +24,10 @@ class SampleApp.Views.Trips.NewView extends Backbone.View
     e.stopPropagation()
 
     @model.unset("errors")
-
+    console.log(@model)
     @collection.create(@model.toJSON(),
       success: (trip) =>
+        console.log('success')
         @model = trip
         if Backbone.history.fragment is "dashboard"
           app.navigate('trips/' + @model.id, true);
@@ -34,7 +35,8 @@ class SampleApp.Views.Trips.NewView extends Backbone.View
           window.location.hash = "/#{@model.id}"
 
       error: (trip, jqXHR) =>
-        @model.set({errors: $.parseJSON(jqXHR.responseText)})
+        console.log(jqXHR.responseText)
+        @model.set(errors: $.parseJSON(jqXHR.responseText))
     )
 
   render: ->
