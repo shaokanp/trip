@@ -7,26 +7,27 @@ describe "User Dashboard Page" do
   describe "Trip List" do
 
     let(:user) { FactoryGirl.create(:user) }
-    let!(:trip1) { FactoryGirl.create(:trip, user: user, title: "Foo") }
-    let!(:trip2) { FactoryGirl.create(:trip, user: user, title: "Bar") }
+    let!(:trip1) { FactoryGirl.create(:trip, user: user, title: 'Foo') }
+    let!(:trip2) { FactoryGirl.create(:trip, user: user, title: 'Bar') }
+
     before do
       sign_in user
       visit root_path
     end
 
-    describe "Show create trip button" do
-      it { should  have_selector('#newTripBtn') }
+    describe 'Show create trip button' do
+      it { should  have_selector('#new-trip-btn') }
     end
 
-
-    describe "Get trips" do
+    describe 'Show all trips belong to this user', :js => true do
+      self.use_transactional_fixtures = false
       it { should have_content(trip1.title) }
       it { should have_content(trip2.title) }
     end
 
     describe "Create a trip" do
       before do
-        find_by_id('newTripBtn').click
+        find_by_id('new-trip-btn').click
         fill_in 'Title', with: 'A Wonderful Trip'
       end
       it { expect { find_by_id('create-trip-btn').click }.to change(Trip, :count).by(1) }
@@ -39,7 +40,7 @@ describe "User Dashboard Page" do
 
     describe "Enter a trip" do
       before do
-        find('.tripCell').first.click
+        find('.trip-digest').first.click
       end
 
       specify { expect(response).to redirect_to(trip_url) }
@@ -47,7 +48,7 @@ describe "User Dashboard Page" do
 
     describe "Delete a trip" do
       before do
-        find('.tripCell').first.hover
+        find('.trip-digest').first.hover
       end
 
       it { expect{  find('.tripCell .deleteBtn').click }.to change(Trip, :count).by(-1) }
