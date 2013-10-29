@@ -35,7 +35,6 @@ describe "User Dashboard Page" do
         find_by_id('create-trip-btn').click
         expect(page).to have_content('A Wonderful Trip')
       end
-
     end
 
     describe "Enter a trip" do
