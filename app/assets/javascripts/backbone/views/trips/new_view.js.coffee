@@ -6,6 +6,11 @@ class SampleApp.Views.Trips.NewView extends Backbone.View
   events:
     "submit #new-trip-btn": "save"
 
+  tagName: 'div'
+
+  attributes:
+    id: 'trip-info-form-container'
+
   constructor: (options) ->
     super(options)
     @model = new @collection.model()
@@ -33,7 +38,7 @@ class SampleApp.Views.Trips.NewView extends Backbone.View
     )
 
   render: ->
-    $(@el).html(@template(@model.toJSON() ))
+    $(@el).html(@template(@model.toJSON()))
 
     this.$("form").backboneLink(@model)
 

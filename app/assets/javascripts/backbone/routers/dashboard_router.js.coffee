@@ -13,5 +13,5 @@ class SampleApp.Routers.DashboardRouter extends Backbone.Router
     $("body").append(@view.render().el)
 
   index: ->
-    @view = new SampleApp.Views.Trips.IndexView(trips: @trips)
+    @view = new SampleApp.Views.Dashboard.IndexView(trips: @trips)
     $("#dashboard").html(@view.render().el)

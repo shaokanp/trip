@@ -1,7 +1,5 @@
 <% provide(:title, @user.name) %>
 
-
-
 <script type="text/javascript">
     $(function() {
         // SampleApp is the app name
@@ -10,10 +8,9 @@
     });
 </script>
 
-<% provide(:title, @user.name) %>
-<div class="row text-right">
-  <div class="span9">
-    <%= link_to "Start a New Trip", new_trip_path, id: "newTripBtn" %>
+<div class="row">
+  <div class="span9 offset3">
+    <a id="new-trip-btn" href="#/new">Start a New Trip</a>
   </div>
 </div>
 <div class="row">

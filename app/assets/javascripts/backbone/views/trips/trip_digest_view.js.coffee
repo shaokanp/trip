@@ -9,6 +9,8 @@ class SampleApp.Views.Trips.TripDigestView extends Backbone.View
 
   tagName: "li"
 
+  className:'trip-digest span2'
+
   destroy: () ->
     @model.destroy()
     this.remove()
