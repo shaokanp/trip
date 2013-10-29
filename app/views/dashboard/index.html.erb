@@ -1,0 +1,27 @@
+<% provide(:title, @user.name) %>
+
+<script type="text/javascript">
+    $(function() {
+        // SampleApp is the app name
+        window.router = new SampleApp.Routers.DashboardRouter({trips: <%= @trips.to_json.html_safe -%>});
+        Backbone.history.start();
+    });
+</script>
+
+<div class="row">
+  <div class="span9 offset3">
+    <a id="new-trip-btn" href="#/new">Start a New Trip</a>
+  </div>
+</div>
+<div class="row">
+  <aside class="span3">
+    <section>
+      <h1>
+        <%= gravatar_for @user %>
+        <%= @user.name %>
+      </h1>
+    </section>
+  </aside>
+  <div id="dashboard" class="span9"></div>
+
+</div>
