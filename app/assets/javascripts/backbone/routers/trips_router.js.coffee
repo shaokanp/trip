@@ -9,6 +9,8 @@ class SampleApp.Routers.TripsRouter extends Backbone.Router
     "new"      : "newTrip"
     ":id/edit" : "edit"
     ":id"      : "show"
+    "newpin"   : "newPin"
+    "editpin/:id"  : "editPin"
 
   newTrip: ->
     @view = new SampleApp.Views.Trips.NewView(collection: @trips)

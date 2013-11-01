@@ -22,4 +22,4 @@ class SampleApp.Views.Trips.TripDigestView extends Backbone.View
     return this
 
   show: ->
-    app.navigate('trips/' + @model.id, true);
+    window.location = @model.urlRoot + '/' + @model.id;

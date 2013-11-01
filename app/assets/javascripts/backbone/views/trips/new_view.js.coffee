@@ -27,15 +27,10 @@ class SampleApp.Views.Trips.NewView extends Backbone.View
     console.log(@model)
     @collection.create(@model.toJSON(),
       success: (trip) =>
-        console.log('success')
         @model = trip
-        if Backbone.history.fragment is "dashboard"
-          app.navigate('trips/' + @model.id, true);
-        else
-          window.location.hash = "/#{@model.id}"
+        window.location = @model.urlRoot + '/' + @model.id;
 
       error: (trip, jqXHR) =>
-        console.log(jqXHR.responseText)
         @model.set(errors: $.parseJSON(jqXHR.responseText))
     )
 
