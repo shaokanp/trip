@@ -4,7 +4,7 @@ class SampleApp.Views.Trips.NewView extends Backbone.View
   template: JST["backbone/templates/trips/new"]
 
   events:
-    "click #new-trip-btn": "save"
+    "click #submit-new-trip-btn": "save"
 
   tagName: 'div'
 

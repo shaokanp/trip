@@ -10,20 +10,30 @@ class TripsController < ApplicationController
     @trip = @user.trips.build(trip_params)
     if @trip.save
       flash[:success] = "Trip created !"
-      redirect_to root_url
+      respond_to do |format|
+        format.html { redirect_to root_url }
+        format.json do
+         render :json => @trip.to_json
+        end
+      end
     else
-      render 'static_pages/home'
+      respond_to do |format|
+        format.html { render 'static_pages/home' }
+        format.json { head :no_content }
+      end
     end
   end
 
   def show
     @trip = @user.trips.find(params[:id])
+    respond_to do |format|
+       format.json { render :json => @trip }
+    end
   end
 
   def destroy
     @user.trips.find(params[:id]).destroy
     flash[:success] = "Trip destroyed."
-    redirect_to dashboard_path
   end
 
   private
