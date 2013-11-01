@@ -1,4 +1,5 @@
 require 'spec_helper'
+#require 'watir-webdriver/extensions/alerts'
 
 describe "User Dashboard Page" do
 
@@ -25,7 +26,7 @@ describe "User Dashboard Page" do
       it { should have_content(trip2.title) }
     end
 
-    describe "Create a trip", :js => true do
+    describe 'Create a trip', :js => true do
       self.use_transactional_fixtures = false
       before do
         find_by_id('new-trip-btn').click
@@ -39,22 +40,25 @@ describe "User Dashboard Page" do
       end
     end
 
-    describe "Enter a trip", :js => true do
+    describe 'Enter a trip', :js => true do
       self.use_transactional_fixtures = false
       before do
-        find('.trip-digest').first.click
+        find('#trips-container').first('.trip-digest').click
       end
 
-      specify { expect(response).to redirect_to(trip_url) }
+      specify { expect(response).to redirect_to(trip1) }
     end
 
-    describe "Delete a trip", :js => true do
+    describe 'Delete a trip', :js => true do
       self.use_transactional_fixtures = false
       before do
-        find('.trip-digest').first.hover
+        find('#trips-container').first('.trip-digest').hover
       end
 
-      it { expect{  find('.tripCell .deleteBtn').click }.to change(Trip, :count).by(-1) }
+      it do
+        find('.trip-digest .destroy').click
+        expect(page).not_to have_content(trip1.title)
+      end
     end
 
   end
