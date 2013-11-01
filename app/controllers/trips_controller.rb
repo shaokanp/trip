@@ -26,9 +26,6 @@ class TripsController < ApplicationController
 
   def show
     @trip = @user.trips.find(params[:id])
-    respond_to do |format|
-       format.json { render :json => @trip }
-    end
   end
 
   def destroy
