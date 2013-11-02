@@ -32,3 +32,10 @@ class SampleApp.Views.Pins.PinView extends Backbone.View
 
   edit: ->
     window.location.hash = "#{@model.id}"
+
+class SampleApp.Views.Pins.PinListView extends Backbone.View
+  events:
+    "click .new-pin-btn": "newPin"
+
+  newPin: ->
+    console.log('new-pin-btn clicked');

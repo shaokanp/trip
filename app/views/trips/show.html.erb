@@ -1,8 +1,20 @@
 <% provide(:title, @trip.title) %>
+
+<script type="text/javascript">
+    $(function() {
+        // SampleApp is the app name
+        window.router = new SampleApp.Routers.TripsRouter({trip: <%= @trip.to_json(include: :pins).html_safe -%>});
+        Backbone.history.start();
+    });
+</script>
+
 <div class="row">
   <div class="span8">
   </div>
   <div id="pin-container" class="span4">
+    <ul id="new-pin-btn-container">
+        <li class="new-pin-btn"><a href="#newpin">Add a new Pin</a></li>
+    </ul>
     <ul>
 
     </ul>

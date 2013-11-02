@@ -1,25 +1,31 @@
 class SampleApp.Routers.TripsRouter extends Backbone.Router
   initialize: (options) ->
-    @trips = new SampleApp.Collections.TripsCollection()
-    @trips.reset options.trips
     @trip = new SampleApp.Models.Trip()
     @trip.set options.trip
+    @trip.pins.reset(options.trip.pins)
 
   routes:
-    "new"      : "newTrip"
-    ":id/edit" : "edit"
-    ":id"      : "show"
+    ""      : "show"
+    "edit" : "edit"
     "newpin"   : "newPin"
     "editpin/:id"  : "editPin"
 
-  newTrip: ->
-    @view = new SampleApp.Views.Trips.NewView(collection: @trips)
-    $("body").append(@view.render().el)
-
-  show: (id) ->
+  show: ->
+    @view.remove() if @view?
     @view = new SampleApp.Views.Trips.ShowView(model: @trip)
     $("#trips").html(@view.render().el)
 
-  edit: (id) ->
+  edit: ->
     @view = new SampleApp.Views.Trips.EditView(model: @trip)
     $("#trips").html(@view.render().el)
+
+  newPin: ->
+    @view = new SampleApp.Views.Pins.NewView(
+      trip: @trip,
+      collection: @trip.pins
+    )
+    $("body").append(@view.render().el)
+
+  editPin: (id) ->
+
+
