@@ -25,11 +25,11 @@ class TripsController < ApplicationController
   end
 
   def show
-    @trip = @user.trips.find(params[:id])
+    # nothing to do
   end
 
   def destroy
-    @user.trips.find(params[:id]).destroy
+    @trip.destroy
     flash[:success] = "Trip destroyed."
   end
 
@@ -41,6 +41,11 @@ class TripsController < ApplicationController
 
     def init_user
       @user = current_user
+      @trip = @user.trips.find_by(params[:id])
+      if @trip.nil?
+        flash[:error] = "Sorry, you don't have the permission to do that."
+        redirect_to root_url
+      end
     end
 
 end

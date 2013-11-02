@@ -1,15 +1,19 @@
 require 'spec_helper'
 
 describe PinsController do
+
+  #let(:user) { FactoryGirl.create(:user) }
+  #let!(:trip) { FactoryGirl.create(:trip, user: user, title: 'trip') }
+
+  #before { sign_in user }
+
   describe 'GET #show' do
     it 'assign the requested pin to @pin' do
-      before do
-        @pin = create(:pin)
-        user = @pin.trip.user
-        sign_in user
-      end
-      get :show, id: @pin
-      expect(assigns(:pin)).to eq @pin
+
+      #@pin = FactoryGirl.create(:pin, trip: trip, title: 'trip')
+
+      #get :show, id: @pin
+      #expect(assigns(:pin)).to eq @pin
     end
     it 'renders the show template'
   end

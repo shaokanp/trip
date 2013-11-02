@@ -36,6 +36,7 @@ describe "User Dashboard Page" do
 
       it 'should display the new trip in dashboard page after create a new trip' do
         find_by_id('submit-new-trip-btn').click
+        visit root_path
         expect(page).to have_content('A Wonderful Trip')
       end
     end
@@ -45,8 +46,9 @@ describe "User Dashboard Page" do
       before do
         find('#trips-container').first('.trip-digest').click
       end
-
-      specify { expect(response).to redirect_to(trip1) }
+      it 'should redirect to the trip show page' do
+        current_path.should eq trip_path(trip1)
+      end
     end
 
     describe 'Delete a trip', :js => true do
