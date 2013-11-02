@@ -23,11 +23,11 @@ class SampleApp.Views.Pins.NewView extends Backbone.View
     @model.unset("errors")
     data = @model.toJSON()
     data.trip_id = @trip.id
-    console.log(@trip.id)
     @collection.create(data,
+      wait: true
       success: (pin) =>
         @model = pin
-
+        window.location.hash = ''
       error: (pin, jqXHR) =>
         @model.set(errors: $.parseJSON(jqXHR.responseText))
     )

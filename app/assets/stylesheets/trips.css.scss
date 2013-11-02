@@ -12,6 +12,26 @@ ul{
   margin-top: -80px;
   background-color: white;
   padding: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+}
+
+.pin-cell{
+  height: 70px;
+  div{
+    height: 100%;
+  }
+  img.pin-icon{
+    height: 30px;
+    vertical-align: middle;
+  }
+  .pin-icon-div{
+    text-align: center;
+    float: left;
+    width: 40px;
+  }
+  .pin-text-div{
+    margin: 8px 8px 8px 40px;
+    div{
+      padding: 4px 7px 4px 7px;
+    }
+  }
 }

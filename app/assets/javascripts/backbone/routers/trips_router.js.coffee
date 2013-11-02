@@ -3,7 +3,7 @@ class SampleApp.Routers.TripsRouter extends Backbone.Router
     @trip = new SampleApp.Models.Trip()
     @trip.set options.trip
     @trip.pins.reset(options.trip.pins)
-
+    @isFirstShow = true
   routes:
     ""      : "show"
     "edit" : "edit"
@@ -12,8 +12,15 @@ class SampleApp.Routers.TripsRouter extends Backbone.Router
 
   show: ->
     @view.remove() if @view?
-    @view = new SampleApp.Views.Trips.ShowView(model: @trip)
-    $("#trips").html(@view.render().el)
+    if @isFirstShow
+      console.log('show')
+      @view = new SampleApp.Views.Pins.PinListView(
+        model: @trip.pins
+        el: $('#pin-container')
+      )
+      @view.render()
+      @isFirstShow = false
+
 
   edit: ->
     @view = new SampleApp.Views.Trips.EditView(model: @trip)

@@ -28,7 +28,7 @@ class SampleApp.Views.Trips.NewView extends Backbone.View
     @collection.create(@model.toJSON(),
       success: (trip) =>
         @model = trip
-        #window.location = @model.urlRoot + '/' + @model.id;
+        window.location = @model.urlRoot + '/' + @model.id;
 
       error: (trip, jqXHR) =>
         @model.set(errors: $.parseJSON(jqXHR.responseText))
