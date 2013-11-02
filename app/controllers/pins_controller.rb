@@ -6,9 +6,7 @@ class PinsController < ApplicationController
     @pin = @trip.pins.build(pin_params)
     if @pin.save
       flash[:success] = 'Pin created !'
-      #redirect_to root_url
-    else
-      #render 'static_pages/home'
+      render json: @pin
     end
   end
 
@@ -35,7 +33,7 @@ class PinsController < ApplicationController
   private
 
   def pin_params
-    params.require(:pin).permit(:title, :start_time)
+    params.require(:pin).permit(:title, :start_time, :trip_id)
   end
 
   def init_trip
