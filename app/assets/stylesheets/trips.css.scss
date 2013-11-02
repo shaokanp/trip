@@ -1,0 +1,17 @@
+ul{
+  list-style: none;
+}
+
+#pin-info-form{
+  position: fixed;
+  height: 150px;
+  width: 400px;
+  top: 40%;
+  left: 50%;
+  margin-left: -200px;
+  margin-top: -80px;
+  background-color: white;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
