@@ -10,8 +10,7 @@ class SampleApp.Views.Pins.MapView extends Backbone.View
     @pins.bind("remove", @removePin)
 
   render: ->
-    #$(@el).html(@template(@model.toJSON()))
-
+    console.log(@pins)
     jQuery ($) ->
 
       # Make the following global variables
@@ -27,15 +26,14 @@ class SampleApp.Views.Pins.MapView extends Backbone.View
     getTypes = null
     place = null
     pois = null
-
+    pins = @pins
     init = () ->
       # Setup map options
       mapOptions =
 
-        center: new google.maps.LatLng(47.5865, -122.150)
+        center: new google.maps.LatLng(40.6892494, -74.04450039999999)
         zoom: 11
-        streetViewControl: false
-        panControl: false
+        disableDefaultUI: true
         mapTypeId: google.maps.MapTypeId.ROADMAP
         zoomControlOptions:
           style: google.maps.ZoomControlStyle.SMALL
@@ -46,21 +44,19 @@ class SampleApp.Views.Pins.MapView extends Backbone.View
       map = new google.maps.Map(document.getElementById("map"),mapOptions)
 
 
-      # Drop marker in the same location
-      #marker = new google.maps.Marker
-      #  map: map
-      #  animation: google.maps.Animation.DROP
-      #  position: new google.maps.LatLng(47.53772, -122.1153)
+      console.log(pins)
+      _.each(pins.models, (pin) ->
+        marker = new google.maps.Marker
+        animation: google.maps.Animation.DROP
+        position: new google.maps.LatLng(40.6892494, -74.04450039999999)#pin.get('latitude'), pin.get('longitude'))
 
-
+      )
 
 
     init()
 
 
-    #_.each(@pins.models, (pin) ->
-    #  console.log('ya')
-    #)
+
 
     return this
 

@@ -1,6 +1,7 @@
 class PinsController < ApplicationController
   before_action :signed_in_user
   before_action :correct_user, only:[:update, :destroy]
+  respond_to :json
 
   def create
     @trip = Trip.find(params[:pin][:trip_id])
@@ -19,7 +20,9 @@ class PinsController < ApplicationController
   def destroy
     @pin.destroy
     flash[:success] = 'Pin destroyed.'
-    redirect_to @trip
+    respond_to do |format|
+      format.json { head :no_content }
+    end
   end
 
   def update
