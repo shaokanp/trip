@@ -1,9 +1,9 @@
 class PinsController < ApplicationController
-  before_action :init_pin, except: [:new, :create]
+  before_action :init_trip
   before_action :signed_in_user
+  before_action :correct_user, only:[:update, :destroy]
 
   def create
-    @trip = current_user.trips.find_by(params[:trip_id])
     @pin = @trip.pins.build(pin_params)
     if @pin.save
       flash[:success] = 'Pin created !'
@@ -37,17 +37,14 @@ class PinsController < ApplicationController
     params.require(:pin).permit(:title, :start_time, :trip_id, :address)
   end
 
-  def init_pin
-    @user = current_user
-    @trip = @user.trips.find_by(params[:trip_id])
-    if @trip.nil?
-      flash[:error] = "Sorry, you don't have the permission to do that."
-      redirect_to root_url
-    end
-    @pin = @trip.pins.find_by(params[:id])
-    if @pin.nil?
-      flash[:error] = 'Pin not found.'
-      redirect_to @trip
+  def init_trip
+    @trip = Trip.find(params[:trip_id])
+  end
+
+  def correct_user
+    unless @trip.user_id == current_user.id?
+      flash[:error] = 'Sorry, you do not have the permission to do that.'
+      redirect_to root_path
     end
   end
 

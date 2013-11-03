@@ -20,11 +20,11 @@ class SampleApp.Routers.TripsRouter extends Backbone.Router
       )
       @view.render()
 
-#      view = new SampleApp.Views.Pins.MapView({
-#        pins: @trip.pins
-#        el: $('#map')
-#      })
-#      view.render()
+      view = new SampleApp.Views.Pins.MapView({
+        pins: @trip.pins
+        el: $('#map')
+      })
+      view.render()
 
       @isFirstShow = false
 

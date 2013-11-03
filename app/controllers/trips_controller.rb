@@ -1,13 +1,9 @@
 class TripsController < ApplicationController
   before_action :signed_in_user
-  before_action :init_trip
-
-  def new
-    @trip = current_user.trips.build
-  end
+  before_action :correct_user, only:[:destroy]
 
   def create
-    @trip = @user.trips.build(trip_params)
+    @trip = current_user.trips.build(trip_params)
     if @trip.save
       flash[:success] = "Trip created !"
       respond_to do |format|
@@ -25,7 +21,7 @@ class TripsController < ApplicationController
   end
 
   def show
-    # nothing to do
+    @trip = Trip.find(params[:id])
   end
 
   def destroy
@@ -39,10 +35,8 @@ class TripsController < ApplicationController
       params.require(:trip).permit(:title)
     end
 
-    def init_trip
-      @user = current_user
-      @trip = @user.trips.find_by(params[:id])
-      puts 'hanhahaha' + @trip.id.to_s
+    def correct_user
+      @trip = @user.trips.find_by(id: params[:id])
       if @trip.nil?
         flash[:error] = "Sorry, you don't have the permission to do that."
         redirect_to root_url
