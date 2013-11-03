@@ -3,13 +3,17 @@
 <script type="text/javascript">
     $(function() {
         // SampleApp is the app name
-        window.router = new SampleApp.Routers.TripsRouter({trip: <%= @trip.to_json(include: :pins).html_safe -%>});
+        window.router = new SampleApp.Routers.TripsRouter({
+            trip: <%= @trip.to_json(include: :pins).html_safe -%>,
+            markers: <%= @markers.to_json.html_safe -%>
+        });
         Backbone.history.start();
     });
 </script>
 
 <div class="row">
-  <div class="span8">
+  <div id="map" class="span8">
+
   </div>
   <div class="span4">
     <ul id="new-pin-btn-container">
