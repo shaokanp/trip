@@ -24,7 +24,7 @@ class SampleApp.Views.Pins.NewView extends Backbone.View
     data = @model.toJSON()
     data.trip_id = @trip.id
     @collection.create(data,
-      wait: true
+      #wait: true
       success: (pin) =>
         @model = pin
         window.location.hash = ''

@@ -15,16 +15,16 @@ class SampleApp.Routers.TripsRouter extends Backbone.Router
     @view.remove() if @view?
     if @isFirstShow
       @view = new SampleApp.Views.Pins.PinListView(
-        model: @trip.pins
+        collection: @trip.pins
         el: $('#pin-container')
       )
       @view.render()
 
-      view = new SampleApp.Views.Pins.MapView({
-        pins: @trip.pins
-        el: $('#map')
-      })
-      view.render()
+#      view = new SampleApp.Views.Pins.MapView({
+#        pins: @trip.pins
+#        el: $('#map')
+#      })
+#      view.render()
 
       @isFirstShow = false
 

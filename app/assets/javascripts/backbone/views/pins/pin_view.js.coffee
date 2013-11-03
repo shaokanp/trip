@@ -20,7 +20,11 @@ class SampleApp.Views.Pins.PinView extends Backbone.View
 
   destroy: () ->
     @model.destroy()
-    this.remove()
+#    @model.destroy(
+#      success: =>
+#        console.log('delete')
+#        this.remove()
+#    )
 
     return false
 
@@ -37,18 +41,19 @@ class SampleApp.Views.Pins.PinView extends Backbone.View
 class SampleApp.Views.Pins.PinListView extends Backbone.View
 
   initialize: (options) ->
-    @model.bind('add', @addPin)
-    @model.bind('reset', @render)
+    @collection.bind('add', @addPin)
+    @collection.bind('reset', @render)
 
   render: ->
     $(@el).html('')
     self = this
-    _.each(@model.models, (pin) ->
+    _.each(@collection.models, (pin) ->
+       console.log(pin)
        self.addPin(pin)
     )
     return this
 
   addPin: (pin) ->
     $(@el).append(new SampleApp.Views.Pins.PinView(model: pin).render().el)
-    console.log($(@el).children())
+    #console.log($(@el).children())
 
