@@ -1,8 +1,9 @@
 class PinsController < ApplicationController
-  before_action :init_pin
+  before_action :init_pin, except: [:new, :create]
   before_action :signed_in_user
 
   def create
+    @trip = current_user.trips.find_by(params[:trip_id])
     @pin = @trip.pins.build(pin_params)
     if @pin.save
       flash[:success] = 'Pin created !'

@@ -3,10 +3,7 @@
 <script type="text/javascript">
     $(function() {
         // SampleApp is the app name
-        window.router = new SampleApp.Routers.TripsRouter({
-            trip: <%= @trip.to_json(include: :pins).html_safe -%>,
-            markers: <%= @markers.to_json.html_safe -%>
-        });
+        window.router = new SampleApp.Routers.TripsRouter({trip: <%= @trip.to_json(include: :pins).html_safe -%>});
         Backbone.history.start();
     });
 </script>
