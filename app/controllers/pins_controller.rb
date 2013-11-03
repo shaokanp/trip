@@ -1,5 +1,4 @@
 class PinsController < ApplicationController
-  before_action :init_trip
   before_action :signed_in_user
   before_action :correct_user, only:[:update, :destroy]
 
@@ -12,18 +11,17 @@ class PinsController < ApplicationController
   end
 
   def show
-    @pin = @trip.pins.find(params[:id])
+    @pin = Pin.find(params[:id])
     render json: @pin
   end
 
   def destroy
-    @trip.pins.find(params[:id]).destroy
+    @pin.destroy
     flash[:success] = 'Pin destroyed.'
     redirect_to @trip
   end
 
   def update
-    @pin = @trip.pins.find(params[:id])
     if @pin.update_attributes(pin_params)
       flash[:success] = 'Pin Updated.'
     else
@@ -37,15 +35,14 @@ class PinsController < ApplicationController
     params.require(:pin).permit(:title, :start_time, :trip_id, :address)
   end
 
-  def init_trip
-    #puts 'hello ' + params[:trip_id].to_s
-    @trip = Trip.find(23)
-  end
 
   def correct_user
+
+    @pin = Pin.find(params[:id])
+    @trip = @pin.trip
+
     unless @trip.user_id == current_user.id
       flash[:error] = 'Sorry, you do not have the permission to do that.'
-      redirect_to root_path
     end
   end
 
