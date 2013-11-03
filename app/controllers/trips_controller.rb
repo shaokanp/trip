@@ -1,6 +1,6 @@
 class TripsController < ApplicationController
   before_action :signed_in_user
-  before_action :init_user
+  before_action :init_trip
 
   def new
     @trip = current_user.trips.build
@@ -39,7 +39,7 @@ class TripsController < ApplicationController
       params.require(:trip).permit(:title)
     end
 
-    def init_user
+    def init_trip
       @user = current_user
       @trip = @user.trips.find_by(params[:id])
       if @trip.nil?

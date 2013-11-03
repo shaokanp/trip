@@ -49,4 +49,5 @@
 //= require backbone_rails_sync
 //= require backbone_datalink
 //= require backbone/sample_app
+//= require gmaps/google
 //= require_tree .

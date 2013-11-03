@@ -11,6 +11,7 @@ gem 'bootstrap-will_paginate', '0.0.9'
 gem 'rails-backbone'
 gem 'underscore-rails'
 gem 'geocoder'
+gem 'gmaps4rails'
 
 group :development, :test do
   gem 'sqlite3', '1.3.7'
