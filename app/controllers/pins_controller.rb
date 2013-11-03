@@ -8,7 +8,9 @@ class PinsController < ApplicationController
     @pin = @trip.pins.build(pin_params)
     if @pin.save
       flash[:success] = 'Pin created !'
-      render json: @pin
+      respond_to do |format|
+        format.json { render json: @pin }
+      end
     end
   end
 

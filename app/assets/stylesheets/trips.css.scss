@@ -2,16 +2,33 @@ ul{
   list-style: none;
 }
 
+#new-pin-btn-container{
+  min-height: 30px;
+  margin-bottom: 10px;
+  .new-pin-btn{
+    float: left;
+    margin-right: 10px;
+  }
+}
+
 #pin-info-form{
   position: fixed;
-  height: 150px;
   width: 400px;
   top: 40%;
   left: 50%;
   margin-left: -200px;
-  margin-top: -80px;
+  margin-top: -160px;
   background-color: white;
   padding: 15px;
+  vertical-align: middle;
+  input[name="startTime"],input[name="endTime"]{
+    display: inline;
+    width: 48%;
+  }
+  input[type="button"]{
+    display:block;
+    margin: 0 auto 0 auto;
+  }
 }
 
 .pin-cell{

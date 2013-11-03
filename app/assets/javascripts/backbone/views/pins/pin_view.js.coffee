@@ -1,7 +1,8 @@
 SampleApp.Views.Pins ||= {}
 
 class SampleApp.Views.Pins.PinView extends Backbone.View
-  template: JST["backbone/templates/pins/pin"]
+  template: JST["backbone/templates/pins/pin_cell/pin"]
+
 
   events:
     "click": "hightlight"
@@ -29,20 +30,19 @@ class SampleApp.Views.Pins.PinView extends Backbone.View
 
   render: ->
     $(@el).html(@template(@model.toJSON()))
-    console.log(@el)
-    return @el
+    return this
 
   hightlight: ->
 
 
   edit: ->
-    window.location.hash = "#{@model.id}"
+    window.location.hash = "editpin/#{@model.id}"
 
 class SampleApp.Views.Pins.PinListView extends Backbone.View
 
   initialize: (options) ->
-    @collection.bind('add', @addPin)
-    #@collection.bind('reset', @render)
+    @collection.bind('add', @addPin, this)
+    @collection.bind('reset', @render, this)
 
   render: ->
     $(@el).html('')
@@ -53,12 +53,4 @@ class SampleApp.Views.Pins.PinListView extends Backbone.View
     return this
 
   addPin: (pin) ->
-    console.log(pin)
-    $(@el).append(new SampleApp.Views.Pins.PinView(model: pin).render())
-
-#    if pin.get('title') is 'rrr'
-#      console.log('ggg');
-#    else
-#      $(@el).append(new SampleApp.Views.Pins.PinView(model: pin).render().el)
-
-    console.log($(@el).children())
+    $(@el).append(new SampleApp.Views.Pins.PinView(model: pin).render().el)

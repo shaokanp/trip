@@ -1,7 +1,7 @@
 SampleApp.Views.Pins ||= {}
 
 class SampleApp.Views.Pins.NewView extends Backbone.View
-  template: JST["backbone/templates/pins/new"]
+  template: JST["backbone/templates/pins/info_form/info_form"]
 
   events:
     "click #submit-new-pin-btn": "save"
