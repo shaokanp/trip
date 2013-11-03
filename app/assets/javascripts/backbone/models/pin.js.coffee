@@ -2,6 +2,7 @@ class SampleApp.Models.Pin extends Backbone.Model
   paramRoot: 'pin'
 
   defaults:
+    trip_id: ''
     title: ''
     address: ''
     latitude: '120'
