@@ -3,6 +3,7 @@ class PinsController < ApplicationController
   before_action :correct_user, only:[:update, :destroy]
 
   def create
+    @trip = Trip.find(params[:pin][:trip_id])
     @pin = @trip.pins.build(pin_params)
     if @pin.save
       flash[:success] = 'Pin created !'
