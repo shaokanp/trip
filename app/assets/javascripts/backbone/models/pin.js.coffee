@@ -4,8 +4,8 @@ class SampleApp.Models.Pin extends Backbone.Model
   defaults:
     title: ''
     address: ''
-    latitude: ''
-    longitude: ''
+    latitude: '120'
+    longitude: '120'
 
 class SampleApp.Collections.PinsCollection extends Backbone.Collection
   model: SampleApp.Models.Pin
