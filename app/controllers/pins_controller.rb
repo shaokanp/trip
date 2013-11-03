@@ -38,11 +38,12 @@ class PinsController < ApplicationController
   end
 
   def init_trip
-    @trip = Trip.find(params[:trip_id])
+    #puts 'hello ' + params[:trip_id].to_s
+    @trip = Trip.find(23)
   end
 
   def correct_user
-    unless @trip.user_id == current_user.id?
+    unless @trip.user_id == current_user.id
       flash[:error] = 'Sorry, you do not have the permission to do that.'
       redirect_to root_path
     end

@@ -21,12 +21,11 @@ class SampleApp.Views.Pins.NewView extends Backbone.View
     e.stopPropagation()
 
     @model.unset("errors")
-    data = @model.toJSON()
-    data.trip_id = @trip.id
-    @collection.create(data,
-      #wait: true
+    @model.set('trip_id', @trip.id)
+
+    @collection.create(@model.toJSON(),
+      wait: true
       success: (pin) =>
-        @model = pin
         window.location.hash = ''
       error: (pin, jqXHR) =>
         @model.set(errors: $.parseJSON(jqXHR.responseText))
