@@ -39,7 +39,7 @@ class TripsController < ApplicationController
       @trip = current_user.trips.find_by(id: params[:id])
       if @trip.nil?
         flash[:error] = "Sorry, you don't have the permission to do that."
-        redirect_to root_url
+        head :forbidden
       end
     end
 
