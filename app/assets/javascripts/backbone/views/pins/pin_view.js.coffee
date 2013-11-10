@@ -14,7 +14,6 @@ class SampleApp.Views.Pins.PinView extends Backbone.View
 
   constructor: (options) ->
     super(options)
-
     @model.bind("change:errors", () =>
       this.render()
     )
@@ -43,6 +42,10 @@ class SampleApp.Views.Pins.PinListView extends Backbone.View
   initialize: (options) ->
     @collection.bind('add', @addPin, this)
     @collection.bind('reset', @render, this)
+    $(@el).sortable(
+      update: ->
+
+    )
 
   render: ->
     $(@el).html('')

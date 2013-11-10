@@ -1,4 +1,4 @@
-class AddMoreFieldsToPins < ActiveRecord::Migration
+class AddLocationFieldsToPins < ActiveRecord::Migration
   def change
     add_column :pins, :address, :string
     add_column :pins, :latitude, :float
