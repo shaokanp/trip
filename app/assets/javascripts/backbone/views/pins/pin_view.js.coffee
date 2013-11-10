@@ -3,7 +3,6 @@ SampleApp.Views.Pins ||= {}
 class SampleApp.Views.Pins.PinView extends Backbone.View
   template: JST["backbone/templates/pins/pin_cell/pin"]
 
-
   events:
     "click": "hightlight"
     "dblclick": "edit"
@@ -18,6 +17,8 @@ class SampleApp.Views.Pins.PinView extends Backbone.View
       this.render()
     )
 
+    $(@el).attr('pin-type', SampleApp.Models.Pin.pinType.MEETING);
+
   destroy: () ->
     @model.destroy(
       success: =>
@@ -28,7 +29,8 @@ class SampleApp.Views.Pins.PinView extends Backbone.View
     return false
 
   render: ->
-    $(@el).html(@template(@model.toJSON()))
+    json = @model.toJSON()
+    $(@el).html(@template(json))
     return this
 
   hightlight: ->

@@ -13,6 +13,7 @@ gem 'underscore-rails'
 gem 'geocoder'
 gem 'gmaps4rails'
 gem 'jquery-ui-rails'
+gem 'jquery-ui-themes'
 
 group :development, :test do
   gem 'sqlite3', '1.3.7'
