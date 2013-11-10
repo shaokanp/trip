@@ -37,8 +37,8 @@ describe Trip do
 
     before { @trip.save }
 
-    let!(:pin2) { FactoryGirl.create(:pin, trip: @trip, title: 'Second Pin', start_time: 1.hour.ago) }
-    let!(:pin1) { FactoryGirl.create(:pin, trip: @trip, title: 'First Pin', start_time: 1.day.ago) }
+    let!(:pin2) { FactoryGirl.create(:pin, trip: @trip, title: 'Second Pin', pin_type: 'attraction', start_time: 1.hour.ago) }
+    let!(:pin1) { FactoryGirl.create(:pin, trip: @trip, title: 'First Pin', pin_type: 'attraction', start_time: 1.day.ago) }
 
     it 'should have the right pins in the right order' do
       expect(@trip.pins.to_a).to eq [pin1, pin2]

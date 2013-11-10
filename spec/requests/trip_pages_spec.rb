@@ -7,8 +7,8 @@ describe 'TripPage', :js => true do
   let(:user) { FactoryGirl.create(:user) }
   let(:other_user) { FactoryGirl.create(:user) }
   let!(:trip) { FactoryGirl.create(:trip, user: user, title: 'Trip') }
-  let!(:pin1) { FactoryGirl.create(:pin, trip: trip, title: 'Pin1', start_time: 1.hour.ago, address: 'Statue of Liberty') }
-  let!(:pin2) { FactoryGirl.create(:pin, trip: trip, title: 'Pin2', start_time: 1.day.ago, address: 'Lincoln Center') }
+  let!(:pin1) { FactoryGirl.create(:pin, trip: trip, title: 'Pin1', pin_type: 'attraction', order: 1, start_time: 1.hour.ago, address: 'Statue of Liberty') }
+  let!(:pin2) { FactoryGirl.create(:pin, trip: trip, title: 'Pin2', pin_type: 'attraction', order: 0, start_time: 1.day.ago, address: 'Lincoln Center') }
 
   before do
     sign_in user

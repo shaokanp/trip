@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131104145733) do
+ActiveRecord::Schema.define(version: 20131110074538) do
 
   create_table "pins", force: true do |t|
     t.string   "title"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20131104145733) do
     t.float    "latitude"
     t.float    "longitude"
     t.string   "pin_type"
+    t.integer  "order"
   end
 
   create_table "trips", force: true do |t|

@@ -1,6 +1,7 @@
 class PinsController < ApplicationController
   before_action :signed_in_user
   before_action :correct_user, only:[:update, :destroy]
+  before_action :resort_pin_order, only:[:update]
   respond_to :json
 
   def create
@@ -37,8 +38,16 @@ class PinsController < ApplicationController
 
   private
 
+  def resort_pin_order
+    if params[:order].present?
+      old_order = @pin.order
+      new_order = params[:order]
+
+    end
+  end
+
   def pin_params
-    params.require(:pin).permit(:title, :start_time, :trip_id, :address, :pin_type, :longitude, :latitude)
+    params.require(:pin).permit(:title, :start_time, :trip_id, :address, :pin_type, :longitude, :latitude, :order)
   end
 
 
