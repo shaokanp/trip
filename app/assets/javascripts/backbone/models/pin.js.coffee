@@ -9,13 +9,14 @@ class SampleApp.Models.Pin extends Backbone.Model
     transport: 'transport'
 
   defaults:
+    id: ''
     trip_id: ''
     pin_type: 'attraction'
     title: ''
     address: ''
     latitude: '120'
     longitude: '120'
-    order: 0
+    position: 0
 
 class SampleApp.Collections.PinsCollection extends Backbone.Collection
   model: SampleApp.Models.Pin

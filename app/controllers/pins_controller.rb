@@ -28,6 +28,13 @@ class PinsController < ApplicationController
     end
   end
 
+  def sort
+    params[:pin].each_with_index do |id, index|
+      Pin.update_all({position: index+1}, {id: id})
+    end
+    render nothing: true
+  end
+
   def update
     if @pin.update_attributes(pin_params)
       flash[:success] = 'Pin Updated.'
@@ -38,29 +45,8 @@ class PinsController < ApplicationController
 
   private
 
-  def resort_pin_order
-    if pin_params[:order].present?
-      old_order = @pin.order
-      new_order = pin_params[:order]
-      pins_to_change_order = []
-      adjust = 1
-      if old_order < new_order
-        # all pins whose order > old and <= new should - 1
-        adjust = -1
-        pins = @trip.pins.where([ "order > ? and order <= ?", old_order, new_order])
-      else
-        # all pins whose order between < old and >= new should + 1
-        pins = @trip.pins.where([ "order < ? and order >= ?", old_order, new_order])
-      end
-      pins.each do |_pin|
-        _pin.order += adjust
-        _pin.save
-      end
-    end
-  end
-
   def pin_params
-    params.require(:pin).permit(:title, :start_time, :trip_id, :address, :pin_type, :longitude, :latitude, :order)
+    params.require(:pin).permit(:title, :start_time, :trip_id, :address, :pin_type, :longitude, :latitude, :position)
   end
 
 
