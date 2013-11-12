@@ -28,8 +28,6 @@ describe 'TripPage', :js => true do
         expect(page).to have_selector('.new-pin-btn')
       end
 
-      it 'should have correct pin sort order (by position)'
-
     end
 
     describe 'create new pin' do
@@ -77,6 +75,12 @@ describe 'TripPage', :js => true do
         expect(page).to have_content(pin2.title)
       end
 
+    end
+
+
+    it 'should sort correctly when refresh the page' do
+      card = find('#pin-container').first('.pin-cell')
+      expect(card).to have_content(pin2.title)
     end
 
   end
