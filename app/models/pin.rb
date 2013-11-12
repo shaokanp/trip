@@ -5,6 +5,7 @@ class Pin < ActiveRecord::Base
   validates :title, presence: true, length: { maximum: 100 }
   validates :pin_type, inclusion: {in: PIN_TYPE}
   geocoded_by :address
+  acts_as_list scope: :trip
   after_validation :geocode, :if => :address_changed?
 
   before_save :default_values

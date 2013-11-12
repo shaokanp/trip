@@ -18,6 +18,7 @@ class SampleApp.Views.Pins.PinView extends Backbone.View
     )
 
     $(@el).attr('pin-type', SampleApp.Models.Pin.pinType.MEETING);
+    $(@el).attr('id', 'pin_' + @model.id);
 
   destroy: () ->
     @model.destroy(
@@ -46,7 +47,7 @@ class SampleApp.Views.Pins.PinListView extends Backbone.View
     @collection.bind('reset', @render, this)
     $(@el).sortable(
       update: ->
-
+        $.post($(this).data('update-url'), $(this).sortable('serialize'))
     )
 
   render: ->
