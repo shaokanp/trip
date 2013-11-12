@@ -10,13 +10,19 @@
   </head>
   <body>
       <%= render 'layouts/header' %>
-      <!--<div class="container">-->
+      <%= if params[:controller] == 'trips' && params[:action] == 'show' then ''
+          else raw('<div class="container">')
+          end
+      %>
         <% flash.each do |key, value| %>
             <%= content_tag(:div, value, class: "alert alert-#{key}") %>
         <% end %>
         <%= yield %>
         <%= render 'layouts/footer' %>
         <%= debug(params) if Rails.env.development? %>
-      <!--</div>-->
+        <%= if params[:controller] == 'trips' && params[:action] == 'show' then ''
+           else raw('</div>')
+           end
+        %>
   </body>
 </html>
