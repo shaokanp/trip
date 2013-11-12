@@ -17,7 +17,6 @@ class SampleApp.Models.Pin extends Backbone.Model
     longitude: '120'
     order: 0
 
-
 class SampleApp.Collections.PinsCollection extends Backbone.Collection
   model: SampleApp.Models.Pin
   url: '/pins'
