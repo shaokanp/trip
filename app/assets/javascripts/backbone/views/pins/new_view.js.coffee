@@ -23,6 +23,8 @@ class SampleApp.Views.Pins.NewView extends Backbone.View
     @model.unset("errors")
     @model.set('trip_id', @trip.id)
 
+
+
     @collection.create(@model.toJSON(),
       wait: true
       success: (pin) =>
