@@ -9,7 +9,6 @@ class SampleApp.Models.Pin extends Backbone.Model
     transport: 'transport'
 
   defaults:
-    id: ''
     trip_id: ''
     pin_type: 'attraction'
     title: ''
