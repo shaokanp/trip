@@ -37,7 +37,7 @@ class SampleApp.Routers.TripsRouter extends Backbone.Router
       trip: @trip,
       collection: @trip.pins
     )
-    $("body").append(@view.render().el)
+    $("#pin-info-container").html(@view.render().el)
 
   editPin: (id) ->
     @view = new SampleApp.Views.Pins.NewView(

@@ -6,7 +6,7 @@ describe Pin do
   let!(:trip) { FactoryGirl.create(:trip, user: user, title: "Foo") }
 
   before do
-    @pin = trip.pins.build(title: 'A Pin !', pin_type: Pin::PIN_DINING, order: 0)
+    @pin = trip.pins.build(title: 'A Pin !', pin_type: Pin::PIN_DINING)
   end
 
   subject{ @pin }
@@ -16,7 +16,7 @@ describe Pin do
   it { should respond_to :trip_id }
   it { should respond_to :start_time }
   it { should respond_to :pin_type }
-  it { should respond_to :order }
+  it { should respond_to :position }
   its(:trip) { should eq trip }
 
   it { should be_valid }

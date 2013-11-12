@@ -15,6 +15,7 @@ class SampleApp.Models.Pin extends Backbone.Model
     address: ''
     latitude: '120'
     longitude: '120'
+    order: 0
 
 class SampleApp.Collections.PinsCollection extends Backbone.Collection
   model: SampleApp.Models.Pin

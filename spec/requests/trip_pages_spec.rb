@@ -7,8 +7,8 @@ describe 'TripPage', :js => true do
   let(:user) { FactoryGirl.create(:user) }
   let(:other_user) { FactoryGirl.create(:user) }
   let!(:trip) { FactoryGirl.create(:trip, user: user, title: 'Trip') }
-  let!(:pin1) { FactoryGirl.create(:pin, trip: trip, title: 'Pin1', pin_type: 'attraction', order: 1, start_time: 1.hour.ago, address: 'Statue of Liberty') }
-  let!(:pin2) { FactoryGirl.create(:pin, trip: trip, title: 'Pin2', pin_type: 'attraction', order: 0, start_time: 1.day.ago, address: 'Lincoln Center') }
+  let!(:pin1) { FactoryGirl.create(:pin, trip: trip, title: 'Pin1', pin_type: 'attraction', start_time: 1.hour.ago, address: 'Statue of Liberty') }
+  let!(:pin2) { FactoryGirl.create(:pin, trip: trip, title: 'Pin2', pin_type: 'attraction', start_time: 1.day.ago, address: 'Lincoln Center') }
 
   before do
     sign_in user
@@ -27,6 +27,8 @@ describe 'TripPage', :js => true do
       it 'should have a button to create pin' do
         expect(page).to have_selector('.new-pin-btn')
       end
+
+      it 'should have correct pin sort order (by position)'
 
     end
 

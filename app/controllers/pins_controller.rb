@@ -39,10 +39,23 @@ class PinsController < ApplicationController
   private
 
   def resort_pin_order
-    if params[:order].present?
+    if pin_params[:order].present?
       old_order = @pin.order
-      new_order = params[:order]
-
+      new_order = pin_params[:order]
+      pins_to_change_order = []
+      adjust = 1
+      if old_order < new_order
+        # all pins whose order > old and <= new should - 1
+        adjust = -1
+        pins = @trip.pins.where([ "order > ? and order <= ?", old_order, new_order])
+      else
+        # all pins whose order between < old and >= new should + 1
+        pins = @trip.pins.where([ "order < ? and order >= ?", old_order, new_order])
+      end
+      pins.each do |_pin|
+        _pin.order += adjust
+        _pin.save
+      end
     end
   end
 
