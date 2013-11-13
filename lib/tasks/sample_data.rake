@@ -22,8 +22,7 @@ namespace :db do
       Pin.create!(title: title,
                   pin_type: 'attraction',
                   address: 'Taipei 101',
-                  trip_id: 1,
-                  order: n)
+                  trip_id: 1)
     end
   end
 end
