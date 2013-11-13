@@ -8,6 +8,7 @@ class UsersController < ApplicationController
     @users = User.paginate(page: params[:page])
   end
 
+
   def show
     @user = User.find(params[:id])
     @trips = @user.trips.all
@@ -17,6 +18,13 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  api :POST, '/users', 'Create a new user.'
+  param :user, Hash, required: true, desc: 'Register fields' do
+    param :name, String, required: true, desc: 'The user name of this user.'
+    param :email, String, required: true, desc: 'The email been typed in.'
+    param :password, String, required: true, desc: 'The password been chosen.'
+    param :password_confirmation, String, required: true, desc: 'The password confirmation.'
+  end
   def create
     @user = User.new(user_params)
     if @user.save

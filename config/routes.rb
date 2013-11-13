@@ -1,5 +1,6 @@
 SampleApp::Application.routes.draw do
 
+  apipie
   get "trips/create"
   get "trips/destroy"
   resources :users
