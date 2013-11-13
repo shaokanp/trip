@@ -4,6 +4,12 @@ class PinsController < ApplicationController
   before_action :resort_pin_order, only:[:update]
   respond_to :json
 
+  api :POST, '/pins', 'Create a new pin.'
+  param :pin, Hash, required: true, desc: 'The pin to create.' do
+    param :title, String, required: true, desc: 'The title of this pin.'
+    param :address, String, required: true, desc: 'The address of this pin.'
+    param :start_time, String, desc: 'The start time of this pin.'
+  end
   def create
     @trip = Trip.find(params[:pin][:trip_id])
     @pin = @trip.pins.build(pin_params)
@@ -15,11 +21,15 @@ class PinsController < ApplicationController
     end
   end
 
+  api :GET, '/pins/:id', 'Get a specified pin.'
+  param :id, String, required: true, desc: 'The numeric id of the desired pin.'
   def show
     @pin = Pin.find(params[:id])
     render json: @pin
   end
 
+  api :Delete, '/pins/:id', 'Delete a pin.'
+  param :id, String, required: true
   def destroy
     @pin.destroy
     flash[:success] = 'Pin destroyed.'
@@ -28,6 +38,10 @@ class PinsController < ApplicationController
     end
   end
 
+  # resort the pins
+  api :POST, '/pins/sort', "Update the pin's order."
+  example "'pin' : [1,4,3,2,5]"
+  param :pin, Array, required: true, desc: 'The new id order in an array format.'
   def sort
     params[:pin].each_with_index do |id, index|
       Pin.update_all({position: index+1}, {id: id})
@@ -51,7 +65,6 @@ class PinsController < ApplicationController
 
 
   def correct_user
-
     @pin = Pin.find(params[:id])
     @trip = @pin.trip
     unless @trip.user_id == current_user.id

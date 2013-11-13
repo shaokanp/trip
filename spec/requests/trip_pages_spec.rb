@@ -53,7 +53,7 @@ describe 'TripPage', :js => true do
 
       it 'should delete pin correctly' do
         find('#pin-container').first('.pin-cell .destroy').click
-        expect(page).not_to have_content(pin2.title)
+        expect(page).not_to have_content(pin1.title)
       end
 
     end
