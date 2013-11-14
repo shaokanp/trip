@@ -13,6 +13,8 @@ class SampleApp.Models.Pin extends Backbone.Model
     pin_type: 'attraction'
     title: ''
     address: ''
+    start_time: ''
+    end_time: ''
     latitude: '120'
     longitude: '120'
     position: 0

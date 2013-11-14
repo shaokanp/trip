@@ -26,6 +26,7 @@ class TripsController < ApplicationController
 
   api :GET, '/trips/:id', 'Get the trip with specified id.'
   param :id, String, desc: 'The numeric id of desired trip.'
+  example '{"id":1,"title":"a trip","user_id":1,"created_at":"2013-11-12T13:56:22.169Z","updated_at":"2013-11-12T13:56:22.169Z"}'
   def show
     @trip = Trip.find(params[:id])
     respond_to do |format|
