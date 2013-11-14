@@ -28,6 +28,10 @@ class TripsController < ApplicationController
   param :id, String, desc: 'The numeric id of desired trip.'
   def show
     @trip = Trip.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.json { render json: @trip }
+    end
   end
 
   def destroy
