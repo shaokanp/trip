@@ -1,6 +1,6 @@
 SampleApp.Views.Pins ||= {}
 
-class SampleApp.Views.Pins.NewView extends Backbone.View
+class SampleApp.Views.Pins.EditView extends Backbone.View
   template: JST["backbone/templates/pins/info_form/info_form"]
 
   events:
@@ -14,17 +14,15 @@ class SampleApp.Views.Pins.NewView extends Backbone.View
   constructor: (options) ->
     super(options)
     @trip = @options.trip;
-    @model = new SampleApp.Models.Pin()
-    @model.set('pin_type', options.type)
 
   save: (e) ->
     e.preventDefault()
     e.stopPropagation()
 
     @model.unset("errors")
-    @model.set('trip_id', @trip.id)
 
-    @collection.create(@model.toJSON(),
+    @model.save({},
+      patch: true
       wait: true
       success: (pin) =>
         window.location.hash = ''

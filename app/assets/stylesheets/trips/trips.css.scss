@@ -9,18 +9,23 @@ ul{
   pointer-events: none;
   position: absolute;
   height: 100%;
+  width: 100%;
   top:$body-padding-top;
   left:0;
 }
 
 #right-container{
-  position: relative;
+  position:relative;
+  margin-left: 0px;
 }
 
 #pin-panel{
+  padding-top: 10px;
   pointer-events: all;
   background-color: rgba(255,255,255,$overlay-alpha);
+  background-repeat: no-repeat;
   height:100%;
+  float:left;
 }
 
 .blur-effect{
@@ -88,22 +93,6 @@ ul{
     left:50%;
     margin-left: -15px;
     margin-top: -15px;
-
-    [pin-type="attraction"]{
-      background-image: url("images/attraction.png");
-    }
-    [pin-type="meeting"]{
-      background-image: url("");
-    }
-    [pin-type="accommodation"]{
-      background-image: url("");
-    }
-    [pin-type="dining"]{
-      background-image: url("");
-    }
-    [pin-type="transport"]{
-      background-image: url("");
-    }
   }
 
   .pin-icon-div{
@@ -120,6 +109,29 @@ ul{
   }
 }
 
+.new-pin-btn{
+  width: 30px;
+  height: 30px;
+  background-size: contain;
+  cursor: pointer;
+}
+
+.new-pin-btn[pin-type="attraction"]{
+  background-image: image-url("attraction_icon.png");
+}
+.new-pin-btn[pin-type="meeting"]{
+  background-image: image-url("meeting_icon.png");
+}
+.new-pin-btn[pin-type="accommodation"]{
+  background-image: image-url("accomondation_icon.png");
+}
+.new-pin-btn[pin-type="dinning"]{
+  background-image: image-url("dinning_icon.png");
+}
+.new-pin-btn[pin-type="transport"]{
+  background-image: image-url("transport_icon.png");
+}
+
 #pin-info-container{
   pointer-events: all;
   position:absolute;
@@ -127,13 +139,14 @@ ul{
   left:0;
   height: 100px;
   width: 100%;
-  background-color: rgba(255,255,255,$overlay-alpha);
+  //background-color: rgba(255,255,255,$overlay-alpha);
 
 }
 
 html{
   height: 100%;
 }
+
 body{
   padding-top: $body-padding-top;
   height: 100%;

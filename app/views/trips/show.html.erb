@@ -14,20 +14,20 @@
 
 </div>
 
-<div id="overlay-container" class="row">
-  <div id="pin-panel" class="span4">
+<div id="overlay-container" class="row-fluid no-space">
+  <div id="pin-panel" class="span3">
     <ul id="new-pin-btn-container">
-      <li class="new-pin-btn"><a href="#newpin">Attraction</a></li>
-      <li class="new-pin-btn"><a href="#newpin">Meeting</a></li>
-      <li class="new-pin-btn"><a href="#newpin">Meal</a></li>
-      <li class="new-pin-btn"><a href="#newpin">Hotel</a></li>
-      <li class="new-pin-btn"><a href="#newpin">Transport</a></li>
+      <li class="new-pin-btn" pin-type="attraction"><a href="#newpin"></a></li>
+      <li class="new-pin-btn" pin-type="transport"><a href="#newpin"></a></li>
+      <li class="new-pin-btn" pin-type="dinning"><a href="#newpin"></a></li>
+      <li class="new-pin-btn" pin-type="accommodation"><a href="#newpin"></a></li>
+      <li class="new-pin-btn" pin-type="meeting"><a href="#newpin"></a></li>
     </ul>
     <ul id="pin-container" data-update-url="<%= sort_pins_url %>">
 
     </ul>
   </div>
-  <div id="right-container" class="span8 fill">
+  <div id="right-container" class="span9 fill">
 
     <div id="pin-info-container" class=""></div>
   </div>

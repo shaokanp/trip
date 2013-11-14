@@ -42,16 +42,19 @@ class SampleApp.Views.Pins.PinView extends Backbone.View
 
 class SampleApp.Views.Pins.PinListView extends Backbone.View
 
+  events:
+    "click .new-pin-btn": "newPin"
+
   initialize: (options) ->
     @collection.bind('add', @addPin, this)
     @collection.bind('reset', @render, this)
-    $(@el).sortable(
+    $(@el).children('#pin-container').sortable(
       update: ->
         $.post($(this).data('update-url'), $(this).sortable('serialize'))
     )
 
   render: ->
-    $(@el).html('')
+    $(@el).children('#pin-container').html('')
     self = this
     _.each(@collection.models, (pin) ->
        self.addPin(pin)
@@ -59,4 +62,7 @@ class SampleApp.Views.Pins.PinListView extends Backbone.View
     return this
 
   addPin: (pin) ->
-    $(@el).append(new SampleApp.Views.Pins.PinView(model: pin).render().el)
+    $(@el).children('#pin-container').append(new SampleApp.Views.Pins.PinView(model: pin).render().el)
+
+  newPin: (e) ->
+    window.location.hash = 'newpin/'+$(e.target).attr('pin-type')
