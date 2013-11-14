@@ -1,5 +1,5 @@
 class TripsController < ApplicationController
-  before_action :signed_in_user
+  before_action :signed_in_user, except:[:show]
   before_action :correct_user, only:[:destroy]
 
   api :POST, '/trips', 'Create a new trip.'

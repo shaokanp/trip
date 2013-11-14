@@ -6,8 +6,8 @@ class SessionsController < ApplicationController
   param :session, Hash, required: true, desc: 'The session object' do
     param :email, String, required: true
     param :password, String, required: true
-    formats ['json', 'html']
   end
+  formats ['json', 'html']
   def create
     user = User.find_by_email(params[:session][:email])
     if user && user.authenticate(params[:session][:password])
