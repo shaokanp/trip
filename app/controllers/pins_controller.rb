@@ -17,6 +17,10 @@ class PinsController < ApplicationController
       respond_to do |format|
         format.json { render json: @pin }
       end
+    else
+      respond_to do |format|
+        format.json { render @pin.errors }
+      end
     end
   end
 

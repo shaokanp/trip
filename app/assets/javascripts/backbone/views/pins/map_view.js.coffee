@@ -15,23 +15,13 @@ class SampleApp.Views.Pins.MapView extends Backbone.View
 
       # Make the following global variables
     map = null
-    infowindow = null
-    request = null
-    icons = null
-    specific_icon = null
-    marker = null
-    markers = null
-    value = null
-    collection = null
-    getTypes = null
-    place = null
-    pois = null
     pins = @pins
+    self = this
     init = () ->
       # Setup map options
       mapOptions =
 
-        center: new google.maps.LatLng(40.6892494, -74.04450039999999)
+        center: new google.maps.LatLng(23, 121)
         zoom: 11
         disableDefaultUI: true
         mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -41,25 +31,29 @@ class SampleApp.Views.Pins.MapView extends Backbone.View
           mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
 
       # Create the map with above options in div
-      map = new google.maps.Map(document.getElementById("map"),mapOptions)
+      self.map = new google.maps.Map(document.getElementById("map"),mapOptions)
 
+      bounds = new google.maps.LatLngBounds
 
-      console.log(pins)
       _.each(pins.models, (pin) ->
-        marker = new google.maps.Marker
-        animation: google.maps.Animation.DROP
-        position: new google.maps.LatLng(40.6892494, -74.04450039999999)#pin.get('latitude'), pin.get('longitude'))
-
+        bounds.extend(new google.maps.LatLng(pin.get('latitude'), pin.get('longitude')))
+        self.addPinToMap(pin)
       )
 
+      self.map.fitBounds(bounds)
 
     init()
 
-
-
-
     return this
 
+  addPinToMap: (pin) ->
+    marker = new google.maps.Marker
+      animation: google.maps.Animation.DROP
+      position: new google.maps.LatLng(pin.get('latitude'), pin.get('longitude'))
+      map: @map
+
   addPin: (pin) ->
+    console.log(pin)
+    @addPinToMap(pin)
 
   removePin: (pin) ->
