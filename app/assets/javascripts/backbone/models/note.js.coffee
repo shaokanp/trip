@@ -1,4 +1,4 @@
-class SampleApp.Models.Note extends Backbone.RelationalModel
+class SampleApp.Models.Note extends Backbone.Model
   paramRoot: 'note'
 
   @pinType:
@@ -10,9 +10,8 @@ class SampleApp.Models.Note extends Backbone.RelationalModel
 
   defaults:
     pin_id: ''
+    title: ''
     content: '' #html
-    created_time: ''
-    updated_time: ''
 
 class SampleApp.Collections.NotesCollection extends Backbone.Collection
   model: SampleApp.Models.Note
