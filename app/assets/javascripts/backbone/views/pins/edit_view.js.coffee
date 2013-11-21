@@ -13,14 +13,15 @@ class SampleApp.Views.Pins.EditView extends Backbone.View
 
   constructor: (options) ->
     super(options)
-    @trip = @options.trip;
+    @trip = options.trip;
+    @model.bind("destroy", "delete", this)
 
   save: (e) ->
     e.preventDefault()
     e.stopPropagation()
 
     @model.unset("errors")
-
+    console.log(@model.changedAttributes())
     @model.save({},
       patch: true
       wait: true
@@ -36,3 +37,6 @@ class SampleApp.Views.Pins.EditView extends Backbone.View
     this.$("#pin-info-form").backboneLink(@model)
 
     return this
+
+  delete: ->
+    @remove()

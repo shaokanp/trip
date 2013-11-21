@@ -13,7 +13,7 @@ class SampleApp.Views.Pins.NewView extends Backbone.View
 
   constructor: (options) ->
     super(options)
-    @trip = @options.trip;
+    @trip = options.trip;
     @model = new SampleApp.Models.Pin()
     @model.set('pin_type', options.type)
 

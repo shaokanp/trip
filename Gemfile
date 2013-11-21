@@ -16,6 +16,7 @@ gem 'jquery-ui-rails'
 gem 'jquery-ui-themes'
 gem 'acts_as_list'
 gem 'apipie-rails'
+gem 'backbone-relational-rails'
 
 group :development, :test do
   gem 'sqlite3', '1.3.7'

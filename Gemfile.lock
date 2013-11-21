@@ -37,6 +37,8 @@ GEM
       rails (>= 3.0.10)
     arel (4.0.0)
     atomic (1.1.14)
+    backbone-relational-rails (0.8.6)
+      railties (>= 3.1)
     bcrypt-ruby (3.0.1)
     better_errors (1.0.1)
       coderay (>= 1.0.0)
@@ -243,6 +245,7 @@ PLATFORMS
 DEPENDENCIES
   acts_as_list
   apipie-rails
+  backbone-relational-rails
   bcrypt-ruby (= 3.0.1)
   better_errors
   bootstrap-sass (= 2.3.2.0)

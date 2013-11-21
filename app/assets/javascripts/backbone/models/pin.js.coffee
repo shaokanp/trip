@@ -1,4 +1,4 @@
-class SampleApp.Models.Pin extends Backbone.Model
+class SampleApp.Models.Pin extends Backbone.RelationalModel
   paramRoot: 'pin'
 
   @pinType:
@@ -13,9 +13,21 @@ class SampleApp.Models.Pin extends Backbone.Model
     pin_type: 'attraction'
     title: ''
     address: ''
+    start_time: ''
+    end_time: ''
     latitude: '120'
     longitude: '120'
     position: 0
+
+  relations: [
+    type: Backbone.HasMany
+    key: 'notes'
+    relatedModel: 'SampleApp.Models.Note'
+    collectionType: 'SampleApp.Collections.NotesCollection'
+    reverseRelation:
+      key: 'pin'
+      includeInJSON: 'pin_id'
+  ]
 
 class SampleApp.Collections.PinsCollection extends Backbone.Collection
   model: SampleApp.Models.Pin
