@@ -48,15 +48,15 @@ class SampleApp.Views.Pins.MapView extends Backbone.View
 
   addPinToMap: (pin) ->
     marker = new google.maps.Marker
-      animation: google.maps.Animation.DROP
+      #animation: google.maps.Animation.DROP
       position: new google.maps.LatLng(pin.get('latitude'), pin.get('longitude'))
       map: @map
       pin: pin
       #draggable: true
-      google.maps.event.addListener(marker, 'click', function() {
-      map.setZoom(8);
-        map.setCenter(marker.getPosition());
-      });
+    google.maps.event.addListener marker, 'click', ->
+      infowindow = new google.maps.InfoWindow
+      infowindow.setContent(pin.get('title'))
+      infowindow.open(@map, @)
     pin.marker = marker
 
   addPin: (pin) ->
