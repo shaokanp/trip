@@ -6,8 +6,8 @@ class SampleApp.Views.Pins.MapView extends Backbone.View
   constructor: (options) ->
     super(options)
     @pins = options.pins
-    @pins.bind("add", @addPin)
-    @pins.bind("remove", @removePin)
+    @pins.bind("add", @addPin, this)
+    @pins.bind("remove", @removePin, this)
 
   render: ->
     console.log(@pins)
@@ -53,7 +53,7 @@ class SampleApp.Views.Pins.MapView extends Backbone.View
       map: @map
 
   addPin: (pin) ->
-    console.log(pin)
     @addPinToMap(pin)
+    @map.center = new google.maps.LatLng(pin.get('latitude'), pin.get('longitude'))
 
   removePin: (pin) ->

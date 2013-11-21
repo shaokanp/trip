@@ -33,7 +33,7 @@ describe 'TripPage', :js => true do
     describe 'create new pin' do
 
       before do
-        find('#new-pin-btn-container').first('.new-pin-btn a').click
+        find('#new-pin-btn-container').first('.new-pin-btn').click
       end
 
       it 'should have pin info form popup' do
@@ -75,12 +75,6 @@ describe 'TripPage', :js => true do
         expect(page).to have_content(pin2.title)
       end
 
-    end
-
-
-    it 'should sort correctly when refresh the page' do
-      card = find('#pin-container').first('.pin-cell')
-      expect(card).to have_content(pin2.title)
     end
 
   end
