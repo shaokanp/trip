@@ -15,6 +15,7 @@ describe Pin do
   it { should respond_to :trip }
   it { should respond_to :trip_id }
   it { should respond_to :start_time }
+  it { should respond_to :end_time }
   it { should respond_to :pin_type }
   it { should respond_to :position }
   its(:trip) { should eq trip }

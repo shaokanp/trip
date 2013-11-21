@@ -51,9 +51,18 @@ class SampleApp.Views.Pins.MapView extends Backbone.View
       animation: google.maps.Animation.DROP
       position: new google.maps.LatLng(pin.get('latitude'), pin.get('longitude'))
       map: @map
+      pin: pin
+      #draggable: true
+      google.maps.event.addListener(marker, 'click', function() {
+      map.setZoom(8);
+        map.setCenter(marker.getPosition());
+      });
+    pin.marker = marker
 
   addPin: (pin) ->
     @addPinToMap(pin)
-    @map.center = new google.maps.LatLng(pin.get('latitude'), pin.get('longitude'))
+    @map.setCenter (new google.maps.LatLng(pin.get('latitude'), pin.get('longitude')))
 
   removePin: (pin) ->
+    pin.marker.setMap(null)
+    pin.marker = null
