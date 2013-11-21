@@ -1,7 +1,6 @@
 class PinsController < ApplicationController
   before_action :signed_in_user
   before_action :correct_user, only:[:update, :destroy]
-  before_action :resort_pin_order, only:[:update]
   respond_to :json
 
   api :POST, '/pins', 'Create a new pin.'
@@ -17,6 +16,10 @@ class PinsController < ApplicationController
       flash[:success] = 'Pin created !'
       respond_to do |format|
         format.json { render json: @pin }
+      end
+    else
+      respond_to do |format|
+        format.json { render @pin.errors }
       end
     end
   end
@@ -49,11 +52,24 @@ class PinsController < ApplicationController
     render nothing: true
   end
 
+  api :PATCH, '/pin/:id', 'Update a pin.'
+  param :id, String, required: true, desc: 'The numeric id of the pin to update.'
+  param :pin, Hash, required: true, desc: 'The pin object that want to be update.' do
+    param :title, String, desc: 'The title of this pin.'
+    param :address, String, desc: 'The address of this pin.'
+    param :start_time, String, desc: 'The start time of this pin.'
+  end
   def update
     if @pin.update_attributes(pin_params)
-      flash[:success] = 'Pin Updated.'
+      respond_to do |format|
+        format.html
+        format.json { render nothing: true, status: 200 }
+      end
     else
-      flash[:error] = 'Failed.'
+      respond_to do |format|
+        format.html
+        format.json { render nothing: true, status: 400 }
+      end
     end
   end
 

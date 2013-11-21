@@ -28,4 +28,9 @@ FactoryGirl.define do
 
   end
 
+  factory :note do
+    title 'A note'
+    pin
+  end
+
 end
