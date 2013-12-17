@@ -23,7 +23,6 @@ class SessionsController < ApplicationController
         format.html { render 'new' }
         format.json { render status: 403 }
       end
-      render 'new'
     end
   end
 

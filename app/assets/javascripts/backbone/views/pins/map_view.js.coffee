@@ -8,61 +8,93 @@ class SampleApp.Views.Pins.MapView extends Backbone.View
     @pins = options.pins
     @pins.bind("add", @addPin, this)
     @pins.bind("remove", @removePin, this)
+    @pins.bind("change:move_origin", @updatePinPos, this)
 
   render: ->
-    console.log(@pins)
-    jQuery ($) ->
 
-      # Make the following global variables
-    map = null
+    # Make the following global variables
     pins = @pins
-    self = this
-    init = () ->
-      # Setup map options
-      mapOptions =
+    @coordinates = new Array
+    self = @
 
-        center: new google.maps.LatLng(23, 121)
-        zoom: 11
-        disableDefaultUI: true
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-        zoomControlOptions:
-          style: google.maps.ZoomControlStyle.SMALL
-        mapTypeControlOptions:
-          mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+    # Setup map options
+    mapOptions =
 
-      # Create the map with above options in div
-      self.map = new google.maps.Map(document.getElementById("map"),mapOptions)
+      center: new google.maps.LatLng(23, 121)
+      zoom: 11
+      disableDefaultUI: true
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+      zoomControlOptions:
+        style: google.maps.ZoomControlStyle.SMALL
+      mapTypeControlOptions:
+        mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
 
-      bounds = new google.maps.LatLngBounds
+    # Create the map with above options in div
+    @map = new google.maps.Map(document.getElementById("map"),mapOptions)
 
-      _.each(pins.models, (pin) ->
-        bounds.extend(new google.maps.LatLng(pin.get('latitude'), pin.get('longitude')))
-        self.addPinToMap(pin)
-      )
+    bounds = new google.maps.LatLngBounds
 
-      self.map.fitBounds(bounds)
+    # new an array consisting each pin's coordinates
 
-    init()
+    @linePath = new google.maps.Polyline
+      path: @coordinates,
+      geodesic: true,
+      strokeColor: '#FF0000',
+      strokeOpacity: 1.0,
+      strokeWeight: 2
+      map: @map
+
+    _.each(pins.models, (pin) ->
+      newLatLng = new google.maps.LatLng(pin.get('latitude'), pin.get('longitude'))
+      bounds.extend(newLatLng)
+      self.addPinToMap(pin)
+    )
+    @map.fitBounds(bounds)
 
     return this
 
   addPinToMap: (pin) ->
     marker = new google.maps.Marker
-      #animation: google.maps.Animation.DROP
+      animation: google.maps.Animation.DROP
       position: new google.maps.LatLng(pin.get('latitude'), pin.get('longitude'))
       map: @map
       pin: pin
-      #draggable: true
+      title: pin.get('title')
+
+    # set info window
+    @infowindow = new google.maps.InfoWindow
+      content: "Test Content"
+    self = @
     google.maps.event.addListener marker, 'click', ->
-      infowindow = new google.maps.InfoWindow
-      infowindow.setContent(pin.get('title'))
-      infowindow.open(@map, @)
+      self.infowindow.close()
+      self.infowindow.open(@map, marker)
+
     pin.marker = marker
+    @coordinates.push(marker.position)
+    @linePath.setPath(@coordinates)
 
   addPin: (pin) ->
     @addPinToMap(pin)
     @map.setCenter (new google.maps.LatLng(pin.get('latitude'), pin.get('longitude')))
 
   removePin: (pin) ->
+    idx = @coordinates.indexOf(pin.marker.position)
     pin.marker.setMap(null)
     pin.marker = null
+    @coordinates.splice(idx, 1)
+    @linePath.setPath(@coordinates)
+
+  updatePinPos: (pin) ->
+    if pin.get('move_origin') == -1
+      return
+    old_idx = pin.get('move_origin')
+    new_idx = pin.get('move_dest')
+    # remove the coordinate from old position
+    # and insert into the new position
+    tmp = @coordinates.splice(old_idx,1)
+    @coordinates.splice(new_idx,0,tmp[0])
+    @linePath.setPath(@coordinates)
+    # reset the attributes to -1
+    pin.set('move_origin',-1)
+    pin.set('move_dest',-1)
+

@@ -47,9 +47,19 @@ class SampleApp.Views.Pins.PinListView extends Backbone.View
   initialize: (options) ->
     @collection.bind('add', @addPin, this)
     @collection.bind('reset', @render, this)
+    self = @
     $(@el).children('#pin-container').sortable(
-      update: ->
+      start: (event, ui) ->
+        $(this).attr('data-previndex', ui.item.index())
+      update: (event, ui) ->
         $.post($(this).data('update-url'), $(this).sortable('serialize'))
+        target_id = ui.item.attr('id').replace("pin_", "")
+        new_idx = ui.item.index()
+        old_idx = $(this).attr('data-previndex')
+        self.collection.get(target_id).set(
+          move_origin: old_idx
+          move_dest: new_idx
+        )
     )
 
   render: ->

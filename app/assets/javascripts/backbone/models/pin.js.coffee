@@ -20,6 +20,8 @@ class SampleApp.Models.Pin extends Backbone.Model
     latitude: '120'
     longitude: '120'
     position: 0
+    move_origin: -1
+    move_dest: -1
 
 #  relations: [
 #    type: Backbone.HasMany
