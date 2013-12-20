@@ -1,15 +1,17 @@
 SampleApp.Views.Pins ||= {}
 
-class SampleApp.Views.Pins.EditView extends Backbone.View
-  template: JST["backbone/templates/pins/info_form/info_form"]
+class SampleApp.Views.Pins.InfoView extends Backbone.View
+  template: JST["backbone/templates/pins/info_form/show"]
 
   events:
-    "click #submit-new-pin-btn": "save"
+    "click #save-pin-btn": "save"
 
   tagName: 'div'
 
   attributes:
-    id: 'pin-info-form-container'
+    id: 'pin-info-container'
+
+  mode: 'display' #display mode and edit mode
 
   constructor: (options) ->
     super(options)
