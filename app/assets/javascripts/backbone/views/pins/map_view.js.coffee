@@ -59,14 +59,13 @@ class SampleApp.Views.Pins.MapView extends Backbone.View
       position: new google.maps.LatLng(pin.get('latitude'), pin.get('longitude'))
       map: @map
       pin: pin
-      title: pin.get('title')
 
     # set info window
     @infowindow = new google.maps.InfoWindow
-      content: "Test Content"
     self = @
     google.maps.event.addListener marker, 'click', ->
       self.infowindow.close()
+      self.infowindow.setContent(marker.pin.get('title'))
       self.infowindow.open(@map, marker)
 
     pin.marker = marker

@@ -84,8 +84,8 @@ class PinsController < ApplicationController
     @pin = Pin.find(params[:id])
     @trip = @pin.trip
     unless @trip.user_id == current_user.id
-      flash[:error] = 'Sorry, you do not have the permission to do that.'
-      head :forbidden
+    flash[:error] = 'Sorry, you do not have the permission to do that.'
+    head :forbidden
     end
   end
 

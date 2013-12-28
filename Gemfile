@@ -18,6 +18,12 @@ gem 'acts_as_list'
 gem 'apipie-rails'
 gem 'backbone-relational-rails'
 
+gem 'simplecov', :require => false, :group => :test
+
+group :development do
+  gem 'rails-erd'
+end
+
 group :development, :test do
   gem 'sqlite3', '1.3.7'
   gem 'rspec-rails', '2.13.1'
