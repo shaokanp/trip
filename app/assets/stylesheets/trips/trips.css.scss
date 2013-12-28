@@ -15,7 +15,6 @@ ul{
 }
 
 #right-container{
-  position:relative;
   margin-left: 0px;
 }
 
@@ -134,12 +133,16 @@ ul{
 
 #pin-info-container{
   pointer-events: all;
-  position:absolute;
-  top:0;
-  left:0;
   height: 100px;
-  width: 100%;
-  //background-color: rgba(255,255,255,$overlay-alpha);
+  margin: 15px 20px 10px 20px;
+  background-color: rgba(255,255,255,$overlay-alpha);
+}
+
+#pin-content-container{
+  pointer-events: all;
+}
+
+.editing{
 
 }
 
