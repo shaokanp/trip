@@ -1,5 +1,6 @@
 class SampleApp.Models.Pin extends Backbone.Model
   paramRoot: 'pin'
+  url: '/pins'
 
   @pinType:
     attraction: 'attraction'
@@ -34,7 +35,7 @@ class SampleApp.Models.Pin extends Backbone.Model
 #  ]
 
   initialize: ->
-    @pins = new SampleApp.Collections.PinsCollection();
+    @notes = new SampleApp.Collections.NotesCollection()
 
 class SampleApp.Collections.PinsCollection extends Backbone.Collection
   model: SampleApp.Models.Pin
