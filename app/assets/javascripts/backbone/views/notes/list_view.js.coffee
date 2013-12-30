@@ -1,7 +1,7 @@
 SampleApp.Views.Notes ||= {}
 
 class SampleApp.Views.Notes.NoteListView extends Backbone.View
-  #template: JST["backbone/templates/notes/list"]
+  template: JST["backbone/templates/notes/list"]
 
   events:
     "click #add-new-note-btn": "newNote"
@@ -31,7 +31,7 @@ class SampleApp.Views.Notes.NoteListView extends Backbone.View
   onNoteRemoved: (note) ->
 
   render: ->
-    #$(@el).html(@template())
+    $(@el).html(@template())
     _.each(@collection, (note) ->
       @appendNote(note)
     )
@@ -39,13 +39,13 @@ class SampleApp.Views.Notes.NoteListView extends Backbone.View
     return this
 
   appendNote: (note) ->
-    $(@el).append(new SampleApp.Views.Notes.ShowView(
+    $($(@el).children(":last-child")).append(new SampleApp.Views.Notes.ShowView(
       pin: @pin
       model: note
     ).render().el)
 
   prependNote: (note) ->
-    $(@el).prepend(new SampleApp.Views.Notes.ShowView(
+    $($(@el).children(":last-child")).prepend(new SampleApp.Views.Notes.ShowView(
       pin: @pin
       model: note
     ).render().el)
