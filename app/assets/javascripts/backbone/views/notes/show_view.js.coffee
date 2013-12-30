@@ -5,7 +5,6 @@ class SampleApp.Views.Notes.ShowView extends Backbone.View
 
   events:
     "click #save-note-btn": "save"
-    "click #add-new-note-btn": "newNote"
 
   tagName: 'div'
 
@@ -24,12 +23,12 @@ class SampleApp.Views.Notes.ShowView extends Backbone.View
     e.stopPropagation()
 
     @model.unset("errors")
-    @model.set('trip_id', @trip.id)
+    @model.set('pin_id', @pin.id)
 
     @collection.create(@model.toJSON(),
       wait: true
-      success: (pin) =>
-        window.location.hash = ''
+      success: (note) =>
+
       error: (pin, jqXHR) =>
         @model.set(errors: $.parseJSON(jqXHR.responseText))
     )
@@ -44,6 +43,7 @@ class SampleApp.Views.Notes.ShowView extends Backbone.View
     @remove()
 
   render: ->
-    #$(@el).html(@template())
+    $(@el).html(@template(@model.toJSON()))
+
 
     return this

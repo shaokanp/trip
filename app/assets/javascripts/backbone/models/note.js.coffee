@@ -10,7 +10,7 @@ class SampleApp.Models.Note extends Backbone.Model
 
   defaults:
     pin_id: ''
-    title: ''
+    #title: ''
     content: '' #html
 
 class SampleApp.Collections.NotesCollection extends Backbone.Collection
