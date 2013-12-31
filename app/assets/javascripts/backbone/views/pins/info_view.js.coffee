@@ -42,7 +42,6 @@ class SampleApp.Views.Pins.InfoView extends Backbone.View
   render: ->
     $(@el).html(@template[@mode](@model.toJSON()))
     if @mode == 'new'
-      console.log('!!! link~~')
       this.$("#pin-info-form").backboneLink(@model)
 
     return this

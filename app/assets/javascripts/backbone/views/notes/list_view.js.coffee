@@ -41,11 +41,13 @@ class SampleApp.Views.Notes.NoteListView extends Backbone.View
   appendNote: (note) ->
     $($(@el).children(":last-child")).append(new SampleApp.Views.Notes.ShowView(
       pin: @pin
+      collection: @collection
       model: note
     ).render().el)
 
   prependNote: (note) ->
     $($(@el).children(":last-child")).prepend(new SampleApp.Views.Notes.ShowView(
       pin: @pin
+      collection: @collection
       model: note
     ).render().el)

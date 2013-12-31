@@ -52,4 +52,6 @@
 //= require backbone_datalink
 //= require backbone/sample_app
 //= require gmaps/google
+//= require bootstrap-editable
+//= require bootstrap-editable-rails
 //= require_tree .

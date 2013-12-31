@@ -1,5 +1,6 @@
 class SampleApp.Models.Note extends Backbone.Model
   paramRoot: 'note'
+  url: '/notes'
 
   @pinType:
     attraction: 'attraction'
@@ -12,6 +13,7 @@ class SampleApp.Models.Note extends Backbone.Model
     pin_id: ''
     #title: ''
     content: '' #html
+    image: '' #string
 
 class SampleApp.Collections.NotesCollection extends Backbone.Collection
   model: SampleApp.Models.Note

@@ -14,23 +14,33 @@ class SampleApp.Views.Notes.ShowView extends Backbone.View
   constructor: (options) ->
     super(options)
     @pin = options.pin
-    @model.bind('change', 'noteChanged', this)
-    @model.bind('sync', 'noteSync', this)
+    #@model.bind('change', 'noteChanged', this)
+    @model.bind('save', 'noteSaved', this)
     @model.bind('destroy', 'noteDestroyed', this)
 
-  save: (e) ->
-    e.preventDefault()
-    e.stopPropagation()
+    console.log(@model.toJSON())
+    console.log(@collection)
+  save: ->
 
     @model.unset("errors")
-    @model.set('pin_id', @pin.id)
+    console.log("going to send")
+    console.log(@model.toJSON())
+#    @collection.create(@model.toJSON(),
+#      wait: true
+#      success: (note) =>
+#        console.log("note created")
+#      error: (pin, jqXHR) =>
+#        @model.set(errors: $.parseJSON(jqXHR.responseText))
+#    )
 
-    @collection.create(@model.toJSON(),
+    @model.save(@model.toJSON(),
+      patch: true
       wait: true
       success: (note) =>
-
-      error: (pin, jqXHR) =>
-        @model.set(errors: $.parseJSON(jqXHR.responseText))
+        console.log("note created")
+        @collection.add(note)
+        error: (pin, jqXHR) =>
+          @model.set(errors: $.parseJSON(jqXHR.responseText))
     )
 
   noteChanged: ->
@@ -44,6 +54,13 @@ class SampleApp.Views.Notes.ShowView extends Backbone.View
 
   render: ->
     $(@el).html(@template(@model.toJSON()))
-
+    self = this
+    $(@el).children("p").editable(
+      success: (resp, newValue) ->
+        console.log(newValue)
+        self.model.set('content', newValue)
+        console.log(self.model)
+        self.save()
+    )
 
     return this
