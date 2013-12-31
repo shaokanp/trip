@@ -3,11 +3,11 @@ class NoteController < ApplicationController
 
   api :POST, '/notes', 'Create a new note.'
   param :note, Hash, required: true, desc: 'The note to create.' do
-    param :title, String, required: true, desc: 'The title of this note.'
+    param :content, String, required: true, desc: 'The content of this note.'
   end
   def create
     @pin = Pin.find(params[:note][:pin_id])
-    @note = @pin.notes.build(note_params)
+    @note = @pin.notes.build(params[:note])
     if @pin.save
       flash[:success] = 'Pin created !'
       respond_to do |format|
@@ -38,10 +38,6 @@ class NoteController < ApplicationController
   end
 
   private
-
-  def pin_params
-    params.require(:note).permit(:title, :pin_id)
-  end
 
   def correct_user
     @note = Note.find(params[:id])

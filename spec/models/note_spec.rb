@@ -12,7 +12,6 @@ describe Note do
 
   subject{ @note }
 
-  it { should respond_to :title }
   it { should respond_to :content }
   it { should respond_to :pin }
   it { should respond_to :pin_id }
@@ -24,15 +23,4 @@ describe Note do
     before { @note.pin = nil }
     it { should_not be_valid }
   end
-
-  describe 'with blank title' do
-    before { @note.title = ' ' }
-    it { should_not be_valid }
-  end
-
-  describe 'with title that is too long' do
-    before { @note.title = 'a' * 101 }
-    it { should_not be_valid }
-  end
-
 end

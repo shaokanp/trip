@@ -18,6 +18,7 @@ gem 'jeditable-rails'
 gem 'acts_as_list'
 gem 'apipie-rails'
 gem 'backbone-relational-rails'
+gem 'carrierwave'
 
 gem 'simplecov', :require => false, :group => :test
 
