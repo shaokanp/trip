@@ -1,10 +1,9 @@
 SampleApp.Views.Notes ||= {}
 
 class SampleApp.Views.Notes.NoteListView extends Backbone.View
-  #template: JST["backbone/templates/notes/list"]
+  template: JST["backbone/templates/notes/list"]
 
   events:
-    "click #save-note-btn": "save"
     "click #add-new-note-btn": "newNote"
 
   tagName: 'div'
@@ -16,23 +15,39 @@ class SampleApp.Views.Notes.NoteListView extends Backbone.View
     super(options)
     @trip = options.trip
     @pin = options.pin
-    @collection.bind('add', 'addNote', this)
-    @collection.bind('remove', 'removeNote', this)
+    @collection.bind('add', 'onNoteAdded', this)
+    @collection.bind('remove', 'onNoteRemoved', this)
 
-  save: (e) ->
 
-  addNote: (note) ->
+  newNote: ->
+    @prependNote(new SampleApp.Models.Note(
+      pin_id: @pin.id
+    ))
 
-  removeNote: (note) ->
+  removeNote: ->
 
+  onNoteAdded: (note) ->
+
+  onNoteRemoved: (note) ->
 
   render: ->
-    #$(@el).html(@template())
+    $(@el).html(@template())
     _.each(@collection, (note) ->
-      $(@el).append(new SampleApp.Views.Notes.ShowView(
-        pin: @pin
-        model: note
-      ).render().el)
+      @appendNote(note)
     )
 
     return this
+
+  appendNote: (note) ->
+    $($(@el).children(":last-child")).append(new SampleApp.Views.Notes.ShowView(
+      pin: @pin
+      collection: @collection
+      model: note
+    ).render().el)
+
+  prependNote: (note) ->
+    $($(@el).children(":last-child")).prepend(new SampleApp.Views.Notes.ShowView(
+      pin: @pin
+      collection: @collection
+      model: note
+    ).render().el)

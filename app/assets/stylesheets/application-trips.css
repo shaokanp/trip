@@ -11,4 +11,5 @@
  *= require_self
  *= require_tree ./all
  *= require_tree ./trips
+ *= require bootstrap-editable
  */
