@@ -42,14 +42,15 @@ class SampleApp.Views.Notes.NoteListView extends Backbone.View
     @appendNote(note)
 
 
-
   onNoteRemoved: (note) ->
 
   render: ->
     $(@el).html(@template())
-#    _.each(@collection, (note) ->
-#      @appendNote(note)
-#    )
+    self = this;
+
+    _.each(@collection.models, (note) ->
+      self.appendNote(note)
+    )
 
     return this
 
