@@ -28,6 +28,7 @@ class SampleApp.Views.Notes.NoteListView extends Backbone.View
 
   onNoteAdded: (note) ->
 
+
   onNoteRemoved: (note) ->
 
   render: ->
