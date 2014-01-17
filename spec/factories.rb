@@ -30,6 +30,7 @@ FactoryGirl.define do
 
   factory :note do
     content 'A note'
+    image ''
     pin
   end
 

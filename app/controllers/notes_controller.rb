@@ -1,4 +1,4 @@
-class NoteController < ApplicationController
+class NotesController < ApplicationController
 
 
   api :POST, '/notes', 'Create a new note.'
@@ -7,15 +7,15 @@ class NoteController < ApplicationController
   end
   def create
     @pin = Pin.find(params[:note][:pin_id])
-    @note = @pin.notes.build(params[:note])
-    if @pin.save
-      flash[:success] = 'Pin created !'
+    @note = @pin.notes.build(note_params)
+    if @note.save
+      flash[:success] = 'Note created !'
       respond_to do |format|
-        format.json { render json: @pin }
+        format.json { render json: @note }
       end
     else
       respond_to do |format|
-        format.json { render @pin.errors }
+        format.json { render @note.errors }
       end
     end
   end
@@ -25,6 +25,13 @@ class NoteController < ApplicationController
   def show
     @note = Note.find(params[:id])
     render json: @note
+  end
+
+  api :GET, '/notes', 'Get all notes belong to a specified pin with pin_id.'
+  param :pin_id, String, required: true, desc: 'The numeric id of the pin.'
+  def index
+    @notes = Note.find_by(pin_id: params[:pin_id])
+    render json: @notes
   end
 
   api :Delete, '/notes/:id', 'Delete a note.'
@@ -38,6 +45,10 @@ class NoteController < ApplicationController
   end
 
   private
+
+  def note_params
+    params.require(:note).permit(:content, :pin_id, :image)
+  end
 
   def correct_user
     @note = Note.find(params[:id])

@@ -51,3 +51,4 @@ class SampleApp.Routers.TripsRouter extends Backbone.Router
     $("#right-container").html(@view.render().el)
 
 
+

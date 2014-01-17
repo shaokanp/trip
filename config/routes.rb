@@ -6,6 +6,7 @@ SampleApp::Application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :trips
+  resources :notes
   resources :pins do
     collection do
       post :sort
