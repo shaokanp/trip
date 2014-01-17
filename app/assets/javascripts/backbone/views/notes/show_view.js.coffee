@@ -56,14 +56,29 @@ class SampleApp.Views.Notes.ShowView extends Backbone.View
   render: ->
     $(@el).html(@template(@model.toJSON()))
     self = this
-    $(@el).children("p").editable(
+#    $(@el).children(".note-title").editable(
+#      mode:'inline'
+#      display: false
+#      #showbuttons: false
+#      inputclass: 'note-title-input'
+#      success: (resp, newValue) ->
+#        console.log(newValue)
+#        self.model.set('title', newValue)
+#        console.log(self.model)
+#        self.model.save()
+#    )
+
+    $(@el).children(".note-content").editable(
       mode:'inline'
+      #type:'textarea'
       display: false
+      #showbuttons: false
+      inputclass: 'note-title-input'
       success: (resp, newValue) ->
         console.log(newValue)
         self.model.set('content', newValue)
         console.log(self.model)
-        self.save()
+        self.model.save()
     )
 
     return this

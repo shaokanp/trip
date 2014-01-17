@@ -23,8 +23,8 @@ class SampleApp.Views.Notes.NewView extends Backbone.View
 
     console.log(@model.toJSON())
     console.log(@collection)
-  save: ->
 
+  save: ->
     @model.unset("errors")
     console.log("going to send")
     console.log(@model.toJSON())

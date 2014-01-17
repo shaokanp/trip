@@ -43,6 +43,7 @@ class SampleApp.Views.Notes.NoteListView extends Backbone.View
 
 
   onNoteRemoved: (note) ->
+    note.destroy()
 
   render: ->
     $(@el).html(@template())

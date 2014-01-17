@@ -11,7 +11,7 @@ class SampleApp.Models.Note extends Backbone.Model
 
   defaults:
     pin_id: ''
-    #title: ''
+    #title: 'title'
     content: '' #html
     image: '' #string
 
