@@ -15,27 +15,41 @@ class SampleApp.Views.Notes.NoteListView extends Backbone.View
     super(options)
     @trip = options.trip
     @pin = options.pin
-    @collection.bind('add', 'onNoteAdded', this)
-    @collection.bind('remove', 'onNoteRemoved', this)
+    @listenTo(@collection, 'add', @onNoteAdded)
+    @listenTo(@collection, 'remove', @onNoteRemoved)
+    @loadNotes()
 
+  loadNotes: ->
+    @collection.fetch(
+      data:
+        pin_id: @pin.id
+      processData: true
+      success: (collection,response,options) ->
+
+      error: (collection,response,options) ->
+    )
 
   newNote: ->
-    @prependNote(new SampleApp.Models.Note(
-      pin_id: @pin.id
-    ))
+    $($(@el).children(":last-child")).append(new SampleApp.Views.Notes.NewView(
+      pin: @pin
+      collection: @collection
+    ).render().el)
 
   removeNote: ->
 
   onNoteAdded: (note) ->
+    console.log(note)
+    @appendNote(note)
+
 
 
   onNoteRemoved: (note) ->
 
   render: ->
     $(@el).html(@template())
-    _.each(@collection, (note) ->
-      @appendNote(note)
-    )
+#    _.each(@collection, (note) ->
+#      @appendNote(note)
+#    )
 
     return this
 

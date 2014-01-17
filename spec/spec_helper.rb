@@ -1,5 +1,11 @@
+# simplecov
+require 'simplecov'
+SimpleCov.start 'rails'
+
+# origin spec_helper content
 require 'rubygems'
 require 'spork'
+
 
 Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'

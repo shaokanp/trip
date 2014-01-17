@@ -29,7 +29,8 @@ FactoryGirl.define do
   end
 
   factory :note do
-    title 'A note'
+    content 'A note'
+    image ''
     pin
   end
 
