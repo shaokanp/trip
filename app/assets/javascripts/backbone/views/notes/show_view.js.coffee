@@ -37,9 +37,8 @@ class SampleApp.Views.Notes.ShowView extends Backbone.View
       patch: true
       wait: true
       success: (note) =>
-        console.log("note created")
+        console.log("note edited")
         $(@el).html(@template(@model.toJSON()))
-        @collection.add(note)
         error: (pin, jqXHR) =>
           @model.set(errors: $.parseJSON(jqXHR.responseText))
     )

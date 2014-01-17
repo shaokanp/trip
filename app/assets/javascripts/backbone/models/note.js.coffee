@@ -1,6 +1,10 @@
 class SampleApp.Models.Note extends Backbone.Model
   paramRoot: 'note'
-  url: '/notes'
+  urlRoot:'/notes'
+  url: ->
+    u = "/notes/"
+    u = "#{u}#{this.id}" if this.id
+    u
 
   @pinType:
     attraction: 'attraction'
