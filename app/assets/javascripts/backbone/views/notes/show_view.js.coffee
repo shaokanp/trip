@@ -38,6 +38,7 @@ class SampleApp.Views.Notes.ShowView extends Backbone.View
       wait: true
       success: (note) =>
         console.log("note created")
+        $(@el).html(@template(@model.toJSON()))
         @collection.add(note)
         error: (pin, jqXHR) =>
           @model.set(errors: $.parseJSON(jqXHR.responseText))
@@ -56,6 +57,8 @@ class SampleApp.Views.Notes.ShowView extends Backbone.View
     $(@el).html(@template(@model.toJSON()))
     self = this
     $(@el).children("p").editable(
+      mode:'inline'
+      display: false
       success: (resp, newValue) ->
         console.log(newValue)
         self.model.set('content', newValue)
