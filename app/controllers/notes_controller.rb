@@ -4,6 +4,7 @@ class NotesController < ApplicationController
   api :POST, '/notes', 'Create a new note.'
   param :note, Hash, required: true, desc: 'The note to create.' do
     param :content, String, required: true, desc: 'The content of this note.'
+    param :image, String, required: false
   end
   def create
     @pin = Pin.find(params[:note][:pin_id])
@@ -30,7 +31,7 @@ class NotesController < ApplicationController
   api :GET, '/notes', 'Get all notes belong to a specified pin with pin_id.'
   param :pin_id, String, required: true, desc: 'The numeric id of the pin.'
   def index
-    @notes = Note.find_by(pin_id: params[:pin_id])
+    @notes = Note.where('pin_id = ?', params[:pin_id])
     render json: @notes
   end
 
