@@ -15,16 +15,17 @@ class SampleApp.Views.Notes.ShowView extends Backbone.View
     super(options)
     @pin = options.pin
     #@model.bind('change', 'noteChanged', this)
-    @model.bind('save', 'noteSaved', this)
-    @model.bind('destroy', 'noteDestroyed', this)
+    @listenTo(@model, 'sync', @noteSync)
+    @listenTo(@model, 'destroy', @noteDestroyed)
 
     console.log(@model.toJSON())
     console.log(@collection)
   save: ->
-
+    console.log(this)
     @model.unset("errors")
     console.log("going to send")
     console.log(@model.toJSON())
+    self = this
 #    @collection.create(@model.toJSON(),
 #      wait: true
 #      success: (note) =>
@@ -34,20 +35,21 @@ class SampleApp.Views.Notes.ShowView extends Backbone.View
 #    )
 
     @model.save(@model.toJSON(),
-      patch: true
       wait: true
       success: (note) =>
         console.log("note edited")
-        $(@el).html(@template(@model.toJSON()))
-        error: (pin, jqXHR) =>
-          @model.set(errors: $.parseJSON(jqXHR.responseText))
+
+      error: (note, jqXHR) =>
+          self.model.set(errors: $.parseJSON(jqXHR.responseText))
     )
 
   noteChanged: ->
 
 
   noteSync: ->
-
+    console.log("sync")
+    console.log(@model.toJSON())
+    @render()
 
   noteDestroyed: ->
     @remove()
@@ -55,29 +57,29 @@ class SampleApp.Views.Notes.ShowView extends Backbone.View
   render: ->
     $(@el).html(@template(@model.toJSON()))
     self = this
-#    $(@el).children(".note-title").editable(
-#      mode:'inline'
-#      display: false
-#      #showbuttons: false
-#      inputclass: 'note-title-input'
-#      success: (resp, newValue) ->
-#        console.log(newValue)
-#        self.model.set('title', newValue)
-#        console.log(self.model)
-#        self.model.save()
-#    )
-
-    $(@el).children(".note-content").editable(
+    $(@el).children(".note-title").editable(
       mode:'inline'
-      #type:'textarea'
       display: false
       #showbuttons: false
       inputclass: 'note-title-input'
       success: (resp, newValue) ->
         console.log(newValue)
+        self.model.set('title', newValue)
+        console.log(self.model)
+        self.save()
+    )
+
+    $(@el).children(".note-content").editable(
+      mode:'inline'
+      type:'textarea'
+      display: false
+      #showbuttons: false
+      inputclass: 'note-content-input'
+      success: (resp, newValue) ->
+        console.log(newValue)
         self.model.set('content', newValue)
         console.log(self.model)
-        self.model.save()
+        self.save()
     )
 
     return this
