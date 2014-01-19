@@ -14,6 +14,7 @@
 ActiveRecord::Schema.define(version: 20131230160949) do
 
   create_table "notes", force: true do |t|
+    t.string   "title"
     t.string   "content"
     t.integer  "pin_id"
     t.datetime "created_at"
@@ -31,7 +32,6 @@ ActiveRecord::Schema.define(version: 20131230160949) do
     t.float    "latitude"
     t.float    "longitude"
     t.string   "pin_type"
-    t.integer  "order"
     t.integer  "position"
     t.date     "end_time"
   end

@@ -27,9 +27,8 @@ class PinsController < ApplicationController
   api :GET, '/pins/:id', 'Get a specified pin.'
   param :id, String, required: true, desc: 'The numeric id of the desired pin.'
   def show
-    puts 'hahaha'
     @pin = Pin.find(params[:id])
-    render json: @pin.to_json(include: :notes)
+    render json: @pin
   end
 
   api :Delete, '/pins/:id', 'Delete a pin.'

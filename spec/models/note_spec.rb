@@ -7,11 +7,12 @@ describe Note do
   let!(:pin) { FactoryGirl.create(:pin, trip: trip, title: "A pin", pin_type: Pin::PIN_DINING) }
 
   before do
-    @note = pin.notes.build(title: 'A note')
+    @note = pin.notes.build(title: 'A note', content: 'content')
   end
 
   subject{ @note }
 
+  it { should respond_to :title }
   it { should respond_to :content }
   it { should respond_to :pin }
   it { should respond_to :pin_id }
