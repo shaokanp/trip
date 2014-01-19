@@ -12,7 +12,7 @@ class SampleApp.Views.Pins.ShowView extends Backbone.View
   constructor: (options) ->
     super(options)
     @trip = options.trip
-    @model.bind('destroy', 'onPinDestroyed', this)
+    @listenTo(@model, 'destroy', @onPinDestroyed)
 
   onPinDestroyed: ->
     @remove()

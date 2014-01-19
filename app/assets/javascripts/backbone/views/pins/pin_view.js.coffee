@@ -12,18 +12,19 @@ class SampleApp.Views.Pins.PinView extends Backbone.View
 
   constructor: (options) ->
     super(options)
-    @model.bind("change:errors", () =>
-      this.render()
-    )
+    @listenTo(@model,'change:errors', @render)
 
     $(@el).attr('pin-type', SampleApp.Models.Pin.pinType.MEETING);
     $(@el).attr('id', 'pin_' + @model.id);
 
   destroy: () ->
+    console.log(@model)
+    self = this
     @model.destroy(
+      wait: true
       success: =>
         console.log('delete')
-        this.remove()
+        self.remove()
     )
 
     return false

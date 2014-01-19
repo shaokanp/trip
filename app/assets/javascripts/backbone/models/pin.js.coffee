@@ -1,6 +1,9 @@
 class SampleApp.Models.Pin extends Backbone.Model
   paramRoot: 'pin'
-  url: '/pins'
+  url: ->
+    u = "/pins/"
+    u = "#{u}#{this.id}" if this.id
+    u
 
   @pinType:
     attraction: 'attraction'
