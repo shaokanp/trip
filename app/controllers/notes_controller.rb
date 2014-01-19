@@ -1,5 +1,5 @@
 class NotesController < ApplicationController
-
+  before_action :correct_user, only:[:update, :destroy]
 
   api :POST, '/notes', 'Create a new note.'
   param :note, Hash, required: true, desc: 'The note to create.' do
@@ -35,6 +35,20 @@ class NotesController < ApplicationController
     render json: @notes
   end
 
+  def update
+    if @note.update_attributes(note_params)
+      respond_to do |format|
+        format.html
+        format.json { render nothing: true, status: 200 }
+      end
+    else
+      respond_to do |format|
+        format.html
+        format.json { render nothing: true, status: 400 }
+      end
+    end
+  end
+
   api :Delete, '/notes/:id', 'Delete a note.'
   param :id, String, required: true, desc: 'The numeric id of the desired note.'
   def destroy
@@ -54,7 +68,8 @@ class NotesController < ApplicationController
   def correct_user
     @note = Note.find(params[:id])
     @pin = @note.pin
-    unless @pin.user_id == current_user.id
+    @trip = @pin.trip
+    unless @trip.user_id == current_user.id
       flash[:error] = 'Sorry, you do not have the permission to do that.'
       head :forbidden
     end
