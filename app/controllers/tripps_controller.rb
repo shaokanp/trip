@@ -13,7 +13,7 @@ class TripsController < ApplicationController
       respond_to do |format|
         format.html { redirect_to root_url }
         format.json do
-         render :json => @trip.to_json
+          render :json => @trip.to_json
         end
       end
     else
@@ -42,16 +42,16 @@ class TripsController < ApplicationController
 
   private
 
-    def trip_params
-      params.require(:trip).permit(:title)
-    end
+  def trip_params
+    params.require(:trip).permit(:title)
+  end
 
-    def correct_user
-      @trip = current_user.trips.find_by(id: params[:id])
-      if @trip.nil?
-        flash[:error] = "Sorry, you don't have the permission to do that."
-        head :forbidden
-      end
+  def correct_user
+    @trip = current_user.trips.find_by(id: params[:id])
+    if @trip.nil?
+      flash[:error] = "Sorry, you don't have the permission to do that."
+      head :forbidden
     end
+  end
 
 end
