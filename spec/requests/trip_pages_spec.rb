@@ -20,6 +20,24 @@ describe 'TripPage', :js => true do
 
     describe 'show a trip detail view' do
 
+      describe 'other user enter this trip' do
+
+        describe 'if the trip is public' do
+          it 'should show the trip' do
+            trip.is_public = true
+            expect(page).to have_selector('#map')
+          end
+        end
+
+        describe 'if the trip is not public' do
+          it 'should not show the trip' do
+            trip.is_public = false
+            #expect(response).to redirect_to(forbidden_path)
+          end
+        end
+
+      end
+
       it 'should have a map' do
         expect(page).to have_selector('#map')
       end
