@@ -30,7 +30,7 @@ class SampleApp.Views.Notes.NoteListView extends Backbone.View
     )
 
   newNote: ->
-    $($(@el).children(":last-child")).append(new SampleApp.Views.Notes.NewView(
+    $($(@el).children(":last-child")).prepend(new SampleApp.Views.Notes.NewView(
       pin: @pin
       collection: @collection
     ).render().el)
@@ -40,7 +40,7 @@ class SampleApp.Views.Notes.NoteListView extends Backbone.View
   onNoteAdded: (note) ->
     console.log(note)
     @appendNote(note)
-
+    $($(@el).children(":last-child")).children(":first-child").remove()
 
   onNoteRemoved: (note) ->
     note.destroy()

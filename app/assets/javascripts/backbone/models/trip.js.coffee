@@ -4,7 +4,11 @@ class SampleApp.Models.Trip extends Backbone.Model
 
   defaults:
     title: ''
-    image: ''
+    cover_image_url: ''
+    description: ''
+    start_time: ''
+    days: ''
+    is_public: false
 
   initialize: ->
     @pins = new SampleApp.Collections.PinsCollection();
