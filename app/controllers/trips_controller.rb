@@ -1,6 +1,7 @@
 class TripsController < ApplicationController
-  before_action :signed_in_user, except:[:show]
-  before_action :correct_user, only:[:destroy]
+  before_action :check_user_permission, only:[:show]
+  before_action :signed_in_user
+  before_action :correct_user, only:[:update, :destroy]
 
   api :POST, '/trips', 'Create a new trip.'
   param :trip, Hash, required: true, desc: 'The trip to create.' do
@@ -49,6 +50,14 @@ class TripsController < ApplicationController
   def correct_user
     @trip = current_user.trips.find_by(id: params[:id])
     if @trip.nil?
+      flash[:error] = "Sorry, you don't have the permission to do that."
+      head :forbidden
+    end
+  end
+
+  def check_user_permission
+    @trip = Trip.find_by(id: params[:id])
+    if @trip.user_id != current_user.id && !@trip.is_public
       flash[:error] = "Sorry, you don't have the permission to do that."
       head :forbidden
     end
