@@ -62,7 +62,7 @@ class NotesController < ApplicationController
   private
 
   def note_params
-    params.require(:note).permit(:content, :pin_id, :image)
+    params.require(:note).permit(:title, :content, :pin_id, :image)
   end
 
   def correct_user
