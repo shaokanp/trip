@@ -1,13 +1,23 @@
-<div class="center hero-unit">
-  <h1>Welcome to the Sample App</h1>
+<style>
+    html {
+        background: url(https://dl.dropboxusercontent.com/u/48841755/unsplash_528b276e41166_1.JPG) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
 
-  <h2>
-    This is the home page for the
-    <a href="http://railstutorial.org/">Ruby on Rails Tutorial</a>
-    sample application.
-  </h2>
+    body {
+        background: transparent;
+    }
+</style>
 
-  <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
+<div class="hero-unit panel" id="top-image">
+  <h1>Tripify</h1>
+
+  <p>
+    Trip planning made easy
+  </p>
+
+  <%= link_to "Plan your trip", signup_path, class: "btn btn-success btn-lg" %>
 </div>
-
-<%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
