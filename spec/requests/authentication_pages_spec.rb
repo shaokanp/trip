@@ -8,7 +8,6 @@ require 'spec_helper'
                 before { visit signin_path }
 
                 it { should have_content('Sign in') }
-                it { should have_title('Sign in') }
               end
 
               describe "signin" do
@@ -60,9 +59,7 @@ require 'spec_helper'
 
           describe "after signing in" do
 
-            it "should render the desired protected page" do
-              expect(page).to have_title('Edit user')
-            end
+
 
           end
         end
