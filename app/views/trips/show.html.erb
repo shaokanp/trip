@@ -3,8 +3,7 @@
 <script type="text/javascript">
     $(function() {
         // SampleApp is the app name
-        window.router = new SampleApp.Routers.TripsRouter({trip: <%= @trip.to_json(include: :pins).html_safe -%>});
-        Backbone.history.start();
+        window.router = new SampleApp.Routers.TripsRouter({trip: <%= @trip.to_json().html_safe -%>});
     });
 </script>
 <script src="//maps.google.com/maps/api/js?v=3.13&amp;sensor=false&amp;libraries=geometry" type="text/javascript"></script>

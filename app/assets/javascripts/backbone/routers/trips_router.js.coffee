@@ -2,7 +2,6 @@ class SampleApp.Routers.TripsRouter extends Backbone.Router
   initialize: (options) ->
     @trip = new SampleApp.Models.Trip()
     @trip.set options.trip
-    @trip.pins.reset(options.trip.pins)
 
     @before()
 
@@ -13,17 +12,34 @@ class SampleApp.Routers.TripsRouter extends Backbone.Router
     "editpin/:id"  : "editPin"
 
   before: ->
-    view = new SampleApp.Views.Pins.PinListView(
-      collection: @trip.pins
-      el: $('#pin-panel')
-    )
-    view.render()
+    self = @
+    @trip.pins.fetch(
+      data:
+        trip_id: @trip.id
+        day_id: 1
+      processData: true
+      success: (collection,response,options) ->
+        console.log('ooooo')
 
-    view = new SampleApp.Views.Pins.MapView({
-      pins: @trip.pins
-      el: $('#map')
-    })
-    view.render()
+        view = new SampleApp.Views.Pins.PinListView(
+          collection: self.trip.pins
+          el: $('#pin-panel')
+        )
+        view.render()
+
+        view = new SampleApp.Views.Pins.MapView({
+          pins: self.trip.pins
+          el: $('#map')
+        })
+        view.render()
+
+        Backbone.history.start();
+
+      error: (collection,response,options) ->
+        console.log('eeeee')
+    )
+
+
 
   show: ->
     @view.remove() if @view?
