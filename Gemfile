@@ -20,8 +20,6 @@ gem 'apipie-rails'
 gem 'backbone-relational-rails'
 gem 'carrierwave'
 
-gem 'simplecov', :require => false, :group => :test
-
 group :development do
   gem 'rails-erd'
 end
