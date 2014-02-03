@@ -35,14 +35,11 @@ class PinsController < ApplicationController
   param :trip_id, String, required: true, desc: 'The numeric id of the trip that contains these pins'
   param :day_id, String, required: false, desc: 'Specifying which day\'s pins to be retured'
   def index
-    @trip = Trip.find(params[:trip_id])
     @pins = []
     if params.has_key?(:day_id)
-      @trip.pins.each do |pin|
-        @pins << pin if pin.day == params[:day_id]
-      end
+      @pins = Pin.where('trip_id = ? AND day = ?', params[:trip_id], params[:day_id])
     else
-      @pins = @trip.pins
+      @pins = Pin.where('trip_id = ?', params[:trip_id])
     end
     render json: @pins
   end
