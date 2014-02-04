@@ -25,6 +25,8 @@ class SampleApp.Routers.TripsRouter extends Backbone.Router
       el: $('#map')
     })
 
+    Backbone.history.start()
+
   show: ->
     @view.remove() if @view?
 
@@ -40,6 +42,7 @@ class SampleApp.Routers.TripsRouter extends Backbone.Router
       type: type
     )
     $("#right-container").html(@view.render().el)
+
 
   editPin: (pin_id) ->
     @view.remove() if @view?
