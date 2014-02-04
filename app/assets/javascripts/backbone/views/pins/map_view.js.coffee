@@ -6,16 +6,11 @@ class SampleApp.Views.Pins.MapView extends Backbone.View
   constructor: (options) ->
     super(options)
     @pins = options.pins
-    @pins.bind("add", @addPin, this)
-    @pins.bind("remove", @removePin, this)
-    @pins.bind("change:move_origin", @updatePinPos, this)
+    @listenTo(@pins, "add", @addPin)
+    @listenTo(@pins, "remove", @removePin)
+    @listenTo(@pins, "change:move_origin", @updatePinPos)
 
-  render: ->
-
-    # Make the following global variables
-    pins = @pins
     @coordinates = new Array
-    self = @
 
     # Setup map options
     mapOptions =
@@ -32,7 +27,7 @@ class SampleApp.Views.Pins.MapView extends Backbone.View
     # Create the map with above options in div
     @map = new google.maps.Map(document.getElementById("map"),mapOptions)
 
-    bounds = new google.maps.LatLngBounds
+    @bounds = new google.maps.LatLngBounds
 
     # new an array consisting each pin's coordinates
 
@@ -43,17 +38,23 @@ class SampleApp.Views.Pins.MapView extends Backbone.View
       strokeOpacity: 1.0,
       strokeWeight: 2
       map: @map
+  render: ->
+
+    # Make the following global variables
+    pins = @pins
+    self = @
 
     _.each(pins.models, (pin) ->
-      newLatLng = new google.maps.LatLng(pin.get('latitude'), pin.get('longitude'))
-      bounds.extend(newLatLng)
       self.addPinToMap(pin)
     )
-    @map.fitBounds(bounds)
+    @map.fitBounds(@bounds)
 
     return this
 
   addPinToMap: (pin) ->
+    newLatLng = new google.maps.LatLng(pin.get('latitude'), pin.get('longitude'))
+    @bounds.extend(newLatLng)
+
     marker = new google.maps.Marker
       animation: google.maps.Animation.DROP
       position: new google.maps.LatLng(pin.get('latitude'), pin.get('longitude'))
@@ -71,6 +72,9 @@ class SampleApp.Views.Pins.MapView extends Backbone.View
     pin.marker = marker
     @coordinates.push(marker.position)
     @linePath.setPath(@coordinates)
+
+    if @pins.length - 1 == @pins.indexOf(pin)
+      @map.fitBounds(@bounds)
 
   addPin: (pin) ->
     @addPinToMap(pin)
@@ -96,4 +100,6 @@ class SampleApp.Views.Pins.MapView extends Backbone.View
     # reset the attributes to -1
     pin.set('move_origin',-1)
     pin.set('move_dest',-1)
+
+
 

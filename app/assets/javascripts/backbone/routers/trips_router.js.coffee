@@ -12,34 +12,18 @@ class SampleApp.Routers.TripsRouter extends Backbone.Router
     "editpin/:id"  : "editPin"
 
   before: ->
-    self = @
-    @trip.pins.fetch(
-      data:
-        trip_id: @trip.id
-        day_id: 1
-      processData: true
-      success: (collection,response,options) ->
-        console.log('ooooo')
 
-        view = new SampleApp.Views.Pins.PinListView(
-          collection: self.trip.pins
-          el: $('#pin-panel')
-        )
-        view.render()
-
-        view = new SampleApp.Views.Pins.MapView({
-          pins: self.trip.pins
-          el: $('#map')
-        })
-        view.render()
-
-        Backbone.history.start();
-
-      error: (collection,response,options) ->
-        console.log('eeeee')
+    view = new SampleApp.Views.Pins.PinListView(
+      trip: @trip
+      collection: @trip.pins
+      day: 1
+      el: $('#pin-panel')
     )
 
-
+    view = new SampleApp.Views.Pins.MapView({
+      pins: @trip.pins
+      el: $('#map')
+    })
 
   show: ->
     @view.remove() if @view?

@@ -44,11 +44,16 @@ class SampleApp.Views.Pins.PinListView extends Backbone.View
 
   events:
     "click .new-pin-btn": "newPin"
-    #"click ": "changeDay"
+    "click #day-navigator button": "changeDay"
 
   initialize: (options) ->
+    @trip = options.trip
+
     @listenTo(@collection, 'add', @addPin)
     @listenTo(@collection, 'reset', @render)
+
+    @loadPins(options.day)
+    @day = options.day
 
     self = @
     $(@el).children('#pin-container').sortable(
@@ -69,7 +74,8 @@ class SampleApp.Views.Pins.PinListView extends Backbone.View
     $(@el).children('#pin-container').html('')
     self = this
     _.each(@collection.models, (pin) ->
-       self.addPin(pin)
+      if pin.get('day_id') == self.day
+        self.addPin(pin)
     )
     return this
 
@@ -77,25 +83,14 @@ class SampleApp.Views.Pins.PinListView extends Backbone.View
     $(@el).children('#pin-container').append(new SampleApp.Views.Pins.PinView(model: pin).render().el)
 
   loadPins: (day) ->
-    self = @
-    @trip.pins.fetch(
+    @collection.fetch(
       data:
+        trip_id: @trip.id
         day_id: day
       processData: true
       success: (collection,response,options) ->
         console.log('load pins success')
 
-        view = new SampleApp.Views.Pins.PinListView(
-          collection: @trip.pins
-          el: $('#pin-panel')
-        )
-        view.render()
-
-        view = new SampleApp.Views.Pins.MapView({
-          pins: @trip.pins
-          el: $('#map')
-        })
-        view.render()
 
       error: (collection,response,options) ->
         console.log('load pins error')
@@ -105,3 +100,13 @@ class SampleApp.Views.Pins.PinListView extends Backbone.View
     window.location.hash = 'newpin/'+$(e.target).attr('pin-type')
 
   changeDay: (e) ->
+    index = $(@el).children('#pin-container').index(e)
+    if index == 1
+      @day = @day - 1
+      if @day < 1
+        @day = 1
+      @loadPins(@day)
+    else
+      @day = @day + 1
+      @loadPins(@day)
+
