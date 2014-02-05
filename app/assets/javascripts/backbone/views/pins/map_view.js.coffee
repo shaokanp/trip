@@ -9,6 +9,8 @@ class SampleApp.Views.Pins.MapView extends Backbone.View
     @listenTo(@pins, "add", @addPin)
     @listenTo(@pins, "remove", @removePin)
     @listenTo(@pins, "change:move_origin", @updatePinPos)
+    @globalEvt = options.globalEvt
+    @globalEvt.on('day:change', @render, @)
 
     @coordinates = new Array
 
@@ -38,14 +40,24 @@ class SampleApp.Views.Pins.MapView extends Backbone.View
       strokeOpacity: 1.0,
       strokeWeight: 2
       map: @map
-  render: ->
+  render: (day) ->
 
     # Make the following global variables
     pins = @pins
     self = @
 
+    if @coordinates.length > 0
+      _.each(pins.models, (pin) ->
+        if pin.marker != undefined && pin.marker != null
+          self.removePin(pin)
+      )
+
     _.each(pins.models, (pin) ->
-      self.addPinToMap(pin)
+      if day != undefined
+        if pin.get('day') == day
+          self.addPinToMap(pin)
+      else
+        self.addPinToMap(pin)
     )
     @map.fitBounds(@bounds)
 
@@ -56,7 +68,7 @@ class SampleApp.Views.Pins.MapView extends Backbone.View
     @bounds.extend(newLatLng)
 
     marker = new google.maps.Marker
-      animation: google.maps.Animation.DROP
+      #animation: google.maps.Animation.DROP
       position: new google.maps.LatLng(pin.get('latitude'), pin.get('longitude'))
       map: @map
       pin: pin

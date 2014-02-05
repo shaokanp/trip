@@ -21,7 +21,7 @@ class SampleApp.Models.Pin extends Backbone.Model
     address: ''
     start_time: ''
     end_time: ''
-    day_id: 1
+    day: 1
     latitude: '120'
     longitude: '120'
     position: 0

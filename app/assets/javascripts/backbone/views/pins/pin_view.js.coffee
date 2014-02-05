@@ -49,11 +49,15 @@ class SampleApp.Views.Pins.PinListView extends Backbone.View
   initialize: (options) ->
     @trip = options.trip
 
+    @globalEvt = options.globalEvt
+    @globalEvt.on('day:change', @render, @)
     @listenTo(@collection, 'add', @addPin)
     @listenTo(@collection, 'reset', @render)
 
+    @days = new Array
+
     @loadPins(options.day)
-    @day = options.day
+    window.day = options.day
 
     self = @
     $(@el).children('#pin-container').sortable(
@@ -70,11 +74,14 @@ class SampleApp.Views.Pins.PinListView extends Backbone.View
         )
     )
 
-  render: ->
+  render: (day) ->
     $(@el).children('#pin-container').html('')
-    self = this
+    self = @
     _.each(@collection.models, (pin) ->
-      if pin.get('day_id') == self.day
+      if day != undefined
+        if pin.get('day') == day
+          self.addPin(pin)
+      else
         self.addPin(pin)
     )
     return this
@@ -83,15 +90,17 @@ class SampleApp.Views.Pins.PinListView extends Backbone.View
     $(@el).children('#pin-container').append(new SampleApp.Views.Pins.PinView(model: pin).render().el)
 
   loadPins: (day) ->
+    self = @
     @collection.fetch(
       data:
         trip_id: @trip.id
         day_id: day
+      remove: false
       processData: true
       success: (collection,response,options) ->
         console.log('load pins success')
-
-
+        self.days.push(day)
+        self.globalEvt.trigger('day:change', day)
       error: (collection,response,options) ->
         console.log('load pins error')
     )
@@ -100,13 +109,16 @@ class SampleApp.Views.Pins.PinListView extends Backbone.View
     window.location.hash = 'newpin/'+$(e.target).attr('pin-type')
 
   changeDay: (e) ->
-    index = $(@el).children('#pin-container').index(e)
-    if index == 1
-      @day = @day - 1
-      if @day < 1
-        @day = 1
-      @loadPins(@day)
+    index = $(@el).children('#day-navigator').children().index(e.target)
+    if index == 0
+      window.day = window.day - 1
+      if window.day < 1
+        window.day = 1
     else
-      @day = @day + 1
-      @loadPins(@day)
+      window.day = window.day + 1
 
+    #Check if the day has been reached before. If it is, then don't need to fetch the pins again.
+    if @days.indexOf(window.day) == -1
+      @loadPins(window.day)
+    else
+      @globalEvt.trigger('day:change', window.day)

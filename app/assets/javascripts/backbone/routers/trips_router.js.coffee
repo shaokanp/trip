@@ -13,16 +13,20 @@ class SampleApp.Routers.TripsRouter extends Backbone.Router
 
   before: ->
 
+    globalEvt = _.extend({}, Backbone.Events)
+
     view = new SampleApp.Views.Pins.PinListView(
       trip: @trip
       collection: @trip.pins
       day: 1
       el: $('#pin-panel')
+      globalEvt: globalEvt
     )
 
     view = new SampleApp.Views.Pins.MapView({
       pins: @trip.pins
       el: $('#map')
+      globalEvt: globalEvt
     })
 
     Backbone.history.start()
