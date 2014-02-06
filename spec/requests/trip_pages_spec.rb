@@ -7,8 +7,9 @@ describe 'TripPage', :js => true do
   let(:user) { FactoryGirl.create(:user) }
   let(:other_user) { FactoryGirl.create(:user) }
   let!(:trip) { FactoryGirl.create(:trip, user: user, title: 'Trip') }
-  let!(:pin1) { FactoryGirl.create(:pin, trip: trip, title: 'Pin1', pin_type: 'attraction', start_time: 1.hour.ago, address: 'Statue of Liberty') }
-  let!(:pin2) { FactoryGirl.create(:pin, trip: trip, title: 'Pin2', pin_type: 'attraction', start_time: 1.day.ago, address: 'Lincoln Center') }
+  let!(:pin1) { FactoryGirl.create(:pin, trip: trip, title: 'Pin1', pin_type: 'attraction', start_time: 1.hour.ago, address: 'Statue of Liberty', day: 1) }
+  let!(:pin2) { FactoryGirl.create(:pin, trip: trip, title: 'Pin2', pin_type: 'attraction', start_time: 1.day.ago, address: 'Lincoln Center', day: 1) }
+  let!(:pin3) { FactoryGirl.create(:pin, trip: trip, title: 'Pin3', pin_type: 'attraction', start_time: 1.day.ago, address: 'Lincoln Center', day: 2) }
 
   before do
     sign_in user
@@ -42,9 +43,24 @@ describe 'TripPage', :js => true do
         expect(page).to have_selector('#map')
       end
 
-      it 'should have a button to create pin' do
-        expect(page).to have_selector('.new-pin-btn')
+      describe 'the left panel' do
+        it 'should have a button to create pin' do
+          expect(page).to have_selector('.new-pin-btn')
+        end
+
+        describe 'day navigator' do
+
+          it 'should contain pins of correct day' do
+            expect(page).to have_content(pin1.title)
+            expect(page).to have_content(pin2.title)
+          end
+
+          it 'should not contain pins of different days' do
+            expect(page).not_to have_content(pin3.title)
+          end
+        end
       end
+
 
     end
 

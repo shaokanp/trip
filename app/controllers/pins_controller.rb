@@ -8,10 +8,13 @@ class PinsController < ApplicationController
     param :title, String, required: true, desc: 'The title of this pin.'
     param :address, String, required: true, desc: 'The address of this pin.'
     param :start_time, String, desc: 'The start time of this pin.'
+    param :day, String, desc: 'The day index of this pin.'
   end
   def create
     @trip = Trip.find(params[:pin][:trip_id])
     @pin = @trip.pins.build(pin_params)
+    # XXX
+    @pin.day = 1
     if @pin.save
       flash[:success] = 'Pin created !'
       respond_to do |format|

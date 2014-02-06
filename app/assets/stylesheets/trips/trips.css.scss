@@ -1,5 +1,9 @@
-$body-padding-top: 40px;
+@import "base";
+
 $overlay-alpha: 0.7;
+$day-nav-height: 40px;
+$create-btn-height: 40px;
+$create-btn-top-margin: 10px;
 
 ul{
   list-style: none;
@@ -8,9 +12,9 @@ ul{
 #overlay-container{
   pointer-events: none;
   position: absolute;
-  height: 100%;
+  height: calc(100% - 40px);
   width: 100%;
-  top:$body-padding-top;
+  top:$header-height;
   left:0;
 }
 
@@ -19,7 +23,6 @@ ul{
 }
 
 #pin-panel{
-  padding-top: 10px;
   pointer-events: all;
   background-color: rgba(255,255,255,$overlay-alpha);
   background-repeat: no-repeat;
@@ -78,9 +81,13 @@ ul{
   }
 }
 
+
+
 .pin-cell{
-  height: 70px;
+  height: 50px;
+  margin: 10px;
   position: relative;
+
   div{
     height: 100%;
   }
@@ -94,17 +101,12 @@ ul{
     margin-top: -15px;
   }
 
-  .pin-icon-div{
-    text-align: center;
-    float: left;
-    width: 40px;
-  }
   .pin-text-div{
-    margin: 8px 8px 8px 40px;
     background-color: white;
-    div{
-      padding: 4px 7px 4px 7px;
-    }
+    padding:1rem;
+    box-shadow:0 1px 2px #aaa;
+    border-radius:3px;
+    user-select:none;
   }
 }
 
@@ -131,12 +133,12 @@ ul{
   background-image: image-url("transport_icon.png");
 }
 
-#pin-info-container{
+/*#pin-info-container{
   pointer-events: all;
   height: 100px;
   margin: 15px 20px 10px 20px;
   background-color: rgba(255,255,255,$overlay-alpha);
-}
+}*/
 
 #pin-content-container{
   pointer-events: all;
@@ -151,11 +153,61 @@ html{
 }
 
 body{
-  padding-top: $body-padding-top;
+  //padding-top: $header-height;
+  padding: 0;
   height: 100%;
 }
 
 #map{
   width: 100%;
-  height:100%;
+  height: calc(100% - 40px);
+  padding-top: $header-height;
+}
+
+#day-navigator{
+  @include display-box;
+  @include box-orient(horizontal);
+  @include box-align(center);
+  background-color: white;
+  height: $day-nav-height;
+  text-align: center;
+  box-shadow:0 1px rgba(0,0,0,.2);
+
+  .nav-btn {
+    height: 100%;
+    cursor: pointer;
+    @include background-size(30%);
+    background-repeat: no-repeat;
+    background-position: center;
+    &:hover{
+      background-color: yellow;
+    }
+  }
+
+  #day-prev-btn {
+    @include box-flex(1);
+    background-image: image-url("prev_btn.png");
+
+  }
+
+  #day-label {
+    @include box-flex(4);
+  }
+
+  #day-next-btn {
+    @include box-flex(1);
+    background-image: image-url("next_btn.png");
+  }
+
+}
+
+#new-pin-btn {
+  position: relative;
+  margin: 0 10px 10px;
+  display: block;
+}
+
+#pin-container{
+  margin: 0;
+  height: calc(100% - #{$day-nav-height} - #{$create-btn-height} - #{$create-btn-top-margin});
 }

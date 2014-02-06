@@ -1,7 +1,3 @@
-# simplecov
-require 'simplecov'
-SimpleCov.start 'rails'
-
 # origin spec_helper content
 require 'rubygems'
 require 'spork'
