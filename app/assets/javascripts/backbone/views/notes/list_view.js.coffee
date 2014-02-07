@@ -20,12 +20,13 @@ class SampleApp.Views.Notes.NoteListView extends Backbone.View
     @loadNotes()
 
   loadNotes: ->
+    self = @
     @collection.fetch(
       data:
         pin_id: @pin.id
       processData: true
       success: (collection,response,options) ->
-
+        self.render()
       error: (collection,response,options) ->
     )
 
@@ -56,14 +57,14 @@ class SampleApp.Views.Notes.NoteListView extends Backbone.View
     return this
 
   appendNote: (note) ->
-    $($(@el).children(":last-child")).append(new SampleApp.Views.Notes.ShowView(
+    $($(@el).children(":last-child")).append(new SampleApp.Views.Notes.DigestView(
       pin: @pin
       collection: @collection
       model: note
     ).render().el)
 
   prependNote: (note) ->
-    $($(@el).children(":last-child")).prepend(new SampleApp.Views.Notes.ShowView(
+    $($(@el).children(":last-child")).prepend(new SampleApp.Views.Notes.DigestView(
       pin: @pin
       collection: @collection
       model: note

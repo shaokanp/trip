@@ -12,7 +12,7 @@ class SampleApp.Views.Pins.PinView extends Backbone.View
 
   constructor: (options) ->
     super(options)
-    @listenTo(@model,'change:errors', @render)
+    @listenTo(@model,'change', @render)
 
     $(@el).attr('pin-type', SampleApp.Models.Pin.pinType.MEETING);
     $(@el).attr('id', 'pin_' + @model.id);
@@ -29,16 +29,59 @@ class SampleApp.Views.Pins.PinView extends Backbone.View
 
     return false
 
+  save: ->
+    @model.unset("errors")
+    console.log("going to send")
+    console.log(@model.toJSON())
+    self = this
+    #    @collection.create(@model.toJSON(),
+    #      wait: true
+    #      success: (note) =>
+    #        console.log("note created")
+    #      error: (pin, jqXHR) =>
+    #        @model.set(errors: $.parseJSON(jqXHR.responseText))
+    #    )
+
+    @model.save(@model.toJSON(),
+      wait: true
+      success: (note) =>
+        console.log("pin created/edited")
+
+      error: (note, jqXHR) =>
+        self.model.set(errors: $.parseJSON(jqXHR.responseText))
+    )
+
+
   render: ->
     json = @model.toJSON()
     $(@el).html(@template(json))
+
+    if @model.isNew()
+      console.log('isNew')
+      @configEditable('.pin-title', 'title', 'Title', '')
+      @configEditable('.pin-address', 'address', 'Address', '')
+
     return this
 
-  hightlight: ->
+  configEditable: (targetSelector, attr, placeholder, inputClass) ->
+    self = @
 
+    $(@el).find(targetSelector).editable(
+      mode:'inline'
+      display: false
+      showbuttons: false
+      #placeholder: placeholder
+    #inputclass: inputClass
+      success: (resp, newValue) ->
+        console.log(newValue)
+        self.model.set(attr, newValue)
+        console.log(self.model)
+        self.save()
+    )
 
   edit: ->
-    window.location.hash = "editpin/#{@model.id}"
+    #window.location.hash = "editpin/#{@model.id}"
+    window.location.hash = "show-note-list-of-pin/#{@model.id}"
 
 class SampleApp.Views.Pins.PinListView extends Backbone.View
 
@@ -60,19 +103,19 @@ class SampleApp.Views.Pins.PinListView extends Backbone.View
     window.day = options.day
 
     self = @
-    $(@el).children('#pin-container').sortable(
-      start: (event, ui) ->
-        $(this).attr('data-previndex', ui.item.index())
-      update: (event, ui) ->
-        $.post($(this).data('update-url'), $(this).sortable('serialize'))
-        target_id = ui.item.attr('id').replace("pin_", "")
-        new_idx = ui.item.index()
-        old_idx = $(this).attr('data-previndex')
-        self.collection.get(target_id).set(
-          move_origin: old_idx
-          move_dest: new_idx
-        )
-    )
+#    $(@el).children('#pin-container').sortable(
+#      start: (event, ui) ->
+#        $(this).attr('data-previndex', ui.item.index())
+#      update: (event, ui) ->
+#        $.post($(this).data('update-url'), $(this).sortable('serialize'))
+#        target_id = ui.item.attr('id').replace("pin_", "")
+#        new_idx = ui.item.index()
+#        old_idx = $(this).attr('data-previndex')
+#        self.collection.get(target_id).set(
+#          move_origin: old_idx
+#          move_dest: new_idx
+#        )
+#    )
 
   render: (day) ->
     $(@el).children('#pin-container').html('')
@@ -107,6 +150,11 @@ class SampleApp.Views.Pins.PinListView extends Backbone.View
 
   newPin: (e) ->
     window.location.hash = 'newpin/'+$(e.target).attr('pin-type')
+#    model  = new SampleApp.Models.Pin()
+#    model.position = @collection.length
+#    model.set('trip_id',@trip.id)
+#
+#    @collection.add(model)
 
   changeDay: (e) ->
     index = $(@el).children('#day-navigator').children().index(e.target)

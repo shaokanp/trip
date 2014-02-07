@@ -89,6 +89,8 @@ class SampleApp.Views.Pins.MapView extends Backbone.View
       @map.fitBounds(@bounds)
 
   addPin: (pin) ->
+    if pin.isNew
+      return
     @addPinToMap(pin)
     @map.setCenter (new google.maps.LatLng(pin.get('latitude'), pin.get('longitude')))
 

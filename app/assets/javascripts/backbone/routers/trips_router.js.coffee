@@ -9,7 +9,7 @@ class SampleApp.Routers.TripsRouter extends Backbone.Router
     ""      : "show"
     "edit" : "edit"
     "newpin/:type"   : "newPin"
-    "editpin/:id"  : "editPin"
+    "show-note-list-of-pin/:id"  : "showPinNoteList"
 
   before: ->
 
@@ -48,7 +48,7 @@ class SampleApp.Routers.TripsRouter extends Backbone.Router
     $("#right-container").html(@view.render().el)
 
 
-  editPin: (pin_id) ->
+  showPinNoteList: (pin_id) ->
     @view.remove() if @view?
     @view = new SampleApp.Views.Pins.ShowView(
       trip: @trip

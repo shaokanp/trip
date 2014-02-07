@@ -20,11 +20,11 @@ class SampleApp.Views.Pins.ShowView extends Backbone.View
   render: ->
     $(@el).html(@template())
 
-    this.$('#pin-info-container').html(new SampleApp.Views.Pins.InfoView(
-      trip: @trip
-      model: @model
-      mode:'display'
-    ).render().el)
+#    this.$('#pin-info-container').html(new SampleApp.Views.Pins.InfoView(
+#      trip: @trip
+#      model: @model
+#      mode:'display'
+#    ).render().el)
 
     console.log(@model.notes)
     this.$('#pin-note-container').html(new SampleApp.Views.Notes.NoteListView(
