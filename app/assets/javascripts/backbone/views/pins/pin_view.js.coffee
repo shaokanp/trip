@@ -43,8 +43,8 @@ class SampleApp.Views.Pins.PinView extends Backbone.View
 class SampleApp.Views.Pins.PinListView extends Backbone.View
 
   events:
-    "click .new-pin-btn": "newPin"
-    "click #day-navigator button": "changeDay"
+    "click #new-pin-btn": "newPin"
+    "click #day-navigator .nav-btn": "changeDay"
 
   initialize: (options) ->
     @trip = options.trip

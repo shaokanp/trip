@@ -27,7 +27,7 @@ class SampleApp.Views.Pins.InfoView extends Backbone.View
 
     @model.unset("errors")
     @model.set('trip_id', @trip.id)
-    @model.set('day_id', window.day)
+    #@model.set('day', window.day)
     console.log(@model)
     console.log(@model.changedAttributes())
     @model.save({},
