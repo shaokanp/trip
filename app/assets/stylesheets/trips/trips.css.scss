@@ -9,10 +9,12 @@ ul{
   list-style: none;
 }
 
+@include sticky-footer($create-btn-height, "#pin-panel", "#pin-panel-footer", "#new-pin-btn-container");
+
 #overlay-container{
   pointer-events: none;
   position: absolute;
-  height: calc(100% - 40px);
+  height: calc(100% - #{$header-height});
   width: 100%;
   top:$header-height;
   left:0;
@@ -93,7 +95,7 @@ ul{
     height: 50px;
     background-color: white;
     padding:1rem;
-    box-shadow:0 1px 2px #aaa;
+    @include single-box-shadow(rgba(0,0,0,.2), 1px, 1px, 1px);
     border-radius:3px;
     user-select:none;
 
@@ -143,7 +145,7 @@ body{
   background-color: white;
   height: $day-nav-height;
   text-align: center;
-  box-shadow:0 1px rgba(0,0,0,.2);
+  @include single-box-shadow(rgba(0,0,0,.2), 0, 1px, 1px);
 
   .nav-btn {
     height: 100%;
@@ -173,13 +175,16 @@ body{
 
 }
 
-#new-pin-btn {
-  position: relative;
-  margin: 0 10px 10px;
-  display: block;
+#new-pin-btn-container {
+  margin: 0;
+  div {
+    position: relative;
+    margin: 0 10px;
+
+    display: block;
+  }
 }
 
 #pin-container{
   margin: 0;
-  height: calc(100% - #{$day-nav-height} - #{$create-btn-height} - #{$create-btn-top-margin});
 }
