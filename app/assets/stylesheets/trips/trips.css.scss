@@ -9,8 +9,6 @@ ul{
   list-style: none;
 }
 
-@include sticky-footer($create-btn-height, "#pin-panel", "#pin-panel-footer", "#new-pin-btn-container");
-
 #overlay-container{
   pointer-events: none;
   position: absolute;
@@ -177,14 +175,15 @@ body{
 
 #new-pin-btn-container {
   margin: 0;
+  display: block;
+  height: $create-btn-height;
   div {
-    position: relative;
-    margin: 0 10px;
-
     display: block;
+    margin: $create-btn-top-margin/2 10px;
   }
 }
 
 #pin-container{
   margin: 0;
+  height: calc(100% - #{$day-nav-height} - #{$create-btn-height} - #{$create-btn-top-margin});
 }
