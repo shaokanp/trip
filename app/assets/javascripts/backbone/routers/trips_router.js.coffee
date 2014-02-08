@@ -9,7 +9,7 @@ class SampleApp.Routers.TripsRouter extends Backbone.Router
     ""      : "show"
     "edit" : "edit"
     "newpin/:type"   : "newPin"
-    "show-note-list-of-pin/:id"  : "showPinNoteList"
+    "pins/:id"  : "showPinNoteList"
 
   before: ->
 

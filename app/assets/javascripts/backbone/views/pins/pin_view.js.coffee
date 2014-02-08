@@ -81,7 +81,7 @@ class SampleApp.Views.Pins.PinView extends Backbone.View
 
   edit: ->
     #window.location.hash = "editpin/#{@model.id}"
-    window.location.hash = "show-note-list-of-pin/#{@model.id}"
+    window.location.hash = "pins/#{@model.id}"
 
 class SampleApp.Views.Pins.PinListView extends Backbone.View
 
@@ -103,19 +103,19 @@ class SampleApp.Views.Pins.PinListView extends Backbone.View
     window.day = options.day
 
     self = @
-#    $(@el).children('#pin-container').sortable(
-#      start: (event, ui) ->
-#        $(this).attr('data-previndex', ui.item.index())
-#      update: (event, ui) ->
-#        $.post($(this).data('update-url'), $(this).sortable('serialize'))
-#        target_id = ui.item.attr('id').replace("pin_", "")
-#        new_idx = ui.item.index()
-#        old_idx = $(this).attr('data-previndex')
-#        self.collection.get(target_id).set(
-#          move_origin: old_idx
-#          move_dest: new_idx
-#        )
-#    )
+    $(@el).children('#pin-container').sortable(
+      start: (event, ui) ->
+        $(this).attr('data-previndex', ui.item.index())
+      update: (event, ui) ->
+        $.post($(this).data('update-url'), $(this).sortable('serialize'))
+        target_id = ui.item.attr('id').replace("pin_", "")
+        new_idx = ui.item.index()
+        old_idx = $(this).attr('data-previndex')
+        self.collection.get(target_id).set(
+          move_origin: old_idx
+          move_dest: new_idx
+        )
+    )
 
   render: (day) ->
     $(@el).children('#pin-container').html('')
