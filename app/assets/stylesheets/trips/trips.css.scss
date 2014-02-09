@@ -2,8 +2,6 @@
 
 $overlay-alpha: 0.7;
 $day-nav-height: 40px;
-$create-btn-height: 40px;
-$create-btn-top-margin: 10px;
 
 ul{
   list-style: none;
@@ -20,6 +18,7 @@ ul{
 
 #right-container{
   margin-left: 0px;
+  height: 100%;
 }
 
 #pin-panel{
@@ -114,6 +113,7 @@ ul{
 
 #pin-content-container{
   pointer-events: all;
+  height: 100%;
 }
 
 .editing{
