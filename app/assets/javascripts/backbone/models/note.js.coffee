@@ -8,9 +8,9 @@ class SampleApp.Models.Note extends Backbone.Model
 
   @pinType:
     attraction: 'attraction'
-    meeting: 'meeting'
+    #meeting: 'meeting'
     accommodation: 'accommodation'
-    dining: 'dining'
+    #dining: 'dining'
     transport: 'transport'
 
   defaults:

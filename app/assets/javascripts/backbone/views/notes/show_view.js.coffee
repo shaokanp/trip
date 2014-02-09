@@ -9,31 +9,39 @@ class SampleApp.Views.Notes.ShowView extends Backbone.View
   tagName: 'div'
 
   attributes:
-    class: 'note-view'
+    id: 'note-view'
 
   constructor: (options) ->
     super(options)
     @pin = options.pin
-    #@model.bind('change', 'noteChanged', this)
-    @listenTo(@model, 'sync', @noteSync)
+
+    if options.model? # show a loaded note
+
+    else # new a note
+      @model = new SampleApp.Models.Note(
+        id: options.note_id
+      )
+    #@loadNote(options.note_id)
+
+    @switchToModel(@model)
+
+
+  switchToModel: (model) ->
+    if !(model?)
+      return
+
+    @stopListening(@model) if @model?
+    @model = model
+
+    #@listenTo(@model, 'sync', @noteSync)
     @listenTo(@model, 'destroy', @noteDestroyed)
 
-    console.log(@model.toJSON())
-    console.log(@collection)
   save: ->
-    console.log(this)
     @model.unset("errors")
     console.log("going to send")
     console.log(@model.toJSON())
-    self = this
-#    @collection.create(@model.toJSON(),
-#      wait: true
-#      success: (note) =>
-#        console.log("note created")
-#      error: (pin, jqXHR) =>
-#        @model.set(errors: $.parseJSON(jqXHR.responseText))
-#    )
 
+    self = this
     @model.save(@model.toJSON(),
       wait: true
       success: (note) =>
@@ -43,8 +51,16 @@ class SampleApp.Views.Notes.ShowView extends Backbone.View
           self.model.set(errors: $.parseJSON(jqXHR.responseText))
     )
 
-  noteChanged: ->
-
+  loadNote: (note_id) ->
+    self = @
+    @model.fetch(
+      wait: true
+      success: (note) =>
+        console.log("note edited")
+        @render()
+      error: (note, jqXHR) =>
+        self.model.set(errors: $.parseJSON(jqXHR.responseText))
+    )
 
   noteSync: ->
     console.log("sync")

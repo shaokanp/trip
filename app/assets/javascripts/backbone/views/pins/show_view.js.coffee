@@ -12,7 +12,15 @@ class SampleApp.Views.Pins.ShowView extends Backbone.View
   constructor: (options) ->
     super(options)
     @trip = options.trip
+    @switchToModel(@model)
+
+  switchToModel: (model) ->
+    if !(model?)
+      return
+    @stopListening(@model) if @model?
+    @model = model
     @listenTo(@model, 'destroy', @onPinDestroyed)
+    @render()
 
   onPinDestroyed: ->
     @remove()
@@ -26,11 +34,15 @@ class SampleApp.Views.Pins.ShowView extends Backbone.View
 #      mode:'display'
 #    ).render().el)
 
-    console.log(@model.notes)
-    this.$('#pin-note-container').html(new SampleApp.Views.Notes.NoteListView(
-      trip: @trip
-      pin: @model
-      collection: @model.notes
-    ).render().el)
+    $("#right-container").html(@el)
+    if @noteListView?
+      @noteListView.switchToModel(@model)
+    else
+      @noteListView = new SampleApp.Views.Notes.NoteListView(
+        trip: @trip
+        pin: @model
+        collection: @model.notes
+        el: $(@el).children('#note-list-container')
+      )
 
     return this

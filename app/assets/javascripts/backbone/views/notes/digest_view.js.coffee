@@ -18,12 +18,7 @@ class SampleApp.Views.Notes.DigestView extends Backbone.View
     @listenTo(@model, 'sync', @noteSync)
     @listenTo(@model, 'destroy', @noteDestroyed)
 
-    console.log(@model.toJSON())
-    console.log(@collection)
-
   noteSync: ->
-    console.log("sync")
-    console.log(@model.toJSON())
     @render()
 
   noteDestroyed: ->
@@ -35,6 +30,11 @@ class SampleApp.Views.Notes.DigestView extends Backbone.View
     return this
 
   showNote: ->
-    window.location.hash = window.location.hash + "/notes/#{@model.id}"
+    keyword = '/notes/'
+    index = window.location.hash.indexOf(keyword)
 
+    if index == -1
+      window.location.hash = window.location.hash + "/notes/#{@model.id}"
 
+    else
+      window.location.hash = window.location.hash.substring(0,index+keyword.length) + "#{@model.id}"

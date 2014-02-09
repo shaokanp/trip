@@ -6,33 +6,37 @@ class SampleApp.Routers.TripsRouter extends Backbone.Router
     @before()
 
   routes:
-    ""      : "show"
-    "edit" : "edit"
-    "newpin/:type"   : "newPin"
-    "pins/:id"  : "showPinNoteList"
+    "": "show"
+    "edit": "edit"
+    "newpin/:type": "newPin"
+    "pins/:id": "showPinNoteList"
+    "pins/:pin_id/notes/:note_id": "showNote"
 
   before: ->
 
-    globalEvt = _.extend({}, Backbone.Events)
+    @globalEvt = _.extend({}, Backbone.Events)
+    @listenToOnce(@trip.pins, 'sync', ->
+      Backbone.history.start()
+    )
 
     view = new SampleApp.Views.Pins.PinListView(
       trip: @trip
       collection: @trip.pins
       day: 1
       el: $('#pin-panel')
-      globalEvt: globalEvt
+      globalEvt: @globalEvt
     )
 
     view = new SampleApp.Views.Pins.MapView({
       pins: @trip.pins
       el: $('#map')
-      globalEvt: globalEvt
+      globalEvt: @globalEvt
     })
-
-    Backbone.history.start()
 
   show: ->
     @view.remove() if @view?
+    @noteListView.remove() if @noteListView?
+    @noteView.remove() if @noteView?
 
   edit: ->
     @view = new SampleApp.Views.Trips.EditView(collection: @trips)
@@ -49,13 +53,32 @@ class SampleApp.Routers.TripsRouter extends Backbone.Router
 
 
   showPinNoteList: (pin_id) ->
-    @view.remove() if @view?
-    @view = new SampleApp.Views.Pins.ShowView(
-      trip: @trip
-      collection: @trip.pins
-      model: @trip.pins.get(pin_id)
-    )
-    $("#right-container").html(@view.render().el)
+    @noteView.remove() if @noteView?
+    if @noteListView?
+      @noteListView.switchToModel(@trip.pins.get(pin_id))
+    else
+      @noteListView = new SampleApp.Views.Pins.ShowView(
+        trip: @trip
+        collection: @trip.pins
+        model: @trip.pins.get(pin_id)
+      )
+      #$("#right-container").html(@noteListView.render().el)
 
+  showNote: (pin_id, note_id) ->
+
+    if !(@noteListView?)
+      temp = @noteView
+      @noteView = undefined
+      @showPinNoteList(pin_id)
+      @noteView = temp
+
+    if @noteView?
+      @noteView.switchToModel(@trip.pins.get(pin_id).notes.get(note_id))
+    else
+      @noteView = new SampleApp.Views.Notes.ShowView(
+        pin: @trip.pins.get(pin_id)
+        model: @trip.pins.get(pin_id).notes.get(note_id)
+      )
+      $("#note-container").html(@noteView.render().el)
 
 
