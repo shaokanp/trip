@@ -20,29 +20,27 @@ class SampleApp.Views.Pins.ShowView extends Backbone.View
     @stopListening(@model) if @model?
     @model = model
     @listenTo(@model, 'destroy', @onPinDestroyed)
-    @render()
 
   onPinDestroyed: ->
     @remove()
 
   render: ->
-    $(@el).html(@template())
-
 #    this.$('#pin-info-container').html(new SampleApp.Views.Pins.InfoView(
 #      trip: @trip
 #      model: @model
 #      mode:'display'
 #    ).render().el)
 
-    $("#right-container").html(@el)
+    #$("#right-container").html(@el)
     if @noteListView?
       @noteListView.switchToModel(@model)
     else
+      $(@el).html(@template())
       @noteListView = new SampleApp.Views.Notes.NoteListView(
         trip: @trip
         pin: @model
         collection: @model.notes
-        el: $(@el).children('#note-list-container')
       )
+      $(@el).prepend(@noteListView.el)
 
     return this

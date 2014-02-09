@@ -3,6 +3,9 @@ SampleApp.Views.Notes ||= {}
 class SampleApp.Views.Notes.NoteListView extends Backbone.View
   template: JST["backbone/templates/notes/list"]
 
+  attributes:
+    id:'note-list-container'
+
   events:
     "click #add-new-note-btn": "newNote"
 
@@ -12,9 +15,6 @@ class SampleApp.Views.Notes.NoteListView extends Backbone.View
     @pin = options.pin
 
     @switchToModel(@pin)
-    console.log('~~~')
-    console.log(@$el)
-    console.log(@el)
 
   switchToModel: (pin) ->
     if !(pin?)
@@ -24,10 +24,11 @@ class SampleApp.Views.Notes.NoteListView extends Backbone.View
     collection = @pin.notes
     @stopListening(@collection) if @collection?
     @collection = collection
-    @listenTo(@collection, 'add', @onNoteAdded)
-    @listenTo(@collection, 'remove', @onNoteRemoved)
 
     @loadNotes()
+
+    @listenTo(@collection, 'add', @onNoteAdded)
+    @listenTo(@collection, 'remove', @onNoteRemoved)
 
   loadNotes: ->
     self = @
@@ -51,7 +52,7 @@ class SampleApp.Views.Notes.NoteListView extends Backbone.View
   onNoteAdded: (note) ->
     console.log(note)
     @appendNote(note)
-    $($(@el).children(":last-child")).children(":first-child").remove()
+    #$($(@el).children(":last-child")).children(":first-child").remove()
 
   onNoteRemoved: (note) ->
     note.destroy()
@@ -59,7 +60,7 @@ class SampleApp.Views.Notes.NoteListView extends Backbone.View
   render: ->
     @$el.html(@template())
     self = this;
-
+    console.log('render')
     _.each(@collection.models, (note) ->
       self.appendNote(note)
     )
@@ -67,7 +68,7 @@ class SampleApp.Views.Notes.NoteListView extends Backbone.View
     return this
 
   appendNote: (note) ->
-    console.log('append note')
+
     @$el.children('#note-list').append(new SampleApp.Views.Notes.DigestView(
       pin: @pin
       collection: @collection

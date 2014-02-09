@@ -35,8 +35,12 @@ class SampleApp.Routers.TripsRouter extends Backbone.Router
 
   show: ->
     @view.remove() if @view?
-    @noteListView.remove() if @noteListView?
-    @noteView.remove() if @noteView?
+    if @noteListView?
+      @noteListView.remove()
+      @noteListView = null
+    if @noteView?
+      @noteView.remove()
+      @noteView = null
 
   edit: ->
     @view = new SampleApp.Views.Trips.EditView(collection: @trips)
@@ -53,16 +57,19 @@ class SampleApp.Routers.TripsRouter extends Backbone.Router
 
 
   showPinNoteList: (pin_id) ->
-    @noteView.remove() if @noteView?
+    if @noteView?
+      @noteView.remove()
+      @noteView = null
     if @noteListView?
       @noteListView.switchToModel(@trip.pins.get(pin_id))
+      @noteListView.render()
     else
       @noteListView = new SampleApp.Views.Pins.ShowView(
         trip: @trip
         collection: @trip.pins
         model: @trip.pins.get(pin_id)
       )
-      #$("#right-container").html(@noteListView.render().el)
+      $("#right-container").html(@noteListView.render().el)
 
   showNote: (pin_id, note_id) ->
 
@@ -74,6 +81,7 @@ class SampleApp.Routers.TripsRouter extends Backbone.Router
 
     if @noteView?
       @noteView.switchToModel(@trip.pins.get(pin_id).notes.get(note_id))
+      @noteView.render()
     else
       @noteView = new SampleApp.Views.Notes.ShowView(
         pin: @trip.pins.get(pin_id)
