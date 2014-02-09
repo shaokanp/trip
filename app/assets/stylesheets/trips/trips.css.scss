@@ -84,7 +84,7 @@ ul{
 
 .pin-cell{
   height: 82px;
-  margin: 10px;
+  margin-bottom: 10px;
   position: relative;
 
   .pin-text-div{
@@ -177,13 +177,14 @@ body{
   margin: 0;
   display: block;
   height: $create-btn-height;
+  padding: 10px;
   div {
     display: block;
-    margin: $create-btn-top-margin/2 10px;
   }
 }
 
 #pin-container{
   margin: 0;
-  height: calc(100% - #{$day-nav-height} - #{$create-btn-height} - #{$create-btn-top-margin});
+  height: calc(100% - #{$day-nav-height} - #{$create-btn-height});
+  padding: 10px 10px 0 10px;
 }

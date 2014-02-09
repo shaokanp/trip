@@ -1,7 +1,8 @@
 @import "base";
 
 #note-list{
-  height: calc(100% - #{$create-btn-top-margin} - #{$create-btn-height});
+  height: calc(100% - #{$create-btn-height});
+  padding: 10px 10px 0 10px;
 }
 
 #note-list-container{
@@ -28,7 +29,7 @@
 .note-digest-view{
   height: 100px;
   padding: 10px 15px;
-  margin: 10px;
+  margin-bottom: 10px;
   background-color: white;
   @include single-box-shadow(rgba(0,0,0,.2), 1px, 1px, 1px);
 }
@@ -51,9 +52,9 @@
   margin: 0;
   display: block;
   height: $create-btn-height;
+  padding: 10px;
   div {
     display: block;
-    margin: $create-btn-top-margin/2 10px;
   }
 }
 
