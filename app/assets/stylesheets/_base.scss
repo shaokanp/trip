@@ -1,11 +1,20 @@
+/* module dependencies */
+@import "compass/css3";
+@import "compass/reset";
+@import "compass/utilities";
+@import "compass/layout";
+
+
 /* global variables */
 $header-height: 40px;
 
 /* trip page */
 $create-btn-height: 60px;
 
-/* module dependencies */
-@import "compass/css3";
-@import "compass/reset";
-@import "compass/utilities";
-@import "compass/layout";
+/* mixin */
+@mixin icon-background($icon-path, $size) {
+  background-image: image-url($icon-path);
+  @include background-size($size);
+  background-repeat: no-repeat;
+  background-position: center;
+}

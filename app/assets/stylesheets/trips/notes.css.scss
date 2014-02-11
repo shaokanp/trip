@@ -1,5 +1,8 @@
 @import "base";
 
+$note-list-width: 250px;
+$note-view-btn-list-height: 30px;
+
 #note-list{
   height: calc(100% - #{$create-btn-height});
   padding: 10px 10px 0 10px;
@@ -7,23 +10,30 @@
 
 #note-list-container{
   background-color: rgba(255,255,255,0.7);
+  pointer-events: all;
   margin-left: 10px;
-  width: 250px;
+  width: $note-list-width;
   height: 100%;
   float: left;
 }
 
 #note-container{
-  width: 500px;
-  height: 500px;
+  width: calc(100% - #{$note-list-width} - 10px);  // 10px -> note list margin left
+  height: 100%;
   float: left;
-  margin: 15px 15px 15px 25px;
+  padding: 10px;
+  @include box-sizing(border-box);
+  //margin: 15px 15px 15px 25px;
 }
 
 #note-view{
   height: 100%;
-  padding: 25px 15px;
+  width: 100%;
+  @include single-box-shadow(rgba(0,0,0,.2), 1px, 1px, 1px);
+  @include box-sizing(border-box);
+  padding: 20px;
   background-color: white;
+  pointer-events: all;
 }
 
 .note-digest-view{
@@ -55,6 +65,32 @@
   padding: 10px;
   div {
     display: block;
+  }
+}
+
+#note-view-btn-list{
+  height: $note-view-btn-list-height;
+  margin-top: -10px;
+  li{
+    @include inline-block;
+    float: right;
+    height: $note-view-btn-list-height;
+    width: $note-view-btn-list-height;
+    opacity: 0.3;
+    cursor: pointer;
+
+    &:hover{
+      opacity: 0.9;
+    }
+
+  }
+
+  #note-view-delete-btn{
+    @include icon-background("delete_btn.png", 60%);
+  }
+
+  #note-view-close-btn{
+    @include icon-background("close_btn.png", 45%);
   }
 }
 
