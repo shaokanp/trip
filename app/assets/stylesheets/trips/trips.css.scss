@@ -93,20 +93,42 @@ ul{
     background-color: white;
     padding:1rem;
     @include single-box-shadow(rgba(0,0,0,.2), 1px, 1px, 1px);
-    border-radius:3px;
+    @include border-radius(5px);
     user-select:none;
 
     .pin-delete-btn{
       position: absolute;
       top: 5px;
       right: 5px;
+      @include icon-background("delete_btn.png", 40%);
     }
 
     .pin-edit-btn{
       position: absolute;
       top: 20px;
       right: 5px;
+      @include icon-background("edit_btn.png", 30%);
     }
+
+    .pin-btn{
+      opacity: 0;
+      @include transition-property(opacity);
+      @include transition-duration(0.3s);
+    }
+
+    &:hover{
+      .pin-btn{
+        visibility: visible;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        opacity: 0.3;
+        &:hover{
+          opacity: 0.9;
+        }
+      }
+    }
+
 
   }
 }

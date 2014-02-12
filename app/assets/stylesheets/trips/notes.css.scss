@@ -29,11 +29,12 @@ $note-view-btn-list-height: 30px;
 #note-view{
   height: 100%;
   width: 100%;
-  @include single-box-shadow(rgba(0,0,0,.2), 1px, 1px, 1px);
+  @include single-box-shadow(rgba(0,0,0,.2), 3px, 3px, 1px);
   @include box-sizing(border-box);
   padding: 20px;
   background-color: white;
   pointer-events: all;
+  @include border-radius(5px);
 }
 
 .note-digest-view{
@@ -41,6 +42,7 @@ $note-view-btn-list-height: 30px;
   padding: 10px 15px;
   margin-bottom: 10px;
   background-color: white;
+  @include border-radius(5px);
   @include single-box-shadow(rgba(0,0,0,.2), 1px, 1px, 1px);
 }
 
