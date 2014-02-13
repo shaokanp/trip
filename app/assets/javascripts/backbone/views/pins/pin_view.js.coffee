@@ -118,7 +118,7 @@ class SampleApp.Views.Pins.PinListView extends Backbone.View
     )
 
   render: (day) ->
-    $(@el).children('#pin-container').html('')
+    $(@el).find('#pin-container ul').html('')
     self = @
     _.each(@collection.models, (pin) ->
       if day != undefined
@@ -130,7 +130,7 @@ class SampleApp.Views.Pins.PinListView extends Backbone.View
     return this
 
   addPin: (pin) ->
-    $(@el).children('#pin-container').append(new SampleApp.Views.Pins.PinView(model: pin).render().el)
+    $(@el).find('#pin-container ul').append(new SampleApp.Views.Pins.PinView(model: pin).render().el)
 
   loadPins: (day) ->
     self = @

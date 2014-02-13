@@ -15,20 +15,16 @@
 
 <div id="overlay-container" class="row-fluid no-space">
   <div id="pin-panel" class="span3">
-    <!-- <ul id="new-pin-btn-container">
-      <li class="new-pin-btn" pin-type="attraction"><a href="#newpin"></a></li>
-      <li class="new-pin-btn" pin-type="transport"><a href="#newpin"></a></li>
-      <li class="new-pin-btn" pin-type="dining"><a href="#newpin"></a></li>
-      <li class="new-pin-btn" pin-type="accommodation"><a href="#newpin"></a></li>
-      <li class="new-pin-btn" pin-type="meeting"><a href="#newpin"></a></li>
-    </ul> -->
     <div id="day-navigator">
       <div id="day-prev-btn" class="nav-btn"></div>
       <div id="day-label">Day 1</div>
       <div id="day-next-btn" class="nav-btn"></div>
     </div>
-    <ul id="pin-container" data-update-url="<%= sort_pins_url %>">
-    </ul>
+    <div id="pin-container">
+      <div class="vertical-line"></div>
+      <ul data-update-url="<%= sort_pins_url %>">
+      </ul>
+    </div>
     <div id="new-pin-btn-container">
       <div id="new-pin-btn" class="btn btn-success">Add Pin</div>
     </div>

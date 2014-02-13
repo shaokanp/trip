@@ -2,6 +2,7 @@
 
 $overlay-alpha: 0.7;
 $day-nav-height: 40px;
+$pin-container-padding: 10px;
 
 ul{
   list-style: none;
@@ -27,6 +28,7 @@ ul{
   background-repeat: no-repeat;
   height:100%;
   float:left;
+
 }
 
 .blur-effect{
@@ -83,18 +85,39 @@ ul{
 
 
 .pin-cell{
-  height: 82px;
+  height: 90px;
   margin-bottom: 10px;
   position: relative;
+  @include box-sizing(border-box);
+  @include display-box;
+  @include box-orient(horizontal);
+  @include box-align(center);
+
+  .pin-icon-div{
+    @include box-flex(1);
+    height: 100%;
+    @include box-sizing(border-box);
+
+
+    .pin-icon{
+      left: 100px;
+      height: 30px;
+      width: 30px;
+      @include icon-background("close_btn.png", 30%);
+    }
+
+  }
 
   .pin-text-div{
     position: relative;
-    height: 50px;
+    height: 100%;
+    width: 100px;
     background-color: white;
-    padding:1rem;
+    padding:10px;
     @include single-box-shadow(rgba(0,0,0,.2), 1px, 1px, 1px);
     @include border-radius(5px);
-    user-select:none;
+    @include box-flex(4);
+    @include box-sizing(border-box);
 
     .pin-delete-btn{
       position: absolute;
@@ -205,7 +228,22 @@ body{
 }
 
 #pin-container{
+  @include box-sizing(border-box);
+  position: relative;
   margin: 0;
   height: calc(100% - #{$day-nav-height} - #{$create-btn-height});
-  padding: 10px 10px 0 10px;
+  padding: $pin-container-padding $pin-container-padding 0 $pin-container-padding;
+
+  .vertical-line{
+    position: absolute;
+    left: 35px;
+    height: calc(100% - #{$pin-container-padding});
+    width: 4px;
+    background-color: #CCCCCC;
+  }
+
+  ul{
+    height: 100%;
+    width: 100%;
+  }
 }
