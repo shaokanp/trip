@@ -9,8 +9,8 @@ class SampleApp.Views.Pins.MapView extends Backbone.View
     @listenTo(@pins, "add", @addPin)
     @listenTo(@pins, "remove", @removePin)
     @listenTo(@pins, "change:move_origin", @updatePinPos)
-    @globalEvt = options.globalEvt
-    @globalEvt.on('day:change', @render, @)
+    window.globalEvt.on('day:change', @render, @)
+    window.globalEvt.on('address_input:created', @addAddressListener, @)
 
     @coordinates = new Array
 
@@ -115,5 +115,26 @@ class SampleApp.Views.Pins.MapView extends Backbone.View
     pin.set('move_origin',-1)
     pin.set('move_dest',-1)
 
+  addAddressListener: (searchBox) ->
+    self = @
+    google.maps.event.addListener(searchBox, 'places_changed', ->
+      places = searchBox.getPlaces()
+
+      #For each place, get the icon, place name, and location.
+      bounds = new google.maps.LatLngBounds()
+
+      _.each(places, (place) ->
+        #Create a marker for each place.
+        marker = new google.maps.Marker(
+          map: self.map,
+          title: place.name,
+          position: place.geometry.location
+        )
+
+        bounds.extend(place.geometry.location)
+      )
+
+      self.map.fitBounds(bounds)
+    )
 
 

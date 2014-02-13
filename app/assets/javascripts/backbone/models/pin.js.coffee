@@ -7,9 +7,7 @@ class SampleApp.Models.Pin extends Backbone.Model
 
   @pinType:
     attraction: 'attraction'
-    meeting: 'meeting'
     accommodation: 'accommodation'
-    dining: 'dining'
     transport: 'transport'
 
   marker: null

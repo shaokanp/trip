@@ -14,7 +14,7 @@ class SampleApp.Routers.TripsRouter extends Backbone.Router
 
   before: ->
 
-    @globalEvt = _.extend({}, Backbone.Events)
+    window.globalEvt = _.extend({}, Backbone.Events)
     @listenToOnce(@trip.pins, 'sync', ->
       Backbone.history.start()
     )
@@ -24,13 +24,11 @@ class SampleApp.Routers.TripsRouter extends Backbone.Router
       collection: @trip.pins
       day: 1
       el: $('#pin-panel')
-      globalEvt: @globalEvt
     )
 
     view = new SampleApp.Views.Pins.MapView({
       pins: @trip.pins
       el: $('#map')
-      globalEvt: @globalEvt
     })
 
   show: ->
