@@ -34,11 +34,25 @@ class SampleApp.Views.Pins.MapView extends Backbone.View
     # new an array consisting each pin's coordinates
 
     @linePath = new google.maps.Polyline
-      path: @coordinates,
-      geodesic: true,
-      strokeColor: '#FF0000',
-      strokeOpacity: 1.0,
-      strokeWeight: 2
+      path: @coordinates
+      geodesic: true
+      strokeColor: '#FF0000'
+      strokeOpacity: 0
+      icons:[
+        icon:
+          path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+          strokeWeight: 4
+          strokeOpacity: 1
+        offset: '100%'
+      ,
+        icon:
+          path: 'M 0,-1 0,1'
+          strokeOpacity: 1
+          strokeWeight: 3
+          scale: 4
+        offset: '0'
+        repeat: '18px'
+      ]
       map: @map
   render: (day) ->
 

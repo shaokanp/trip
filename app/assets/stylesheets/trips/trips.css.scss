@@ -100,9 +100,9 @@ ul{
 
 
     .pin-icon{
-      left: 100px;
       height: 30px;
       width: 30px;
+      margin: 0 auto;
       @include icon-background("close_btn.png", 30%);
     }
 
@@ -238,7 +238,7 @@ body{
 
   .vertical-line{
     position: absolute;
-    left: 35px;
+    left: 38.5px;
     height: calc(100% - #{$pin-container-padding});
     width: 4px;
     background-color: #CCCCCC;
