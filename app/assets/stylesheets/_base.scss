@@ -9,7 +9,7 @@
 $header-height: 40px;
 
 /* trip page */
-$create-btn-height: 60px;
+$create-btn-height: 50px;
 
 /* mixin */
 @mixin icon-background($icon-path, $size) {
@@ -17,4 +17,12 @@ $create-btn-height: 60px;
   @include background-size($size);
   background-repeat: no-repeat;
   background-position: center;
+}
+
+@mixin title-font(){
+  font-size: 1.2rem;
+}
+
+@mixin content-font(){
+  font-size: 1rem;
 }

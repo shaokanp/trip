@@ -4,8 +4,12 @@ $note-list-width: 250px;
 $note-view-btn-list-height: 30px;
 
 #note-list{
+  @include box-sizing(border-box);
   height: calc(100% - #{$create-btn-height});
   padding: 10px 10px 0 10px;
+
+  overflow: scroll;
+
 }
 
 #note-list-container{
@@ -35,15 +39,57 @@ $note-view-btn-list-height: 30px;
   background-color: white;
   pointer-events: all;
   @include border-radius(5px);
+
+  p {
+    @include box-sizing(border-box);
+    padding: 10px;
+  }
+
+  .note-title{
+
+  }
+
+  .note-content{
+
+  }
+
 }
 
 .note-digest-view{
-  height: 100px;
-  padding: 10px 15px;
+  height: 220px;
   margin-bottom: 10px;
   background-color: white;
   @include border-radius(5px);
   @include single-box-shadow(rgba(0,0,0,.2), 1px, 1px, 1px);
+
+  .image-slot{
+    height: 0;
+    width: 100%;
+    background-color: grey;
+  }
+
+  .image-slot.has-image{
+    height: 150px;
+    //background-image: image-url();
+    @include background-size(100%);
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  p {
+    @include box-sizing(border-box);
+    padding: 10px 10px 0 10px;
+  }
+
+  .note-title{
+    @include title-font();
+  }
+
+  .note-content{
+    @include content-font();
+  }
+
+
 }
 
 .note-title-input{
@@ -61,6 +107,7 @@ $note-view-btn-list-height: 30px;
 }
 
 #new-note-btn-container {
+  @include box-sizing(border-box);
   margin: 0;
   display: block;
   height: $create-btn-height;

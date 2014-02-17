@@ -25,16 +25,24 @@ class SampleApp.Views.Notes.DigestView extends Backbone.View
     @remove()
 
   render: ->
+    @model.set('image', 'https://dl.dropboxusercontent.com/u/48841755/images/statue.jpg')
     $(@el).html(@template(@model.toJSON()))
+
+    if @model.get('image')? && @model.get('image').length > 0
+      $(@el).children('.image-slot').addClass('has-image')
 
     return this
 
   showNote: ->
+    modelId = 'new'
+    if @model.id?
+      modelId = @model.id
+
     keyword = '/notes/'
     index = window.location.hash.indexOf(keyword)
 
     if index == -1
-      window.location.hash = window.location.hash + "/notes/#{@model.id}"
+      window.location.hash = window.location.hash + "/notes/#{modelId}"
 
     else
-      window.location.hash = window.location.hash.substring(0,index+keyword.length) + "#{@model.id}"
+      window.location.hash = window.location.hash.substring(0,index+keyword.length) + "#{modelId}"

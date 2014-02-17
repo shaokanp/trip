@@ -1,7 +1,7 @@
 SampleApp.Views.Pins ||= {}
 
 class SampleApp.Views.Pins.MapView extends Backbone.View
-  #template: JST["backbone/templates/pins/pin"]
+  template: JST["backbone/templates/map/info_window_content"]
 
   constructor: (options) ->
     super(options)
@@ -74,11 +74,12 @@ class SampleApp.Views.Pins.MapView extends Backbone.View
       pin: pin
 
     # set info window
+    content = @template(pin.toJSON())
     @infowindow = new google.maps.InfoWindow
     self = @
     google.maps.event.addListener marker, 'click', ->
       self.infowindow.close()
-      self.infowindow.setContent(marker.pin.get('title'))
+      self.infowindow.setContent(content)
       self.infowindow.open(@map, marker)
 
     pin.marker = marker
