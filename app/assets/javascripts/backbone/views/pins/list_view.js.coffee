@@ -19,7 +19,7 @@ class SampleApp.Views.Pins.PinListView extends Backbone.View
     window.day = options.day
 
     self = @
-    $(@el).children('#pin-container').sortable(
+    $(@el).find('#pin-container ul').sortable(
       start: (event, ui) ->
         $(this).attr('data-previndex', ui.item.index())
       update: (event, ui) ->
