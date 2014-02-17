@@ -218,6 +218,7 @@ body{
 }
 
 #new-pin-btn-container {
+  @include box-sizing(border-box);
   margin: 0;
   display: block;
   height: $create-btn-height;
@@ -233,6 +234,7 @@ body{
   margin: 0;
   height: calc(100% - #{$day-nav-height} - #{$create-btn-height});
   padding: $pin-container-padding $pin-container-padding 0 $pin-container-padding;
+  overflow: scroll;
 
   .vertical-line{
     position: absolute;

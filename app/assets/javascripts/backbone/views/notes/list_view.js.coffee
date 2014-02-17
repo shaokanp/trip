@@ -46,6 +46,8 @@ class SampleApp.Views.Notes.NoteListView extends Backbone.View
 #      pin: @pin
 #      collection: @collection
 #    ).render().el)
+    model = new SampleApp.Models.Note()
+    @collection.add(model)
 
   removeNote: ->
 
@@ -68,12 +70,15 @@ class SampleApp.Views.Notes.NoteListView extends Backbone.View
     return this
 
   appendNote: (note) ->
-
-    @$el.children('#note-list').append(new SampleApp.Views.Notes.DigestView(
+    view = new SampleApp.Views.Notes.DigestView(
       pin: @pin
       collection: @collection
       model: note
-    ).render().el)
+    )
+    @$el.children('#note-list').append(view.render().el)
+    if note.isNew()
+      console.log('trigger click')
+      view.$el.trigger('click')
 
   prependNote: (note) ->
     @$el.children('#note-list').prepend(new SampleApp.Views.Notes.DigestView(

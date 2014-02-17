@@ -77,13 +77,19 @@ class SampleApp.Routers.TripsRouter extends Backbone.Router
       @showPinNoteList(pin_id)
       @noteView = temp
 
+    noteModel = undefined
+    if note_id == 'new'
+      noteModel = @trip.pins.get(pin_id).notes.findWhere(id:undefined)
+    else
+      noteModel = @trip.pins.get(pin_id).notes.get(note_id)
+
     if @noteView?
-      @noteView.switchToModel(@trip.pins.get(pin_id).notes.get(note_id))
+      @noteView.switchToModel(noteModel)
       @noteView.render()
     else
       @noteView = new SampleApp.Views.Notes.ShowView(
         pin: @trip.pins.get(pin_id)
-        model: @trip.pins.get(pin_id).notes.get(note_id)
+        model: noteModel
       )
       $("#note-container").html(@noteView.render().el)
 
