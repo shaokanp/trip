@@ -4,7 +4,9 @@ class SampleApp.Views.Notes.ShowView extends Backbone.View
   template: JST["backbone/templates/notes/show"]
 
   events:
-    "click #save-note-btn": "save"
+    "click #note-view-save-btn": "saveNote"
+    "click #note-view-delete-btn": "deleteNote"
+    "click #note-view-close-btn": "closeNote"
 
   tagName: 'div'
 
@@ -36,7 +38,7 @@ class SampleApp.Views.Notes.ShowView extends Backbone.View
     #@listenTo(@model, 'sync', @noteSync)
     @listenTo(@model, 'destroy', @noteDestroyed)
 
-  save: ->
+  saveNote: ->
     @model.unset("errors")
     console.log("going to send")
     console.log(@model.toJSON())
@@ -70,32 +72,40 @@ class SampleApp.Views.Notes.ShowView extends Backbone.View
   noteDestroyed: ->
     @remove()
 
+  deleteNote: ->
+    @model.destroy()
+
+  closeNote: ->
+    keyword = '/notes/'
+    index = window.location.hash.indexOf(keyword)
+    window.router.navigate(window.location.hash.substring(0,index))
+
+    @remove()
+
   render: ->
     $(@el).html(@template(@model.toJSON()))
     self = this
     $(@el).children(".note-title").editable(
       mode:'inline'
-      display: false
-      #showbuttons: false
+      showbuttons: false
       inputclass: 'note-title-input'
       success: (resp, newValue) ->
         console.log(newValue)
         self.model.set('title', newValue)
         console.log(self.model)
         self.save()
-    )
+    ).editable('show')
 
     $(@el).children(".note-content").editable(
       mode:'inline'
       type:'textarea'
-      display: false
-      #showbuttons: false
+      showbuttons: false
       inputclass: 'note-content-input'
       success: (resp, newValue) ->
         console.log(newValue)
         self.model.set('content', newValue)
         console.log(self.model)
         self.save()
-    )
+    ).editable('show')
 
     return this

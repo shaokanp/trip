@@ -13,7 +13,7 @@ class SampleApp.Routers.TripsRouter extends Backbone.Router
     "pins/:pin_id/notes/:note_id": "showNote"
 
   before: ->
-
+    window.router = @
     window.globalEvt = _.extend({}, Backbone.Events)
     @listenToOnce(@trip.pins, 'sync', ->
       Backbone.history.start()
@@ -70,7 +70,7 @@ class SampleApp.Routers.TripsRouter extends Backbone.Router
       $("#right-container").html(@noteListView.render().el)
 
   showNote: (pin_id, note_id) ->
-
+    console.log('show note~~~')
     if !(@noteListView?)
       temp = @noteView
       @noteView = undefined
