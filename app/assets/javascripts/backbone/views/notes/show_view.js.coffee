@@ -5,6 +5,7 @@ class SampleApp.Views.Notes.ShowView extends Backbone.View
 
   events:
     "click #note-view-save-btn": "saveNote"
+    "click #note-view-image-btn": "addImage"
     "click #note-view-delete-btn": "deleteNote"
     "click #note-view-close-btn": "closeNote"
 
@@ -82,12 +83,15 @@ class SampleApp.Views.Notes.ShowView extends Backbone.View
 
     @remove()
 
+  addImage: ->
+    $("body").append(new SampleApp.Views.Notes.NewImageView(model: @model).render().el)
+
   render: ->
     $(@el).html(@template(@model.toJSON()))
     self = this
     $(@el).children(".note-title").editable(
       mode:'inline'
-      showbuttons: false
+      #showbuttons: false
       inputclass: 'note-title-input'
       success: (resp, newValue) ->
         console.log(newValue)
