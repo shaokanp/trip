@@ -1,10 +1,10 @@
 class NotesController < ApplicationController
-  before_action :correct_user, only:[:update, :destroy]
+  before_action :correct_user, only:[:update, :destroy, :attach_image]
 
   api :POST, '/notes', 'Create a new note.'
   param :note, Hash, required: true, desc: 'The note to create.' do
+    param :title, String, required: true, desc: 'The title of this note.'
     param :content, String, required: true, desc: 'The content of this note.'
-    param :image, String, required: false
   end
   def create
     @pin = Pin.find(params[:note][:pin_id])
@@ -40,6 +40,23 @@ class NotesController < ApplicationController
       respond_to do |format|
         format.html
         format.json { render nothing: true, status: 204 }
+      end
+    else
+      respond_to do |format|
+        format.html
+        format.json { render nothing: true, status: 400 }
+      end
+    end
+  end
+
+  api :put, '/image', 'Attach an image to this note.'
+  param :image, String, required: true
+  def attach_image
+    @note.image = params[:file];
+    if u.save!
+      respond_to do |format|
+        format.html
+        format.json { render image, status: 200 }
       end
     else
       respond_to do |format|

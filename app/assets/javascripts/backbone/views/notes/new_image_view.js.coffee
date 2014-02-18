@@ -14,7 +14,6 @@ class SampleApp.Views.Notes.NewImageView extends Backbone.View
 
   constructor: (options) ->
     super(options)
-    console.log('yooooo!!')
 
   save: (e) ->
     e.preventDefault()
@@ -38,6 +37,6 @@ class SampleApp.Views.Notes.NewImageView extends Backbone.View
   render: ->
     $(@el).html(@template())
 
-    $(@el).children("form").backboneLink(@model)
+    #$(@el).children("form").backboneLink(@model)
 
     return this

@@ -3,10 +3,16 @@ SampleApp::Application.routes.draw do
   apipie
   get "trips/create"
   get "trips/destroy"
+
+  concern :image_attachable do
+    match '/image', to: 'notes#attach_image', via: 'post'
+  end
+
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :trips
-  resources :notes
+  resources :notes, concerns: :image_attachable
+
   resources :pins do
     collection do
       post :sort
