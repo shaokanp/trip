@@ -1,13 +1,13 @@
 SampleApp.Views.Notes ||= {}
 
-class SampleApp.Views.Notes.NoteListView extends Backbone.View
-  template: JST["backbone/templates/notes/list"]
+class SampleApp.Views.Notes.ImageListView extends Backbone.View
+  template: JST["backbone/templates/notes/image_list"]
 
   attributes:
-    id:'note-list-container'
+    id:'note-image-list-container'
 
   events:
-    "click #add-new-note-btn": "newNote"
+    "click #add-new-image-btn": "newImage"
 
   constructor: (options) ->
     super(options)
@@ -41,7 +41,7 @@ class SampleApp.Views.Notes.NoteListView extends Backbone.View
       error: (collection,response,options) ->
     )
 
-  newNote: ->
+  newImage: ->
 #    $(@el).children('#note-list').prepend(new SampleApp.Views.Notes.NewView(
 #      pin: @pin
 #      collection: @collection
@@ -53,7 +53,7 @@ class SampleApp.Views.Notes.NoteListView extends Backbone.View
 
   onNoteAdded: (note) ->
     @appendNote(note)
-    #$($(@el).children(":last-child")).children(":first-child").remove()
+  #$($(@el).children(":last-child")).children(":first-child").remove()
 
   onNoteRemoved: (note) ->
     note.destroy()

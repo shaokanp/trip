@@ -17,7 +17,7 @@ class SampleApp.Models.Note extends Backbone.Model
     pin_id: ''
     title: ''
     content: '' #html
-    image: '' #string
+    image: '' #array of string
 
 class SampleApp.Collections.NotesCollection extends Backbone.Collection
   model: SampleApp.Models.Note

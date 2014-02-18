@@ -70,7 +70,6 @@ class SampleApp.Routers.TripsRouter extends Backbone.Router
       $("#right-container").html(@noteListView.render().el)
 
   showNote: (pin_id, note_id) ->
-    console.log('show note~~~')
     if !(@noteListView?)
       temp = @noteView
       @noteView = undefined
@@ -83,7 +82,7 @@ class SampleApp.Routers.TripsRouter extends Backbone.Router
     else
       noteModel = @trip.pins.get(pin_id).notes.get(note_id)
 
-    if @noteView?
+    if @noteView? && $('#note-container').children().length > 0
       @noteView.switchToModel(noteModel)
       @noteView.render()
     else

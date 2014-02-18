@@ -143,3 +143,15 @@ $note-view-btn-list-height: 30px;
   }
 }
 
+#note-upload-image-form-container{
+  position: fixed;
+  height: 100px;
+  width: 400px;
+  top: 40%;
+  left: 50%;
+  margin-left: -200px;
+  margin-top: -60px;
+  background-color: white;
+  padding: 15px;
+}
+
