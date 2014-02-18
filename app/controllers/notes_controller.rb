@@ -49,14 +49,13 @@ class NotesController < ApplicationController
     end
   end
 
-  api :put, '/image', 'Attach an image to this note.'
-  param :image, String, required: true
+
   def attach_image
     @note.image = params[:file];
-    if u.save!
+    if @note.save!
       respond_to do |format|
         format.html
-        format.json { render image, status: 200 }
+        format.json { render json: @note, status: 200 }
       end
     else
       respond_to do |format|
@@ -64,6 +63,9 @@ class NotesController < ApplicationController
         format.json { render nothing: true, status: 400 }
       end
     end
+
+    puts @note.image
+
   end
 
   api :Delete, '/notes/:id', 'Delete a note.'
@@ -83,7 +85,7 @@ class NotesController < ApplicationController
   end
 
   def correct_user
-    @note = Note.find(params[:id])
+    @note = Note.find(params[:note_id])
     @pin = @note.pin
     @trip = @pin.trip
     unless @trip.user_id == current_user.id
