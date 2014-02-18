@@ -4,7 +4,7 @@ class SampleApp.Views.Notes.NewImageView extends Backbone.View
   template: JST["backbone/templates/notes/new_image"]
 
   events:
-    #"click #upload-image-btn": "save"
+    "click #upload-image-btn": "save"
     "click #cancel-upload-btn": "cancel"
 
   tagName: 'div'
@@ -19,16 +19,11 @@ class SampleApp.Views.Notes.NewImageView extends Backbone.View
     e.preventDefault()
     e.stopPropagation()
 
-    @model.unset("errors")
-    console.log(@model)
-
-    @model.save(@model.toJSON(),
-      wait: true
-      success: (note) =>
-        console.log("note edited")
-
-      error: (note, jqXHR) =>
-        self.model.set(errors: $.parseJSON(jqXHR.responseText))
+    this.$('input[name="authenticity_token"]').val($("meta[name='csrf-token']").attr("content"))
+    $.ajax(
+      type: 'POST'
+      url: '/notes/' + @model.id + '/image'
+      data: $(@el).children("form").serialize()
     )
 
   cancel: ->
