@@ -196,6 +196,7 @@ GEM
       ffi (>= 0.5.0)
     rdoc (3.12.2)
       json (~> 1.4)
+    rmagick (2.13.2)
     rspec (2.13.0)
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
@@ -294,6 +295,7 @@ DEPENDENCIES
   rails-backbone
   rails-erd
   rails_12factor (= 0.0.2)
+  rmagick
   rspec-rails (= 2.13.1)
   sass-rails
   sdoc (= 0.3.20)

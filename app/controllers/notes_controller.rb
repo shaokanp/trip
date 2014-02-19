@@ -49,13 +49,13 @@ class NotesController < ApplicationController
     end
   end
 
-
+  api :POST, 'notes/:id/image', 'Attach a new image to the specified note.'
   def attach_image
     @note.image = params[:file];
     if @note.save!
       respond_to do |format|
         format.html
-        format.json { render json: @note, status: 200 }
+        format.json { render json: @note.image, status: 200 }
       end
     else
       respond_to do |format|
@@ -85,7 +85,7 @@ class NotesController < ApplicationController
   end
 
   def correct_user
-    @note = Note.find(params[:note_id])
+    @note = Note.find(params[:id])
     @pin = @note.pin
     @trip = @pin.trip
     unless @trip.user_id == current_user.id
