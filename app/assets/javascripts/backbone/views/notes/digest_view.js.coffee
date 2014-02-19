@@ -25,10 +25,11 @@ class SampleApp.Views.Notes.DigestView extends Backbone.View
     @remove()
 
   render: ->
-    @model.set('image', 'https://dl.dropboxusercontent.com/u/48841755/images/statue.jpg')
-    $(@el).html(@template(@model.toJSON()))
+    json = @model.toJSON()
+    json.image = json.image.url
+    $(@el).html(@template(json))
 
-    if @model.get('image')? && @model.get('image').length > 0
+    if @model.get('image').url? && @model.get('image').url.length > 0
       $(@el).children('.image-slot').addClass('has-image')
 
     return this
