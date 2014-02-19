@@ -1,4 +1,4 @@
-<form id="note-upload-image-form" class="border-style1" action="/notes/<%= id %>/image" method="post" enctype="multipart/form-data">
+<form id="note-upload-image-form" class="border-style1" action="/notes/<%= id %>/image.json" method="post" enctype="multipart/form-data">
     <label name="image_upload" >Upload Image: </label>
     <input type="file" name="image_upload" /><br>
     <input name="authenticity_token" type="hidden" value="" />
