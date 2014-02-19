@@ -46,7 +46,9 @@ class SampleApp.Views.Notes.NoteListView extends Backbone.View
 #      pin: @pin
 #      collection: @collection
 #    ).render().el)
-    model = new SampleApp.Models.Note()
+    model = new SampleApp.Models.Note(
+      pin_id: @pin.id
+    )
     @collection.add(model)
 
   removeNote: ->

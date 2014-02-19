@@ -22,7 +22,7 @@ class SampleApp.Views.Notes.ShowView extends Backbone.View
 
     else # new a note
       @model = new SampleApp.Models.Note(
-        id: options.note_id
+        pin_id: @pin.id
       )
     #@loadNote(options.note_id)
 
@@ -41,7 +41,8 @@ class SampleApp.Views.Notes.ShowView extends Backbone.View
 
   saveNote: ->
     @model.unset("errors")
-    console.log("going to send")
+    @model.set('title', @noteTitle_el.data().editable.input.$input.val())
+    @model.set('content', @noteContent_el.data().editable.input.$input.val())
     console.log(@model.toJSON())
 
     self = this
@@ -89,7 +90,9 @@ class SampleApp.Views.Notes.ShowView extends Backbone.View
   render: ->
     $(@el).html(@template(@model.toJSON()))
     self = this
-    $(@el).children(".note-title").editable(
+
+    @noteTitle_el = $(@el).children(".note-title")
+    @noteTitle_el.editable(
       mode:'inline'
       #showbuttons: false
       inputclass: 'note-title-input'
@@ -100,7 +103,8 @@ class SampleApp.Views.Notes.ShowView extends Backbone.View
         self.save()
     ).editable('show')
 
-    $(@el).children(".note-content").editable(
+    @noteContent_el = $(@el).children(".note-content")
+    @noteContent_el.editable(
       mode:'inline'
       type:'textarea'
       showbuttons: false
