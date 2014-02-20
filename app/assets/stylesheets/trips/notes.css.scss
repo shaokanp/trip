@@ -2,6 +2,8 @@
 
 $note-list-width: 250px;
 $note-view-btn-list-height: 30px;
+$note-attachment-height: 100px;
+$note-view-padding: 20px;
 
 #note-list{
   @include box-sizing(border-box);
@@ -31,11 +33,11 @@ $note-view-btn-list-height: 30px;
 }
 
 #note-view{
-  height: 100%;
+  position: relative;
   width: 100%;
   @include single-box-shadow(rgba(0,0,0,.2), 3px, 3px, 1px);
   @include box-sizing(border-box);
-  padding: 20px;
+  padding: $note-view-padding;
   background-color: white;
   pointer-events: all;
   @include border-radius(5px);
@@ -51,6 +53,13 @@ $note-view-btn-list-height: 30px;
 
   .note-content{
 
+  }
+
+  .note-attachments{
+    @include box-sizing(border-box);
+    height: $note-attachment-height;
+    background-color: grey;
+    margin-top: 50px;
   }
 
 }

@@ -32,7 +32,7 @@ class NotesController < ApplicationController
   param :pin_id, String, required: true, desc: 'The numeric id of the pin.'
   def index
     @notes = Note.where('pin_id = ?', params[:pin_id])
-    render json: @notes
+    render json: @notes.to_json(include: :note_images)
   end
 
   def update
@@ -51,11 +51,12 @@ class NotesController < ApplicationController
 
   api :POST, 'notes/:id/image', 'Attach a new image to the specified note.'
   def attach_image
-    @note.image = params[:file];
-    if @note.save!
+    @note_image = @note.note_images.build(image: params[:file])
+
+    if @note_image.save!
       respond_to do |format|
         format.html
-        format.json { render json: @note.image, status: 200 }
+        format.json { render json: @note_image.image, status: 200 }
       end
     else
       respond_to do |format|
@@ -63,8 +64,6 @@ class NotesController < ApplicationController
         format.json { render nothing: true, status: 400 }
       end
     end
-
-    puts @note.image
 
   end
 

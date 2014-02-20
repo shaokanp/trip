@@ -20,7 +20,10 @@ class SampleApp.Views.Notes.NewImageView extends Backbone.View
     e.stopPropagation()
 
     this.$('input[name="authenticity_token"]').val($("meta[name='csrf-token']").attr("content"))
-    $(@el).children("form").ajaxForm().submit()
+    $(@el).children("form").ajaxForm(
+      data:
+        id:@model.id
+    ).submit()
 
   cancel: ->
     @remove()
