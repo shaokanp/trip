@@ -91,6 +91,10 @@ class SampleApp.Views.Notes.ShowView extends Backbone.View
     $(@el).html(@template(@model.toJSON()))
     self = this
 
+    if @model.get('note_images').length > 0
+      $(@el).children('.note-attachments').addClass('has-attachment')
+      _.each(@model.get('note_images'), @appendImage, @)
+
     @noteTitle_el = $(@el).children(".note-title")
     @noteTitle_el.editable(
       mode:'inline'
@@ -117,3 +121,9 @@ class SampleApp.Views.Notes.ShowView extends Backbone.View
     ).editable('show')
 
     return this
+
+  appendImage: (image) ->
+    imageView = new SampleApp.Views.Notes.ImageView(
+      src: image.image.thumb.url
+    )
+    $(@el).children('.note-attachments').append(imageView.render().el)

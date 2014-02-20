@@ -55,11 +55,29 @@ $note-view-padding: 20px;
 
   }
 
-  .note-attachments{
+  .note-attachments.has-attachment{
     @include box-sizing(border-box);
     height: $note-attachment-height;
-    background-color: grey;
     margin-top: 50px;
+
+    .attachment-split-line{
+      @include box-sizing(border-box);
+      height: 1px;
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 0 10px;
+      background-color: #CCCCCC;
+    }
+
+    .note-image{
+      @include box-sizing(border-box);
+      height: 100px;
+      width: 100px;
+      padding: 5px;
+      margin-left: 10px;
+      @include single-box-shadow(rgba(0,0,0,.2), 1px, 1px);
+    }
+
   }
 
 }
